@@ -1,0 +1,26 @@
+{
+  "name": "prime-gaming-graphql",
+  "version": "1.0.0",
+  "description": "A documentation and schema scraping of Reverb's GraphQL API.",
+  "scripts": {
+    "build": "npm run gen-schema && npm run gen-docs",
+    "gen-schema": "npm run gen-schema:json && npm run gen-schema:gql",
+    "gen-schema:gql": "get-graphql-schema https://rql.reverb.com/graphql > schema.graphql",
+    "gen-schema:json": "get-graphql-schema https://rql.reverb.com/graphql --json > schema.json",
+    "gen-docs": "graphqldoc --schema ./schema.graphql --output ./docs --force"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SuperSonicHub1/reverb-graphql.git"
+  },
+  "author": "Kyle Williams <kyle.anthony.williams2@gmail.com>",
+  "license": "I Solemny Swear That I Am Up To No Good",
+  "bugs": {
+    "url": "https://github.com/SuperSonicHub1/reverb-graphql/issues"
+  },
+  "homepage": "https://github.com/SuperSonicHub1/reverb-graphql#readme",
+  "dependencies": {
+    "get-graphql-schema": "^2.1.2",
+    "graphqldoc": "^2.4.1"
+  }
+}
