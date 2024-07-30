@@ -37,7 +37,7 @@ jobs:
   create-docs:
     runs-on: ubuntu-latest
     needs: schema
-    if: "${{ needs.schema.outputs.changed == 'true' }}"
+    # if: "${{ needs.schema.outputs.changed == 'true' }}"
     steps:
       - name: Check out this repo
         uses: actions/checkout@v4
