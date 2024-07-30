@@ -49,7 +49,7 @@ jobs:
       - name: Install deps
         run: npm ci
       - name: Build docs
-        run: npm gen-docs
+        run: npm run gen-docs
       - name: Push docs
         uses: actions/upload-pages-artifact@v3
         with:
