@@ -2137,6 +2137,7 @@ type core_apimessages_CartItem {
   shippingTotal: core_apimessages_CartItem_ShippingTotal
   alerts: [core_apimessages_CartItem_Alert]
   protectionPlan: core_apimessages_CartItem_ProtectionPlan
+  protectionPlanEligible: Boolean
   _id: ID
   listing: Listing
   order: Order
@@ -5143,6 +5144,7 @@ type core_apimessages_ListingCounts {
   views: Int
   watchers: Int
   offers: Int
+  inBuyerCarts: Int
 }
 
 type core_apimessages_ListingCountsRequest {
@@ -5249,6 +5251,8 @@ type core_apimessages_ListingInUserCart {
 
 type core_apimessages_ListingPriceRecommendationsRequest {
   listingIds: [String]
+  countryCode: String
+  currency: String
 }
 
 type core_apimessages_ListingPriceRecommendationsResponse {
@@ -11803,6 +11807,7 @@ input Input_core_apimessages_CartItem {
   shippingTotal: Input_core_apimessages_CartItem_ShippingTotal
   alerts: [Input_core_apimessages_CartItem_Alert]
   protectionPlan: Input_core_apimessages_CartItem_ProtectionPlan
+  protectionPlanEligible: Boolean
 }
 
 input Input_core_apimessages_CartItem_Actions {
@@ -14082,6 +14087,7 @@ input Input_core_apimessages_ListingCounts {
   views: Int
   watchers: Int
   offers: Int
+  inBuyerCarts: Int
 }
 
 input Input_core_apimessages_ListingCountsRequest {
@@ -14180,6 +14186,8 @@ input Input_core_apimessages_ListingInUserCart {
 
 input Input_core_apimessages_ListingPriceRecommendationsRequest {
   listingIds: [String]
+  countryCode: String
+  currency: String
 }
 
 input Input_core_apimessages_ListingPriceRecommendationsResponse {
@@ -19801,6 +19809,7 @@ input Input_reverb_pricing_CSPPriceRecommendationQuery {
 input Input_reverb_pricing_CSPPriceRecommendationsRequest {
   cspPriceRecommendationQueries: [Input_reverb_pricing_CSPPriceRecommendationQuery]
   version: Int
+  modelVersion: reverb_pricing_CSPPriceRecommendationsRequest_ModelVersion
 }
 
 input Input_reverb_pricing_Money {
@@ -19986,6 +19995,7 @@ input Input_reverb_reporting_ShopStatsResponse {
   watchersCount: Int
   offersCount: Int
   ordersCount: Int
+  messagesCount: Int
 }
 
 input Input_reverb_reporting_ShopStatsTimeBucket {
@@ -21256,6 +21266,11 @@ input Input_rql_ImageQuery {
   namedTransform: core_apimessages_NamedImageTransforms
 }
 
+input Input_rql_ListingPriceRecommendationRequest {
+  countryCode: String
+  currency: String
+}
+
 input Input_rql_Me {
   token: String
 }
@@ -21564,7 +21579,7 @@ type Listing implements INode {
   bumpRecommendations: reverb_search_BumpRecommendationsResults
   orderPricing(input: Input_rql_OrderPricingQuery): reverb_search_SearchResponse
   bumpInteractionsCounts: arbiter_BumpInteractionCountsResponse
-  priceRecommendation: reverb_pricing_PriceRecommendation
+  priceRecommendation(input: Input_rql_ListingPriceRecommendationRequest): reverb_pricing_PriceRecommendation
   orderStats: core_apimessages_OrderStats
   signals(input: Input_reverb_signals_SignalRequest): [reverb_signals_Signal]
   shipmentPackage: ShipmentPackage
@@ -23900,7 +23915,13 @@ type reverb_pricing_CSPPriceRecommendationQuery {
 
 type reverb_pricing_CSPPriceRecommendationsRequest {
   cspPriceRecommendationQueries: [reverb_pricing_CSPPriceRecommendationQuery]
-  version: Int
+  version: Int @deprecated
+  modelVersion: reverb_pricing_CSPPriceRecommendationsRequest_ModelVersion
+}
+
+enum reverb_pricing_CSPPriceRecommendationsRequest_ModelVersion {
+  MACHINE_LEARNING
+  DESCRIPTIVE
 }
 
 type reverb_pricing_Money {
@@ -24122,6 +24143,7 @@ type reverb_reporting_ShopStatsResponse {
   watchersCount: Int
   offersCount: Int
   ordersCount: Int
+  messagesCount: Int
 }
 
 type reverb_reporting_ShopStatsTimeBucket {
@@ -25921,6 +25943,11 @@ type rql_ImageQuery {
   scope: String
   limit: Int
   namedTransform: core_apimessages_NamedImageTransforms
+}
+
+type rql_ListingPriceRecommendationRequest {
+  countryCode: String
+  currency: String
 }
 
 type rql_Me {
