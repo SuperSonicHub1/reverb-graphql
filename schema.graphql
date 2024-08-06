@@ -3206,6 +3206,7 @@ type core_apimessages_Core {
   UpdateMyShopCampaign(input: Input_core_apimessages_UpdateMyShopCampaignRequest): core_apimessages_UpdateMyShopCampaignResponse
   MyShopEarnings(input: Input_core_apimessages_MyShopEarningsRequest): core_apimessages_MyShopEarningsResponse
   MyShopBumpStats(input: Input_core_apimessages_MyShopBumpStatsRequest): core_apimessages_MyShopBumpStatsResponse
+  MyShopStats(input: Input_core_apimessages_MyShopStatsRequest): core_apimessages_MyShopStatsResponse
   MyMessages(input: Input_core_apimessages_MyMessagesRequest): core_apimessages_MyMessagesResponse
   CreateMySaleMembership(input: Input_core_apimessages_CreateMySaleMembershipRequest): core_apimessages_CreateMySaleMembershipResponse
   DeleteMySaleMembership(input: Input_core_apimessages_DeleteMySaleMembershipRequest): core_apimessages_DeleteMySaleMembershipResponse
@@ -5788,6 +5789,12 @@ type core_apimessages_MyShopCampaignsResponse {
   shopCampaigns: [core_apimessages_MyShopCampaign]
 }
 
+type core_apimessages_MyShopComparisonStats {
+  currentStats: core_apimessages_MyShopStats
+  previousStats: core_apimessages_MyShopStats
+  changeStats: core_apimessages_MyShopStats
+}
+
 type core_apimessages_MyShopEarningsRequest {
   timePeriod: String
 }
@@ -5850,6 +5857,17 @@ type core_apimessages_MyShopResponse {
   shop: core_apimessages_Shop
 }
 
+type core_apimessages_MyShopSalesChartData {
+  labels: [String]
+  series: [core_apimessages_MyShopSalesChartDataSet]
+  currencySymbol: String
+  salesInMoreThanOneCurrency: Boolean
+}
+
+type core_apimessages_MyShopSalesChartDataSet {
+  dataSet: [Int]
+}
+
 type core_apimessages_MyShopShippingProfilesRequest {
   _: Boolean
 }
@@ -5864,6 +5882,22 @@ type core_apimessages_MyShopShippingRatesRequest {
 
 type core_apimessages_MyShopShippingRatesResponse {
   shippingRatesForShippingProfiles: [core_apimessages_ShippingRatesForShippingProfile]
+}
+
+type core_apimessages_MyShopStats {
+  messages: Int
+  orders: Int
+  offers: Int
+  watchers: Int
+}
+
+type core_apimessages_MyShopStatsRequest {
+  timePeriod: String
+}
+
+type core_apimessages_MyShopStatsResponse {
+  salesChartData: core_apimessages_MyShopSalesChartData
+  comparisonStats: core_apimessages_MyShopComparisonStats
 }
 
 type core_apimessages_MyUpdatesPromotion {
@@ -14689,6 +14723,12 @@ input Input_core_apimessages_MyShopCampaignsResponse {
   shopCampaigns: [Input_core_apimessages_MyShopCampaign]
 }
 
+input Input_core_apimessages_MyShopComparisonStats {
+  currentStats: Input_core_apimessages_MyShopStats
+  previousStats: Input_core_apimessages_MyShopStats
+  changeStats: Input_core_apimessages_MyShopStats
+}
+
 input Input_core_apimessages_MyShopEarningsRequest {
   timePeriod: String
 }
@@ -14734,6 +14774,17 @@ input Input_core_apimessages_MyShopResponse {
   shop: Input_core_apimessages_Shop
 }
 
+input Input_core_apimessages_MyShopSalesChartData {
+  labels: [String]
+  series: [Input_core_apimessages_MyShopSalesChartDataSet]
+  currencySymbol: String
+  salesInMoreThanOneCurrency: Boolean
+}
+
+input Input_core_apimessages_MyShopSalesChartDataSet {
+  dataSet: [Int]
+}
+
 input Input_core_apimessages_MyShopShippingProfilesRequest {
   _: Boolean
 }
@@ -14748,6 +14799,22 @@ input Input_core_apimessages_MyShopShippingRatesRequest {
 
 input Input_core_apimessages_MyShopShippingRatesResponse {
   shippingRatesForShippingProfiles: [Input_core_apimessages_ShippingRatesForShippingProfile]
+}
+
+input Input_core_apimessages_MyShopStats {
+  messages: Int
+  orders: Int
+  offers: Int
+  watchers: Int
+}
+
+input Input_core_apimessages_MyShopStatsRequest {
+  timePeriod: String
+}
+
+input Input_core_apimessages_MyShopStatsResponse {
+  salesChartData: Input_core_apimessages_MyShopSalesChartData
+  comparisonStats: Input_core_apimessages_MyShopComparisonStats
 }
 
 input Input_core_apimessages_MyUpdatesPromotion {
@@ -21949,6 +22016,7 @@ type MyShop implements INode {
   userShopPermissions: [UserShopPermission]
   earnings(input: Input_core_apimessages_MyShopEarningsRequest): core_apimessages_MyShopEarningsResponse
   bumpStats(input: Input_core_apimessages_MyShopBumpStatsRequest): core_apimessages_MyShopBumpStatsResponse
+  shopStats(input: Input_core_apimessages_MyShopStatsRequest): core_apimessages_MyShopStatsResponse
 }
 
 type MyUpdate implements INode {
