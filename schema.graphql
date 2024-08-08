@@ -2136,7 +2136,7 @@ type core_apimessages_CartItem {
   listingTotal: core_apimessages_CartItem_ListingTotal
   shippingTotal: core_apimessages_CartItem_ShippingTotal
   alerts: [core_apimessages_CartItem_Alert]
-  protectionPlan: core_apimessages_CartItem_ProtectionPlan
+  protectionPlan: core_apimessages_ProtectionPlan
   protectionPlanEligible: Boolean
   _id: ID
   listing: Listing
@@ -2193,13 +2193,6 @@ enum core_apimessages_CartItem_ListingTotal_Discount_Type {
 type core_apimessages_CartItem_PaymentMethod {
   type: core_apimessages_CheckoutPaymentMethod_Type
   links: core_apimessages_CartLinks
-}
-
-type core_apimessages_CartItem_ProtectionPlan {
-  planId: String
-  durationMonths: String
-  amount: core_apimessages_Money
-  title: String
 }
 
 type core_apimessages_CartItem_ShippingTotal {
@@ -2668,6 +2661,7 @@ type core_apimessages_CheckoutOrder {
   cannotBeShippedToAddress: Boolean
   availableShippingMethods: [core_apimessages_CheckoutShippingMethod]
   notes: [core_apimessages_CheckoutOrder_Note]
+  protectionPlan: core_apimessages_ProtectionPlan
   listing: Listing
 }
 
@@ -6791,6 +6785,13 @@ enum core_apimessages_ProductSpec_Type {
   CONDITION
 }
 
+type core_apimessages_ProtectionPlan {
+  planId: String
+  durationMonths: String
+  amount: core_apimessages_Money
+  title: String
+}
+
 type core_apimessages_PublicPriceRecord {
   uuid: String
   listingId: String
@@ -7349,6 +7350,7 @@ enum core_apimessages_ShippingMethod {
   EXPEDITED_SHIPPING
   DIGITAL_DELIVERY
   COMBINED_SHIPPING
+  EMAIL_DELIVERY
 }
 
 type core_apimessages_ShippingPrice {
@@ -7577,6 +7579,7 @@ type core_apimessages_ShopConfig {
   isShopInEu: Boolean
   inclusiveVatPricingEnabled: Boolean
   acceptsAffirm: Boolean
+  isShopInUk: Boolean
 }
 
 type core_apimessages_ShopConfig_OfferPolicy {
@@ -8135,12 +8138,12 @@ type core_apimessages_UpdateBillingMethodResponse {
 
 type core_apimessages_UpdateCartItemProtectionPlanRequest {
   cartItemUuid: String
-  protectionPlan: core_apimessages_CartItem_ProtectionPlan
+  protectionPlan: core_apimessages_ProtectionPlan
 }
 
 type core_apimessages_UpdateCartItemProtectionPlanResponse {
   cartItemUuid: String
-  protectionPlan: core_apimessages_CartItem_ProtectionPlan
+  protectionPlan: core_apimessages_ProtectionPlan
 }
 
 type core_apimessages_UpdateCheckoutBillingAddressRequest {
@@ -11840,7 +11843,7 @@ input Input_core_apimessages_CartItem {
   listingTotal: Input_core_apimessages_CartItem_ListingTotal
   shippingTotal: Input_core_apimessages_CartItem_ShippingTotal
   alerts: [Input_core_apimessages_CartItem_Alert]
-  protectionPlan: Input_core_apimessages_CartItem_ProtectionPlan
+  protectionPlan: Input_core_apimessages_ProtectionPlan
   protectionPlanEligible: Boolean
 }
 
@@ -11878,13 +11881,6 @@ input Input_core_apimessages_CartItem_ListingTotal_Discount {
 input Input_core_apimessages_CartItem_PaymentMethod {
   type: core_apimessages_CheckoutPaymentMethod_Type
   links: Input_core_apimessages_CartLinks
-}
-
-input Input_core_apimessages_CartItem_ProtectionPlan {
-  planId: String
-  durationMonths: String
-  amount: Input_core_apimessages_Money
-  title: String
 }
 
 input Input_core_apimessages_CartItem_ShippingTotal {
@@ -12230,6 +12226,7 @@ input Input_core_apimessages_CheckoutOrder {
   cannotBeShippedToAddress: Boolean
   availableShippingMethods: [Input_core_apimessages_CheckoutShippingMethod]
   notes: [Input_core_apimessages_CheckoutOrder_Note]
+  protectionPlan: Input_core_apimessages_ProtectionPlan
 }
 
 input Input_core_apimessages_CheckoutOrder_Note {
@@ -15531,6 +15528,13 @@ input Input_core_apimessages_ProductSpec {
   id: String
 }
 
+input Input_core_apimessages_ProtectionPlan {
+  planId: String
+  durationMonths: String
+  amount: Input_core_apimessages_Money
+  title: String
+}
+
 input Input_core_apimessages_PublicPriceRecord {
   uuid: String
   listingId: String
@@ -16218,6 +16222,7 @@ input Input_core_apimessages_ShopConfig {
   isShopInEu: Boolean
   inclusiveVatPricingEnabled: Boolean
   acceptsAffirm: Boolean
+  isShopInUk: Boolean
 }
 
 input Input_core_apimessages_ShopConfig_OfferPolicy {
@@ -16687,12 +16692,12 @@ input Input_core_apimessages_UpdateBillingMethodResponse {
 
 input Input_core_apimessages_UpdateCartItemProtectionPlanRequest {
   cartItemUuid: String
-  protectionPlan: Input_core_apimessages_CartItem_ProtectionPlan
+  protectionPlan: Input_core_apimessages_ProtectionPlan
 }
 
 input Input_core_apimessages_UpdateCartItemProtectionPlanResponse {
   cartItemUuid: String
-  protectionPlan: Input_core_apimessages_CartItem_ProtectionPlan
+  protectionPlan: Input_core_apimessages_ProtectionPlan
 }
 
 input Input_core_apimessages_UpdateCheckoutBillingAddressRequest {
@@ -20518,6 +20523,7 @@ input Input_reverb_search_ListingsSearchRequest {
   hasWatchers: Boolean
   inBuyerCarts: Boolean
   withListingRecommendationStats: Boolean
+  showMostWatchedListingsSort: Boolean
 }
 
 input Input_reverb_search_ListingsSearchResult {
@@ -21993,6 +21999,7 @@ type MyShop implements INode {
   isShopInEu: Boolean
   inclusiveVatPricingEnabled: Boolean
   acceptsAffirm: Boolean
+  isShopInUk: Boolean
   address: core_apimessages_Address
   kycAccountDetails: core_apimessages_KYCAccountDetails
   adyenBalanceOnboardingDetails: core_apimessages_AdyenBalanceOnboardingResponse
@@ -24789,6 +24796,7 @@ type reverb_search_ListingsSearchRequest {
   hasWatchers: Boolean
   inBuyerCarts: Boolean
   withListingRecommendationStats: Boolean
+  showMostWatchedListingsSort: Boolean
 }
 
 enum reverb_search_ListingsSearchRequest_Aggregation {
@@ -26413,6 +26421,7 @@ type Shop implements INode {
   isShopInEu: Boolean
   inclusiveVatPricingEnabled: Boolean
   acceptsAffirm: Boolean
+  isShopInUk: Boolean
   address: core_apimessages_Address
   sales: [core_apimessages_Sale]
   shippingProfiles: [core_apimessages_ShippingProfile]
