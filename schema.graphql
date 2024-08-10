@@ -8487,6 +8487,7 @@ enum core_apimessages_UserNotification_UserNotificationKey {
   INFORM_ACT_LOCKED_MODE
   UPDATE_ADDRESS
   SELLER_SHOP_COUPONS
+  PAYPAL_LOCKED_MODE
 }
 
 type core_apimessages_UserNotificationLinks {
