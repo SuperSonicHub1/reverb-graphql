@@ -467,6 +467,10 @@ type CheckoutAction implements INode {
   redirectUrl: String
 }
 
+type cms_AdminBackfillDarkModeRequest {
+  dryRun: Boolean
+}
+
 type cms_AdminClonePageRequest {
   slug: String
 }
@@ -579,6 +583,10 @@ type cms_BulkPagination {
   total: Int
   offset: Int
   limit: Int
+}
+
+type cms_BulkUpdatePagesResponse {
+  pages: [cms_Page]
 }
 
 type cms_Component {
@@ -7580,6 +7588,7 @@ type core_apimessages_ShopConfig {
   inclusiveVatPricingEnabled: Boolean
   acceptsAffirm: Boolean
   isShopInUk: Boolean
+  firstTimeSeller: Boolean
 }
 
 type core_apimessages_ShopConfig_OfferPolicy {
@@ -10384,6 +10393,10 @@ input Input_braze_UserTrackResponse {
   message: String
 }
 
+input Input_cms_AdminBackfillDarkModeRequest {
+  dryRun: Boolean
+}
+
 input Input_cms_AdminClonePageRequest {
   slug: String
 }
@@ -10496,6 +10509,10 @@ input Input_cms_BulkPagination {
   total: Int
   offset: Int
   limit: Int
+}
+
+input Input_cms_BulkUpdatePagesResponse {
+  pages: [Input_cms_Page]
 }
 
 input Input_cms_Component {
@@ -16224,6 +16241,7 @@ input Input_core_apimessages_ShopConfig {
   inclusiveVatPricingEnabled: Boolean
   acceptsAffirm: Boolean
   isShopInUk: Boolean
+  firstTimeSeller: Boolean
 }
 
 input Input_core_apimessages_ShopConfig_OfferPolicy {
@@ -20098,6 +20116,23 @@ input Input_reverb_search_AuctionsSearchRequest {
   merchandisingTypes: [reverb_search_AuctionsSearchRequest_MerchandisingType]
 }
 
+input Input_reverb_search_AutocompleteRequest {
+  query: String
+  locale: String
+  shippingRegionCode: String
+  currency: String
+}
+
+input Input_reverb_search_AutocompleteResponse {
+  suggestions: [Input_reverb_search_AutocompleteSuggestion]
+}
+
+input Input_reverb_search_AutocompleteSuggestion {
+  text: String
+  subtext: String
+  url: String
+}
+
 input Input_reverb_search_AverageMonthlyProductPrice {
   date: String
   averageProductPriceInUsd: Input_reverb_search_Money
@@ -22001,6 +22036,7 @@ type MyShop implements INode {
   inclusiveVatPricingEnabled: Boolean
   acceptsAffirm: Boolean
   isShopInUk: Boolean
+  firstTimeSeller: Boolean
   address: core_apimessages_Address
   kycAccountDetails: core_apimessages_KYCAccountDetails
   adyenBalanceOnboardingDetails: core_apimessages_AdyenBalanceOnboardingResponse
@@ -24270,6 +24306,23 @@ enum reverb_search_AuctionsSearchRequest_UserBidStatus {
   LOST
 }
 
+type reverb_search_AutocompleteRequest {
+  query: String
+  locale: String
+  shippingRegionCode: String
+  currency: String
+}
+
+type reverb_search_AutocompleteResponse {
+  suggestions: [reverb_search_AutocompleteSuggestion]
+}
+
+type reverb_search_AutocompleteSuggestion {
+  text: String
+  subtext: String
+  url: String
+}
+
 enum reverb_search_Autodirects {
   DEFAULT
   STANDARDIZED
@@ -25301,6 +25354,7 @@ type reverb_search_RPCSearch {
   NegotiationsSearch(input: Input_reverb_search_NegotiationSearchRequest): reverb_search_SearchResponse
   Completions(input: Input_reverb_search_CompletionsRequest): reverb_search_SearchResponse
   LPCompletions(input: Input_reverb_search_LPCompletionsRequest): reverb_search_SearchResponse
+  Autocomplete(input: Input_reverb_search_AutocompleteRequest): reverb_search_AutocompleteResponse
   OrdersSearch(input: Input_reverb_search_OrderSearchRequest): reverb_search_SearchResponse
   LPAlbumsSearch(input: Input_reverb_search_LPAlbumSearchRequest): reverb_search_SearchResponse
   LPArtistsSearch(input: Input_reverb_search_LPArtistSearchRequest): reverb_search_SearchResponse
@@ -26423,6 +26477,7 @@ type Shop implements INode {
   inclusiveVatPricingEnabled: Boolean
   acceptsAffirm: Boolean
   isShopInUk: Boolean
+  firstTimeSeller: Boolean
   address: core_apimessages_Address
   sales: [core_apimessages_Sale]
   shippingProfiles: [core_apimessages_ShippingProfile]
