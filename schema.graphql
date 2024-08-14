@@ -22263,6 +22263,7 @@ type PublicPriceRecord implements INode {
 type Query {
   cspSearch(input: Input_reverb_search_CSPSearchRequest): reverb_search_SearchResponse
   completions(input: Input_reverb_search_CompletionsRequest): reverb_search_SearchResponse
+  autocomplete(input: Input_reverb_search_AutocompleteRequest): reverb_search_AutocompleteResponse
   priceGuidesSearch(input: Input_reverb_search_PriceGuidesSearchRequest): reverb_search_SearchResponse
   listingsSearch(input: Input_reverb_search_ListingsSearchRequest): reverb_search_SearchResponse
   listingsAggregationSearch(input: Input_reverb_search_ListingsSearchRequest): reverb_search_ListingsAggregationResponse
