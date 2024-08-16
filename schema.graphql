@@ -20951,6 +20951,8 @@ input Input_reverb_search_SimilarListingsSearchRequest {
   itemRegion: String
   itemRegionRelation: reverb_search_ListingItemRegionRelation
   likelihoodToSellExperimentGroup: Int
+  outlet: Boolean
+  useFallback: Boolean
 }
 
 input Input_reverb_search_SuggestOption {
@@ -25460,6 +25462,8 @@ type reverb_search_SimilarListingsSearchRequest {
   itemRegion: String
   itemRegionRelation: reverb_search_ListingItemRegionRelation
   likelihoodToSellExperimentGroup: Int
+  outlet: Boolean
+  useFallback: Boolean
 }
 
 type reverb_search_SuggestOption {
