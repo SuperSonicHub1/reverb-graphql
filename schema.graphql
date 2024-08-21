@@ -3340,6 +3340,7 @@ type core_apimessages_Core {
   CreateUserShopPermission(input: Input_core_apimessages_CreateUserShopPermissionRequest): core_apimessages_CreateOrUpdateUserShopPermissionResponse
   UpdateUserShopPermission(input: Input_core_apimessages_UpdateUserShopPermissionRequest): core_apimessages_CreateOrUpdateUserShopPermissionResponse
   DeleteUserShopPermission(input: Input_core_apimessages_DeleteUserShopPermissionRequest): core_apimessages_DeleteUserShopPermissionResponse
+  PaypalOnboardSeller(input: Input_core_apimessages_PaypalOnboardSellerRequest): core_apimessages_PaypalOnboardSellerResponse
 }
 
 type core_apimessages_CountriesResponse {
@@ -6598,6 +6599,16 @@ type core_apimessages_PayMyStatementResponse {
   statementId: String
   statementBalance: Int
   amountPaidCents: Int
+}
+
+type core_apimessages_PaypalOnboardSellerRequest {
+  _: Boolean
+}
+
+type core_apimessages_PaypalOnboardSellerResponse {
+  """paypal_profiles.id"""
+  id: String
+  actionUrl: String
 }
 
 type core_apimessages_PersonalInformation {
@@ -15399,6 +15410,16 @@ input Input_core_apimessages_PayMyStatementResponse {
   amountPaidCents: Int
 }
 
+input Input_core_apimessages_PaypalOnboardSellerRequest {
+  _: Boolean
+}
+
+input Input_core_apimessages_PaypalOnboardSellerResponse {
+  """paypal_profiles.id"""
+  id: String
+  actionUrl: String
+}
+
 input Input_core_apimessages_PersonalInformation {
   firstName: String
   lastName: String
@@ -22319,6 +22340,7 @@ type Query {
   findAddressAutocompleteSuggestions(input: Input_core_apimessages_FindAddressAutocompleteSuggestionsRequest): core_apimessages_FindAddressAutocompleteSuggestionsResponse
   shopAdyenBalancePlatformNotifications(input: Input_core_apimessages_ShopAdyenBalancePlatformNotificationsIndexRequest): core_apimessages_ShopAdyenBalancePlatformNotificationsIndexResponse
   getAdyenRegion: core_apimessages_ShowAdyenRegionResponse
+  paypalOnboardSeller: core_apimessages_PaypalOnboardSellerResponse
   featuredListing(input: Input_arbiter_FeaturedListingRequest): arbiter_FeaturedListingResponse
   findAddressSuggestions(input: Input_rql_FindAddressSuggestionRequest): rql_FindAddressSuggestionResponse
   selectAddressSuggestion(input: Input_rql_SelectAddressSuggestionRequest): rql_SelectAddressSuggestionResponse
@@ -26107,7 +26129,6 @@ type rql_Me {
   shipments(input: Input_rql_CollectionQuery!): [Shipment]
   counts: core_apimessages_CountsResponse
   profile(input: Input_rql_MeProfileRequest): mparticle_ProfileResponse
-  referAFriend: core_apimessages_ReferAFriend
   myNegotiations(input: Input_rql_NegotiationQuery): reverb_search_SearchResponse
   orders(input: Input_rql_CollectionQuery!): [Order]
   avatar: core_apimessages_Image
