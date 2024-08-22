@@ -2769,6 +2769,8 @@ type core_apimessages_CheckoutPaymentResponse {
 type core_apimessages_CheckoutPaypalDetails {
   clientToken: String
   currency: String
+  clientId: String
+  merchantId: String
 }
 
 type core_apimessages_CheckoutSelectOrderShippingMethodRequest {
@@ -12320,6 +12322,8 @@ input Input_core_apimessages_CheckoutPaymentResponse {
 input Input_core_apimessages_CheckoutPaypalDetails {
   clientToken: String
   currency: String
+  clientId: String
+  merchantId: String
 }
 
 input Input_core_apimessages_CheckoutSelectOrderShippingMethodRequest {
