@@ -22324,6 +22324,7 @@ type Query {
   recentlyViewedListings(input: Input_core_apimessages_RecentlyViewedListingsRequest): [Listing]
   searchMetadata(input: Input_core_apimessages_SearchMetadataRequest): core_apimessages_SearchMetadataResponse
   priceRecommendations(input: Input_reverb_pricing_PriceRecommendationsRequest): reverb_pricing_PriceRecommendationsResponse
+  signalPriceRecommendations(input: Input_reverb_pricing_PriceRecommendationsRequest): reverb_pricing_PriceRecommendationsResponse
   cspPriceRecommendations(input: Input_reverb_pricing_CSPPriceRecommendationsRequest): reverb_pricing_PriceRecommendationsResponse
   cpSuggestions(input: Input_rql_CollectionQuery): [core_apimessages_CPSuggestions]
   seedListing(input: Input_core_apimessages_SeedListingRequest): core_apimessages_SeedListingResponse
