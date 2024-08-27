@@ -7235,6 +7235,7 @@ type core_apimessages_SellerVerificationPolicyResponse {
   completedVerification: Boolean
   eligibleForInformAct: Boolean
   eligibleForSellerVerification: Boolean
+  eligibleForSellerVerificationBackcast: Boolean
 }
 
 type core_apimessages_SellingFees {
@@ -15961,6 +15962,7 @@ input Input_core_apimessages_SellerVerificationPolicyResponse {
   completedVerification: Boolean
   eligibleForInformAct: Boolean
   eligibleForSellerVerification: Boolean
+  eligibleForSellerVerificationBackcast: Boolean
 }
 
 input Input_core_apimessages_SellingFees {
