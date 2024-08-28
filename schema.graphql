@@ -4568,6 +4568,7 @@ type core_apimessages_FollowQueryParams {
   freeExpeditedShipping: Boolean
   zeroPercentFinancing: Boolean
   decades: [String]
+  outlet: Boolean
 }
 
 type core_apimessages_FormSelectCategoriesRequest {
@@ -13644,6 +13645,7 @@ input Input_core_apimessages_FollowQueryParams {
   freeExpeditedShipping: Boolean
   zeroPercentFinancing: Boolean
   decades: [String]
+  outlet: Boolean
 }
 
 input Input_core_apimessages_FormSelectCategoriesRequest {
@@ -19629,6 +19631,7 @@ input Input_reverb_feed_GetFavoriteSavedSearchesRequest {
   offset: Int
   limit: Int
   locale: String
+  excludeOutlet: Boolean
 }
 
 input Input_reverb_feed_GetFavoriteSavedSearchesResponse {
@@ -19636,6 +19639,7 @@ input Input_reverb_feed_GetFavoriteSavedSearchesResponse {
   total: Int
   limit: Int
   offset: Int
+  excludeOutlet: Boolean
 }
 
 input Input_reverb_feed_GetFavoriteShopsRequest {
@@ -23732,6 +23736,7 @@ type reverb_feed_GetFavoriteSavedSearchesRequest {
   offset: Int
   limit: Int
   locale: String
+  excludeOutlet: Boolean
 }
 
 type reverb_feed_GetFavoriteSavedSearchesResponse {
@@ -23739,6 +23744,7 @@ type reverb_feed_GetFavoriteSavedSearchesResponse {
   total: Int
   limit: Int
   offset: Int
+  excludeOutlet: Boolean
 }
 
 type reverb_feed_GetFavoriteShopsRequest {
