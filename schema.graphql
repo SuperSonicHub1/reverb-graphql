@@ -4716,6 +4716,7 @@ type core_apimessages_GoogleShoppingClick {
 type core_apimessages_GreatValueSignal {
   translations: core_apimessages_SignalTranslation
   isUsaBrandNew: Boolean
+  isValid: Boolean
 }
 
 type core_apimessages_GuestCheckoutUserEntry {
@@ -7604,6 +7605,7 @@ type core_apimessages_ShopConfig {
   acceptsAffirm: Boolean
   isShopInUk: Boolean
   firstTimeSeller: Boolean
+  marketplaceTaxReportingCountryCode: String
 }
 
 type core_apimessages_ShopConfig_OfferPolicy {
@@ -13768,6 +13770,7 @@ input Input_core_apimessages_GoogleShoppingClick {
 input Input_core_apimessages_GreatValueSignal {
   translations: Input_core_apimessages_SignalTranslation
   isUsaBrandNew: Boolean
+  isValid: Boolean
 }
 
 input Input_core_apimessages_GuestCheckoutUserEntry {
@@ -16271,6 +16274,7 @@ input Input_core_apimessages_ShopConfig {
   acceptsAffirm: Boolean
   isShopInUk: Boolean
   firstTimeSeller: Boolean
+  marketplaceTaxReportingCountryCode: String
 }
 
 input Input_core_apimessages_ShopConfig_OfferPolicy {
@@ -20161,7 +20165,8 @@ input Input_reverb_search_AutocompleteResponse {
 input Input_reverb_search_AutocompleteSuggestion {
   text: String
   subtext: String
-  url: String
+  url: Input_core_apimessages_Link
+  type: String
 }
 
 input Input_reverb_search_AverageMonthlyProductPrice {
@@ -20740,6 +20745,7 @@ input Input_reverb_search_MparticleProfileResponse {
   topCategoryUuids: [String]
   topBrandCategories: [String]
   brandCategories: [String]
+  topMostRecentProductTypes: [String]
 }
 
 input Input_reverb_search_NegotiationSearchRequest {
@@ -22070,6 +22076,7 @@ type MyShop implements INode {
   acceptsAffirm: Boolean
   isShopInUk: Boolean
   firstTimeSeller: Boolean
+  marketplaceTaxReportingCountryCode: String
   address: core_apimessages_Address
   kycAccountDetails: core_apimessages_KYCAccountDetails
   adyenBalanceOnboardingDetails: core_apimessages_AdyenBalanceOnboardingResponse
@@ -24358,7 +24365,8 @@ type reverb_search_AutocompleteResponse {
 type reverb_search_AutocompleteSuggestion {
   text: String
   subtext: String
-  url: String
+  url: core_apimessages_Link
+  type: String
 }
 
 enum reverb_search_Autodirects {
@@ -25148,6 +25156,7 @@ type reverb_search_MparticleProfileResponse {
   topCategoryUuids: [String]
   topBrandCategories: [String]
   brandCategories: [String]
+  topMostRecentProductTypes: [String]
 }
 
 type reverb_search_NegotiationSearchRequest {
@@ -26517,6 +26526,7 @@ type Shop implements INode {
   acceptsAffirm: Boolean
   isShopInUk: Boolean
   firstTimeSeller: Boolean
+  marketplaceTaxReportingCountryCode: String
   address: core_apimessages_Address
   sales: [core_apimessages_Sale]
   shippingProfiles: [core_apimessages_ShippingProfile]
