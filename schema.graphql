@@ -4715,7 +4715,6 @@ type core_apimessages_GoogleShoppingClick {
 
 type core_apimessages_GreatValueSignal {
   translations: core_apimessages_SignalTranslation
-  isUsaBrandNew: Boolean
   isValid: Boolean
 }
 
@@ -5323,7 +5322,6 @@ type core_apimessages_ListingSignals {
   returnPolicySignal: core_apimessages_ReturnPolicySignal
   buyWithConfidenceSignal: core_apimessages_BuyWithConfidenceSignal
   secureCheckoutSignal: core_apimessages_SecureCheckoutSignal
-  priceRecommendationData: core_apimessages_PriceRecommendationData
   availableNearbyForPickupSignal: core_apimessages_AvailableNearbyForPickupSignal
   expeditedShippingAvailableSignal: core_apimessages_ExpeditedShippingAvailableSignal
   freeExpeditedShippingSignal: core_apimessages_FreeExpeditedShippingSignal
@@ -5583,12 +5581,14 @@ type core_apimessages_MyAvailableActionsIndexResponse {
 type core_apimessages_MyBuyerCouponsRequest {
   context: core_apimessages_MyBuyerCouponsRequest_Context
   checkoutUuid: String
+  shopSlug: String
 }
 
 enum core_apimessages_MyBuyerCouponsRequest_Context {
   ALL_UNUSED
   CART
   CHECKOUT
+  SHOP
 }
 
 type core_apimessages_MyBuyerCouponsResponse {
@@ -6723,13 +6723,6 @@ type core_apimessages_PriceRecommendation {
   priceMiddleThirtyDaysAgo: core_apimessages_Money
   countryCode: String
   comparisonShoppingPageId: String
-}
-
-type core_apimessages_PriceRecommendationData {
-  eligibleForPriceRecommendation: Boolean
-  listingConditionUuid: String
-  canonicalProductId: Int
-  modelVersion: reverb_pricing_PriceRecommendationsRequest_ModelVersion
 }
 
 type core_apimessages_PrimaryKey {
@@ -13769,7 +13762,6 @@ input Input_core_apimessages_GoogleShoppingClick {
 
 input Input_core_apimessages_GreatValueSignal {
   translations: Input_core_apimessages_SignalTranslation
-  isUsaBrandNew: Boolean
   isValid: Boolean
 }
 
@@ -14320,7 +14312,6 @@ input Input_core_apimessages_ListingSignals {
   returnPolicySignal: Input_core_apimessages_ReturnPolicySignal
   buyWithConfidenceSignal: Input_core_apimessages_BuyWithConfidenceSignal
   secureCheckoutSignal: Input_core_apimessages_SecureCheckoutSignal
-  priceRecommendationData: Input_core_apimessages_PriceRecommendationData
   availableNearbyForPickupSignal: Input_core_apimessages_AvailableNearbyForPickupSignal
   expeditedShippingAvailableSignal: Input_core_apimessages_ExpeditedShippingAvailableSignal
   freeExpeditedShippingSignal: Input_core_apimessages_FreeExpeditedShippingSignal
@@ -14562,6 +14553,7 @@ input Input_core_apimessages_MyAvailableActionsIndexResponse {
 input Input_core_apimessages_MyBuyerCouponsRequest {
   context: core_apimessages_MyBuyerCouponsRequest_Context
   checkoutUuid: String
+  shopSlug: String
 }
 
 input Input_core_apimessages_MyBuyerCouponsResponse {
@@ -15512,13 +15504,6 @@ input Input_core_apimessages_PriceRecommendation {
   priceMiddleThirtyDaysAgo: Input_core_apimessages_Money
   countryCode: String
   comparisonShoppingPageId: String
-}
-
-input Input_core_apimessages_PriceRecommendationData {
-  eligibleForPriceRecommendation: Boolean
-  listingConditionUuid: String
-  canonicalProductId: Int
-  modelVersion: reverb_pricing_PriceRecommendationsRequest_ModelVersion
 }
 
 input Input_core_apimessages_PrimaryKey {
@@ -19935,7 +19920,7 @@ input Input_reverb_pricing_CSPPriceRecommendationQuery {
 input Input_reverb_pricing_CSPPriceRecommendationsRequest {
   cspPriceRecommendationQueries: [Input_reverb_pricing_CSPPriceRecommendationQuery]
   version: Int
-  modelVersion: reverb_pricing_CSPPriceRecommendationsRequest_ModelVersion
+  modelVersion: reverb_pricing_ModelVersion
 }
 
 input Input_reverb_pricing_Money {
@@ -19969,7 +19954,7 @@ input Input_reverb_pricing_PriceRecommendationQuery {
 input Input_reverb_pricing_PriceRecommendationsRequest {
   priceRecommendationQueries: [Input_reverb_pricing_PriceRecommendationQuery]
   version: Int
-  modelVersion: reverb_pricing_PriceRecommendationsRequest_ModelVersion
+  modelVersion: reverb_pricing_ModelVersion
 }
 
 input Input_reverb_pricing_PriceRecommendationsResponse {
@@ -19994,6 +19979,7 @@ input Input_reverb_pricing_PriceScoreQuery {
 input Input_reverb_pricing_PriceScoresRequest {
   priceScoreQueries: [Input_reverb_pricing_PriceScoreQuery]
   version: Int
+  modelVersion: reverb_pricing_ModelVersion
 }
 
 input Input_reverb_pricing_PriceScoresResponse {
@@ -20596,6 +20582,8 @@ input Input_reverb_search_ListingsSearchRequest {
   inBuyerCarts: Boolean
   withListingRecommendationStats: Boolean
   showMostWatchedListingsSort: Boolean
+  onlyStale: Boolean
+  excludeStale: Boolean
 }
 
 input Input_reverb_search_ListingsSearchResult {
@@ -22337,7 +22325,6 @@ type Query {
   recentlyViewedListings(input: Input_core_apimessages_RecentlyViewedListingsRequest): [Listing]
   searchMetadata(input: Input_core_apimessages_SearchMetadataRequest): core_apimessages_SearchMetadataResponse
   priceRecommendations(input: Input_reverb_pricing_PriceRecommendationsRequest): reverb_pricing_PriceRecommendationsResponse
-  signalPriceRecommendations(input: Input_reverb_pricing_PriceRecommendationsRequest): reverb_pricing_PriceRecommendationsResponse
   cspPriceRecommendations(input: Input_reverb_pricing_CSPPriceRecommendationsRequest): reverb_pricing_PriceRecommendationsResponse
   cpSuggestions(input: Input_rql_CollectionQuery): [core_apimessages_CPSuggestions]
   seedListing(input: Input_core_apimessages_SeedListingRequest): core_apimessages_SeedListingResponse
@@ -24073,10 +24060,10 @@ type reverb_pricing_CSPPriceRecommendationQuery {
 type reverb_pricing_CSPPriceRecommendationsRequest {
   cspPriceRecommendationQueries: [reverb_pricing_CSPPriceRecommendationQuery]
   version: Int @deprecated
-  modelVersion: reverb_pricing_CSPPriceRecommendationsRequest_ModelVersion
+  modelVersion: reverb_pricing_ModelVersion
 }
 
-enum reverb_pricing_CSPPriceRecommendationsRequest_ModelVersion {
+enum reverb_pricing_ModelVersion {
   MACHINE_LEARNING
   DESCRIPTIVE
 }
@@ -24112,12 +24099,7 @@ type reverb_pricing_PriceRecommendationQuery {
 type reverb_pricing_PriceRecommendationsRequest {
   priceRecommendationQueries: [reverb_pricing_PriceRecommendationQuery]
   version: Int @deprecated
-  modelVersion: reverb_pricing_PriceRecommendationsRequest_ModelVersion
-}
-
-enum reverb_pricing_PriceRecommendationsRequest_ModelVersion {
-  MACHINE_LEARNING
-  DESCRIPTIVE
+  modelVersion: reverb_pricing_ModelVersion
 }
 
 type reverb_pricing_PriceRecommendationsResponse {
@@ -24141,7 +24123,8 @@ type reverb_pricing_PriceScoreQuery {
 
 type reverb_pricing_PriceScoresRequest {
   priceScoreQueries: [reverb_pricing_PriceScoreQuery]
-  version: Int
+  version: Int @deprecated
+  modelVersion: reverb_pricing_ModelVersion
 }
 
 type reverb_pricing_PriceScoresResponse {
@@ -24897,6 +24880,8 @@ type reverb_search_ListingsSearchRequest {
   inBuyerCarts: Boolean
   withListingRecommendationStats: Boolean
   showMostWatchedListingsSort: Boolean
+  onlyStale: Boolean
+  excludeStale: Boolean
 }
 
 enum reverb_search_ListingsSearchRequest_Aggregation {
