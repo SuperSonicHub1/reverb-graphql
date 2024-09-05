@@ -417,6 +417,18 @@ type BrowsePage implements INode {
   links: [core_apimessages_BrowsePageLink]
 }
 
+type CanonicalProduct implements INode {
+  _id: ID
+  _source: String
+  id: String
+  name: String
+  model: String
+  year: String
+  finish: String
+  countryOfOrigin: String
+  packageSizeSuggestion: PackageSizeSuggestion
+}
+
 type Category implements INode {
   _id: ID
   _source: String
@@ -2109,6 +2121,15 @@ type core_apimessages_Candidate {
   weight: Int
 }
 
+type core_apimessages_CanonicalProduct {
+  id: String
+  name: String
+  model: String
+  year: String
+  finish: String
+  countryOfOrigin: String
+}
+
 type core_apimessages_CarrierRate {
   displayPosition: Int
   uuid: String
@@ -3182,6 +3203,7 @@ type core_apimessages_Core {
   NodesBumpRates(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesBusinessRegistrationNumbers(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesCspVariants(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
+  NodesCanonicalProducts(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesCspExpressSaleItemBids(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesGearCollectionItems(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesInformActThresholdStatuses(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
@@ -3201,6 +3223,7 @@ type core_apimessages_Core {
   NodesMyUpdatesPromotions(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesUniversalPromoCampaigns(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesShopCampaignCoupons(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
+  NodesPackageSizeSuggestions(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesShipmentPackages(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesReturnPolicies(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesBrands(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
@@ -6139,6 +6162,8 @@ type core_apimessages_NodeResponse_Result {
   listingsBuyerOfferEligibilities: [core_apimessages_ListingBuyerOfferEligibility]
   userShopPermissions: [core_apimessages_UserShopPermission]
   shopsCertifiedPreOwned: [core_apimessages_ShopCertifiedPreOwned]
+  canonicalProducts: [core_apimessages_CanonicalProduct]
+  packageSizeSuggestions: [core_apimessages_PackageSizeSuggestion]
 }
 
 type core_apimessages_NodeResponse_Result_Meta {
@@ -6503,6 +6528,14 @@ type core_apimessages_OtherBuyersWithListingInCartCountsRequest {
 
 type core_apimessages_OtherBuyersWithListingInCartCountsResponse {
   listingInCartCount: [core_apimessages_ListingInCartCount]
+}
+
+type core_apimessages_PackageSizeSuggestion {
+  id: String
+  length: core_apimessages_Measurement
+  width: core_apimessages_Measurement
+  height: core_apimessages_Measurement
+  weight: core_apimessages_Measurement
 }
 
 type core_apimessages_PacklinkAccount {
@@ -8712,6 +8745,7 @@ type CSP implements INode {
   expressSalePriceEstimate(input: Input_rql_ExpressSalePriceEstimate): reverb_pricing_PriceRecommendation
   priceRecommendations(input: Input_rql_CSPPriceRecommendation): [reverb_pricing_PriceRecommendation]
   variants: [core_apimessages_CspVariant]
+  canonicalProducts: [CanonicalProduct]
   expressSaleItemBid: core_apimessages_CSPExpressSaleItemBid
   productReviewSearch(input: Input_reverb_search_ProductReviewsSearchRequest): rql_CSPProductReviewSearchResponse
   myReview: core_apimessages_ProductReview
@@ -11834,6 +11868,15 @@ input Input_core_apimessages_Candidate {
   adGroup: Input_core_apimessages_AdGroup
   matches: [String]
   weight: Int
+}
+
+input Input_core_apimessages_CanonicalProduct {
+  id: String
+  name: String
+  model: String
+  year: String
+  finish: String
+  countryOfOrigin: String
 }
 
 input Input_core_apimessages_CarrierRate {
@@ -15028,6 +15071,8 @@ input Input_core_apimessages_NodeResponse_Result {
   listingsBuyerOfferEligibilities: [Input_core_apimessages_ListingBuyerOfferEligibility]
   userShopPermissions: [Input_core_apimessages_UserShopPermission]
   shopsCertifiedPreOwned: [Input_core_apimessages_ShopCertifiedPreOwned]
+  canonicalProducts: [Input_core_apimessages_CanonicalProduct]
+  packageSizeSuggestions: [Input_core_apimessages_PackageSizeSuggestion]
 }
 
 input Input_core_apimessages_NodeResponse_Result_Meta {
@@ -15352,6 +15397,14 @@ input Input_core_apimessages_OtherBuyersWithListingInCartCountsRequest {
 
 input Input_core_apimessages_OtherBuyersWithListingInCartCountsResponse {
   listingInCartCount: [Input_core_apimessages_ListingInCartCount]
+}
+
+input Input_core_apimessages_PackageSizeSuggestion {
+  id: String
+  length: Input_core_apimessages_Measurement
+  width: Input_core_apimessages_Measurement
+  height: Input_core_apimessages_Measurement
+  weight: Input_core_apimessages_Measurement
 }
 
 input Input_core_apimessages_PacklinkAccount {
@@ -19464,6 +19517,7 @@ input Input_reverb_feed_EntriesRequest {
   locale: String
   limit: Int
   readFromDatabase: Boolean
+  excludeOutlet: Boolean
 }
 
 """
@@ -19524,6 +19578,7 @@ input Input_reverb_feed_FeedResponse {
   total: Int
   offset: Int
   limit: Int
+  excludeOutlet: Boolean
 }
 
 input Input_reverb_feed_FindFavoriteRequest {
@@ -21368,6 +21423,7 @@ input Input_rql_FeedQuery {
   channel: rql_FeedQuery_Channel
   listingsFilter: Input_reverb_search_ListingsSearchRequest
   readFromDatabase: Boolean
+  excludeOutlet: Boolean
 }
 
 input Input_rql_FindAddressSuggestionRequest {
@@ -22211,6 +22267,16 @@ type OrderCollection {
   pageInfo: rql_PageInfo
 }
 
+type PackageSizeSuggestion implements INode {
+  _id: ID
+  _source: String
+  id: String
+  length: core_apimessages_Measurement
+  width: core_apimessages_Measurement
+  height: core_apimessages_Measurement
+  weight: core_apimessages_Measurement
+}
+
 type PriceChange implements INode {
   _id: ID
   _source: String
@@ -22354,6 +22420,7 @@ type Query {
   cpToListingRecs(input: Input_rql_CPRecommendationsRequest): rql_RecommendationsGenericResponse
   recommendedShops(input: Input_rql_ShopsRecommendationsRequest): [Shop]
   browsepage(input: Input_rql_NodeQuery): BrowsePage
+  canonicalproduct(input: Input_rql_NodeQuery): CanonicalProduct
   category(input: Input_rql_NodeQuery): Category
   cmspage(input: Input_rql_NodeQuery): CMSPage
   collectionheader(input: Input_rql_NodeQuery): CollectionHeader
@@ -22368,6 +22435,7 @@ type Query {
   myshop(input: Input_rql_NodeQuery): MyShop
   negotiation(input: Input_rql_NodeQuery): Negotiation
   orderbundle(input: Input_rql_NodeQuery): OrderBundle
+  packagesizesuggestion(input: Input_rql_NodeQuery): PackageSizeSuggestion
   priceguide(input: Input_rql_NodeQuery): PriceGuide
   publiccomponent(input: Input_rql_NodeQuery): PublicComponent
   sale(input: Input_rql_NodeQuery): Sale
@@ -22406,7 +22474,7 @@ type Query {
   universalpromocampaign(input: Input_rql_NodeQuery): UniversalPromoCampaign
 }
 
-union Reflection = BrowsePage | Category | CMSPage | CollectionHeader | CSP | Checkout | CheckoutAction | CuratedSet | ExpressSaleCheckout | GearCollectionItem | Order | Listing | MyShop | Negotiation | OrderBundle | PriceGuide | PublicComponent | Sale | SellerCheckout | Shipment | Shop | Storefront | User | Article | Brand | Watch | ShopCampaignCoupon | SiteBanner | PriceChange | MyUpdate | MyUpdatesPromotion | ShipmentPackage | PublicPriceRecord | ProductReview | UserShopPermission | Advertiser | AdCampaign | AdGroup | Ad | AdZone | UniversalPromoCampaign
+union Reflection = BrowsePage | CanonicalProduct | Category | CMSPage | CollectionHeader | CSP | Checkout | CheckoutAction | CuratedSet | ExpressSaleCheckout | GearCollectionItem | Order | Listing | MyShop | Negotiation | OrderBundle | PackageSizeSuggestion | PriceGuide | PublicComponent | Sale | SellerCheckout | Shipment | Shop | Storefront | User | Article | Brand | Watch | ShopCampaignCoupon | SiteBanner | PriceChange | MyUpdate | MyUpdatesPromotion | ShipmentPackage | PublicPriceRecord | ProductReview | UserShopPermission | Advertiser | AdCampaign | AdGroup | Ad | AdZone | UniversalPromoCampaign
 
 type reverb_config_cache_AddressFormConfig {
   countryCode: String
@@ -23498,6 +23566,7 @@ type reverb_feed_EntriesRequest {
   locale: String
   limit: Int
   readFromDatabase: Boolean
+  excludeOutlet: Boolean
 }
 
 """
@@ -23584,6 +23653,7 @@ type reverb_feed_FeedResponse {
   total: Int
   offset: Int
   limit: Int
+  excludeOutlet: Boolean
   filters: [reverb_search_Filter]
 }
 
@@ -26062,6 +26132,7 @@ type rql_FeedQuery {
   channel: rql_FeedQuery_Channel
   listingsFilter: reverb_search_ListingsSearchRequest
   readFromDatabase: Boolean
+  excludeOutlet: Boolean
 }
 
 enum rql_FeedQuery_Channel {
