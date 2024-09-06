@@ -4767,9 +4767,35 @@ type core_apimessages_HomepageComponent {
   ctaText: String
   slug: String
   listings: [core_apimessages_ListingData]
+  componentIdentifier: core_apimessages_HomepageComponent_ComponentIdentifier
+}
+
+enum core_apimessages_HomepageComponent_ComponentIdentifier {
+  NONE
+  FEED
+  WATCHLIST
+  BANNER_TOP
+  BANNER_MID_1
+  BANNER_MID_2
+  RECENTLY_VIEWED_LISTINGS
+  REGIONAL_LISTINGS
+  RECENT_SEARCH
+  JUST_LISTED
+  NEW_TO_YOU
+  RECOMMENDED_LISTINGS
+  DEALS_STEALS
+  SUB_CATEGORY
+  RECENTLY_VIEWED_PRODUCTS
+  NOTIFICATIONS
+  EMPTY_WATCHLIST
+  MOST_WATCHED_LISTINGS
+  RECENT_CATEGORY
+  BEST_SELLERS
+  BASED_ON_RECENTLY_VIEWED_LISTINGS
 }
 
 enum core_apimessages_HomepageComponent_ComponentType {
+  PLACEHOLDER
   LISTINGS_GRID
   PRODUCTS_GRID
   CMS_BANNER
@@ -6307,6 +6333,7 @@ type core_apimessages_Order {
   carrierCalculatedShippingAmount: core_apimessages_Money
   shippingTaxed: Boolean
   paymentRequiredAt: google_protobuf_Timestamp
+  protectionPlan: Boolean
 }
 
 enum core_apimessages_Order_Status {
@@ -13834,6 +13861,7 @@ input Input_core_apimessages_HomepageComponent {
   ctaText: String
   slug: String
   listings: [Input_core_apimessages_ListingData]
+  componentIdentifier: core_apimessages_HomepageComponent_ComponentIdentifier
 }
 
 input Input_core_apimessages_HomepageNotification {
@@ -15196,6 +15224,7 @@ input Input_core_apimessages_Order {
   carrierCalculatedShippingAmount: Input_core_apimessages_Money
   shippingTaxed: Boolean
   paymentRequiredAt: Input_core_apimessages_LegacyTimestamp
+  protectionPlan: Boolean
 }
 
 input Input_core_apimessages_OrderBundle {
@@ -20206,7 +20235,7 @@ input Input_reverb_search_AutocompleteResponse {
 input Input_reverb_search_AutocompleteSuggestion {
   text: String
   subtext: String
-  url: Input_core_apimessages_Link
+  url: Input_reverb_search_Link
   type: String
 }
 
@@ -20473,6 +20502,13 @@ input Input_reverb_search_Inventory {
 input Input_reverb_search_LimitedAggregation {
   brandUuids: Int
   categoryUuids: Int
+}
+
+input Input_reverb_search_Link {
+  href: String
+
+  """rel path for use in web routing"""
+  path: String
 }
 
 input Input_reverb_search_ListingRecommendationsRequest {
@@ -22224,6 +22260,7 @@ type Order implements INode {
   carrierCalculatedShippingAmount: core_apimessages_Money
   shippingTaxed: Boolean
   paymentRequiredAt: google_protobuf_Timestamp
+  protectionPlan: Boolean
   uuid: String
   id: String
   customsInfo: core_apimessages_OrderCustomsInfo
@@ -24418,7 +24455,7 @@ type reverb_search_AutocompleteResponse {
 type reverb_search_AutocompleteSuggestion {
   text: String
   subtext: String
-  url: core_apimessages_Link
+  url: reverb_search_Link
   type: String
 }
 
@@ -24780,6 +24817,13 @@ type reverb_search_Inventory {
 type reverb_search_LimitedAggregation {
   brandUuids: Int
   categoryUuids: Int
+}
+
+type reverb_search_Link {
+  href: String
+
+  """rel path for use in web routing"""
+  path: String
 }
 
 enum reverb_search_ListingItemRegionRelation {
