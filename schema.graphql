@@ -19546,7 +19546,6 @@ input Input_reverb_feed_EntriesRequest {
   locale: String
   limit: Int
   readFromDatabase: Boolean
-  excludeOutlet: Boolean
 }
 
 """
@@ -19607,7 +19606,6 @@ input Input_reverb_feed_FeedResponse {
   total: Int
   offset: Int
   limit: Int
-  excludeOutlet: Boolean
 }
 
 input Input_reverb_feed_FindFavoriteRequest {
@@ -21459,7 +21457,6 @@ input Input_rql_FeedQuery {
   channel: rql_FeedQuery_Channel
   listingsFilter: Input_reverb_search_ListingsSearchRequest
   readFromDatabase: Boolean
-  excludeOutlet: Boolean
 }
 
 input Input_rql_FindAddressSuggestionRequest {
@@ -23603,7 +23600,6 @@ type reverb_feed_EntriesRequest {
   locale: String
   limit: Int
   readFromDatabase: Boolean
-  excludeOutlet: Boolean
 }
 
 """
@@ -23690,7 +23686,6 @@ type reverb_feed_FeedResponse {
   total: Int
   offset: Int
   limit: Int
-  excludeOutlet: Boolean
   filters: [reverb_search_Filter]
 }
 
@@ -26176,7 +26171,6 @@ type rql_FeedQuery {
   channel: rql_FeedQuery_Channel
   listingsFilter: reverb_search_ListingsSearchRequest
   readFromDatabase: Boolean
-  excludeOutlet: Boolean
 }
 
 enum rql_FeedQuery_Channel {
