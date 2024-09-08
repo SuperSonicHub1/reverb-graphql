@@ -4240,7 +4240,7 @@ type core_apimessages_Feedback {
   shippingSatisfactory: google_protobuf_BoolValue
   conditionSatisfactory: google_protobuf_BoolValue
   listingLink: core_apimessages_Link
-  author: User
+  author: core_apimessages_User
   recipient: User
 }
 
