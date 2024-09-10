@@ -4240,7 +4240,7 @@ type core_apimessages_Feedback {
   shippingSatisfactory: google_protobuf_BoolValue
   conditionSatisfactory: google_protobuf_BoolValue
   listingLink: core_apimessages_Link
-  author: core_apimessages_User
+  author: User
   recipient: User
 }
 
@@ -8771,7 +8771,6 @@ type CSP implements INode {
   priceGuide: core_apimessages_PriceGuide
   expressSalePriceEstimate(input: Input_rql_ExpressSalePriceEstimate): reverb_pricing_PriceRecommendation
   priceRecommendations(input: Input_rql_CSPPriceRecommendation): [reverb_pricing_PriceRecommendation]
-  variants: [core_apimessages_CspVariant]
   canonicalProducts: [CanonicalProduct]
   expressSaleItemBid: core_apimessages_CSPExpressSaleItemBid
   productReviewSearch(input: Input_reverb_search_ProductReviewsSearchRequest): rql_CSPProductReviewSearchResponse
@@ -22426,6 +22425,7 @@ type Query {
   searchMetadata(input: Input_core_apimessages_SearchMetadataRequest): core_apimessages_SearchMetadataResponse
   priceRecommendations(input: Input_reverb_pricing_PriceRecommendationsRequest): reverb_pricing_PriceRecommendationsResponse
   cspPriceRecommendations(input: Input_reverb_pricing_CSPPriceRecommendationsRequest): reverb_pricing_PriceRecommendationsResponse
+  priceScores(input: Input_reverb_pricing_PriceScoresRequest): reverb_pricing_PriceScoresResponse
   cpSuggestions(input: Input_rql_CollectionQuery): [core_apimessages_CPSuggestions]
   seedListing(input: Input_core_apimessages_SeedListingRequest): core_apimessages_SeedListingResponse
   adServe(input: Input_core_apimessages_AdServeRequest): core_apimessages_AdServeResponse
