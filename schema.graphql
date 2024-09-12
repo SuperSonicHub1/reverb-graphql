@@ -427,6 +427,7 @@ type CanonicalProduct implements INode {
   finish: String
   countryOfOrigin: String
   packageSizeSuggestion: PackageSizeSuggestion
+  estimatedNewListingPrice(input: Input_core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices): core_apimessages_EstimatedNewListingPrice
 }
 
 type Category implements INode {
@@ -3202,7 +3203,6 @@ type core_apimessages_Core {
   NodesBrowsePages(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesBumpRates(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesBusinessRegistrationNumbers(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
-  NodesCspVariants(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesCanonicalProducts(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesCspExpressSaleItemBids(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesGearCollectionItems(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
@@ -3229,6 +3229,7 @@ type core_apimessages_Core {
   NodesBrands(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesProductBreadcrumbs(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesUserShopPermissions(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
+  NodesEstimatedNewListingPrices(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   MyShopCampaigns(input: Input_google_protobuf_Empty): core_apimessages_MyShopCampaignsResponse
   UpdateMyShopCampaign(input: Input_core_apimessages_UpdateMyShopCampaignRequest): core_apimessages_UpdateMyShopCampaignResponse
   MyShopEarnings(input: Input_core_apimessages_MyShopEarningsRequest): core_apimessages_MyShopEarningsResponse
@@ -3888,16 +3889,6 @@ type core_apimessages_CSPsVideoResponse {
   videos: [core_apimessages_CSPVideo]
 }
 
-type core_apimessages_CspVariant {
-  """corresponds to a canonical product ID"""
-  id: String
-  name: String
-  model: String
-  year: String
-  finish: String
-  countryOfOrigin: String
-}
-
 type core_apimessages_CSPVideo {
   videoLinks: [core_apimessages_VideoLink]
 }
@@ -4121,6 +4112,11 @@ type core_apimessages_EstimatedMonthlyPaymentsRequest {
 
 type core_apimessages_EstimatedMonthlyPaymentsResponse {
   estimatedMonthlyPayments: [core_apimessages_EstimatedMonthlyPayment]
+}
+
+type core_apimessages_EstimatedNewListingPrice {
+  id: String
+  price: core_apimessages_Money
 }
 
 type core_apimessages_EstimatedShipping {
@@ -6081,6 +6077,11 @@ type core_apimessages_NodeRequest_Lookup_Params {
   truliooOnboardingRecords: core_apimessages_NodeRequest_Lookup_Params_TruliooOnboardingRecords
   productReviews: core_apimessages_NodeRequest_Lookup_Params_ProductReviews
   shopsCertifiedPreOwned: core_apimessages_NodeRequest_Lookup_Params_ShopsCertifiedPreOwned
+  estimatedNewListingPrices: core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices
+}
+
+type core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices {
+  currency: String
 }
 
 type core_apimessages_NodeRequest_Lookup_Params_Images {
@@ -6141,7 +6142,6 @@ type core_apimessages_NodeResponse_Result {
   packlinkShipments: [core_apimessages_PacklinkShipment]
   shippingRates: [core_apimessages_ShippingRates]
   bumpRates: [core_apimessages_BumpRate]
-  cspVariants: [core_apimessages_CspVariant]
   categories: [core_apimessages_NodesCategory]
   gearCollectionItems: [core_apimessages_GearCollectionItem]
   priceGuides: [core_apimessages_PriceGuide]
@@ -6190,6 +6190,7 @@ type core_apimessages_NodeResponse_Result {
   shopsCertifiedPreOwned: [core_apimessages_ShopCertifiedPreOwned]
   canonicalProducts: [core_apimessages_CanonicalProduct]
   packageSizeSuggestions: [core_apimessages_PackageSizeSuggestion]
+  estimatedNewListingPrices: [core_apimessages_EstimatedNewListingPrice]
 }
 
 type core_apimessages_NodeResponse_Result_Meta {
@@ -8786,6 +8787,13 @@ type CuratedSet implements INode {
   slug: String
   setType: String
   images(input: Input_core_apimessages_ImagesRequest!): [core_apimessages_Image]
+}
+
+type EstimatedNewListingPrice implements INode {
+  _id: ID
+  _source: String
+  id: String
+  price: core_apimessages_Money
 }
 
 type ExpressSaleCheckout implements INode {
@@ -13076,16 +13084,6 @@ input Input_core_apimessages_CSPsVideoResponse {
   videos: [Input_core_apimessages_CSPVideo]
 }
 
-input Input_core_apimessages_CspVariant {
-  """corresponds to a canonical product ID"""
-  id: String
-  name: String
-  model: String
-  year: String
-  finish: String
-  countryOfOrigin: String
-}
-
 input Input_core_apimessages_CSPVideo {
   videoLinks: [Input_core_apimessages_VideoLink]
 }
@@ -13303,6 +13301,11 @@ input Input_core_apimessages_EstimatedMonthlyPaymentsRequest {
 
 input Input_core_apimessages_EstimatedMonthlyPaymentsResponse {
   estimatedMonthlyPayments: [Input_core_apimessages_EstimatedMonthlyPayment]
+}
+
+input Input_core_apimessages_EstimatedNewListingPrice {
+  id: String
+  price: Input_core_apimessages_Money
 }
 
 input Input_core_apimessages_EstimatedShipping {
@@ -14997,6 +15000,11 @@ input Input_core_apimessages_NodeRequest_Lookup_Params {
   truliooOnboardingRecords: Input_core_apimessages_NodeRequest_Lookup_Params_TruliooOnboardingRecords
   productReviews: Input_core_apimessages_NodeRequest_Lookup_Params_ProductReviews
   shopsCertifiedPreOwned: Input_core_apimessages_NodeRequest_Lookup_Params_ShopsCertifiedPreOwned
+  estimatedNewListingPrices: Input_core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices
+}
+
+input Input_core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices {
+  currency: String
 }
 
 input Input_core_apimessages_NodeRequest_Lookup_Params_Images {
@@ -15051,7 +15059,6 @@ input Input_core_apimessages_NodeResponse_Result {
   packlinkShipments: [Input_core_apimessages_PacklinkShipment]
   shippingRates: [Input_core_apimessages_ShippingRates]
   bumpRates: [Input_core_apimessages_BumpRate]
-  cspVariants: [Input_core_apimessages_CspVariant]
   categories: [Input_core_apimessages_NodesCategory]
   gearCollectionItems: [Input_core_apimessages_GearCollectionItem]
   priceGuides: [Input_core_apimessages_PriceGuide]
@@ -15100,6 +15107,7 @@ input Input_core_apimessages_NodeResponse_Result {
   shopsCertifiedPreOwned: [Input_core_apimessages_ShopCertifiedPreOwned]
   canonicalProducts: [Input_core_apimessages_CanonicalProduct]
   packageSizeSuggestions: [Input_core_apimessages_PackageSizeSuggestion]
+  estimatedNewListingPrices: [Input_core_apimessages_EstimatedNewListingPrice]
 }
 
 input Input_core_apimessages_NodeResponse_Result_Meta {
@@ -22455,6 +22463,7 @@ type Query {
   recommendedShops(input: Input_rql_ShopsRecommendationsRequest): [Shop]
   browsepage(input: Input_rql_NodeQuery): BrowsePage
   canonicalproduct(input: Input_rql_NodeQuery): CanonicalProduct
+  estimatednewlistingprice(input: Input_rql_NodeQuery): EstimatedNewListingPrice
   category(input: Input_rql_NodeQuery): Category
   cmspage(input: Input_rql_NodeQuery): CMSPage
   collectionheader(input: Input_rql_NodeQuery): CollectionHeader
@@ -22508,7 +22517,7 @@ type Query {
   universalpromocampaign(input: Input_rql_NodeQuery): UniversalPromoCampaign
 }
 
-union Reflection = BrowsePage | CanonicalProduct | Category | CMSPage | CollectionHeader | CSP | Checkout | CheckoutAction | CuratedSet | ExpressSaleCheckout | GearCollectionItem | Order | Listing | MyShop | Negotiation | OrderBundle | PackageSizeSuggestion | PriceGuide | PublicComponent | Sale | SellerCheckout | Shipment | Shop | Storefront | User | Article | Brand | Watch | ShopCampaignCoupon | SiteBanner | PriceChange | MyUpdate | MyUpdatesPromotion | ShipmentPackage | PublicPriceRecord | ProductReview | UserShopPermission | Advertiser | AdCampaign | AdGroup | Ad | AdZone | UniversalPromoCampaign
+union Reflection = BrowsePage | CanonicalProduct | EstimatedNewListingPrice | Category | CMSPage | CollectionHeader | CSP | Checkout | CheckoutAction | CuratedSet | ExpressSaleCheckout | GearCollectionItem | Order | Listing | MyShop | Negotiation | OrderBundle | PackageSizeSuggestion | PriceGuide | PublicComponent | Sale | SellerCheckout | Shipment | Shop | Storefront | User | Article | Brand | Watch | ShopCampaignCoupon | SiteBanner | PriceChange | MyUpdate | MyUpdatesPromotion | ShipmentPackage | PublicPriceRecord | ProductReview | UserShopPermission | Advertiser | AdCampaign | AdGroup | Ad | AdZone | UniversalPromoCampaign
 
 type reverb_config_cache_AddressFormConfig {
   countryCode: String
