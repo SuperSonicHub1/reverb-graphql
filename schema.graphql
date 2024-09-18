@@ -6549,6 +6549,11 @@ type core_apimessages_OrderVerifyShippingAddressResponse {
   isResidential: Boolean
 }
 
+type core_apimessages_OrderViewStatus {
+  status: String
+  description: String
+}
+
 type core_apimessages_OtherBuyersWithListingInCartCountsRequest {
   """product.id"""
   ids: [String]
@@ -7276,6 +7281,7 @@ type core_apimessages_SellerOrder {
   shippingLabel: core_apimessages_OrderShippingLabel
   packingSlip: core_apimessages_OrderPackingSlip
   taxResponsibleParty: core_apimessages_SellerOrder_TaxResponsibleParty
+  orderViewStatus: core_apimessages_OrderViewStatus
 }
 
 enum core_apimessages_SellerOrder_TaxResponsibleParty {
@@ -7419,6 +7425,7 @@ type core_apimessages_ShippingLabelPackage {
   weight: core_apimessages_Measurement
   predefinedPackage: String
   id: String
+  reverbSuggested: Boolean
 }
 
 enum core_apimessages_ShippingMethod {
@@ -15426,6 +15433,11 @@ input Input_core_apimessages_OrderVerifyShippingAddressResponse {
   isResidential: Boolean
 }
 
+input Input_core_apimessages_OrderViewStatus {
+  status: String
+  description: String
+}
+
 input Input_core_apimessages_OtherBuyersWithListingInCartCountsRequest {
   """product.id"""
   ids: [String]
@@ -16031,6 +16043,7 @@ input Input_core_apimessages_SellerOrder {
   shippingLabel: Input_core_apimessages_OrderShippingLabel
   packingSlip: Input_core_apimessages_OrderPackingSlip
   taxResponsibleParty: core_apimessages_SellerOrder_TaxResponsibleParty
+  orderViewStatus: Input_core_apimessages_OrderViewStatus
 }
 
 input Input_core_apimessages_SellerOrdersResponse {
@@ -16158,6 +16171,7 @@ input Input_core_apimessages_ShippingLabelPackage {
   weight: Input_core_apimessages_Measurement
   predefinedPackage: String
   id: String
+  reverbSuggested: Boolean
 }
 
 input Input_core_apimessages_ShippingPrice {
@@ -26588,6 +26602,7 @@ type ShipmentPackage implements INode {
   weight: core_apimessages_Measurement
   predefinedPackage: String
   id: String
+  reverbSuggested: Boolean
 }
 
 type Shop implements INode {
