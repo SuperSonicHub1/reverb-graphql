@@ -8561,6 +8561,7 @@ type core_apimessages_UserNotification {
   description: String
   notificationLinks: core_apimessages_UserNotificationLinks
   key: core_apimessages_UserNotification_UserNotificationKey
+  hidden: Boolean
 }
 
 enum core_apimessages_UserNotification_UserNotificationKey {
@@ -8575,6 +8576,7 @@ enum core_apimessages_UserNotification_UserNotificationKey {
   UPDATE_ADDRESS
   SELLER_SHOP_COUPONS
   PAYPAL_LOCKED_MODE
+  HAS_ABOVE_AVERAGE_PRICED_LISTINGS
 }
 
 type core_apimessages_UserNotificationLinks {
@@ -17137,6 +17139,7 @@ input Input_core_apimessages_UserNotification {
   description: String
   notificationLinks: Input_core_apimessages_UserNotificationLinks
   key: core_apimessages_UserNotification_UserNotificationKey
+  hidden: Boolean
 }
 
 input Input_core_apimessages_UserNotificationLinks {
