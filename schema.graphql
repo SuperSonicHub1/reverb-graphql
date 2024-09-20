@@ -20362,6 +20362,7 @@ input Input_reverb_search_CompletionsRequest {
   shippingRegionCode: String
   locale: String
   experiments: [String]
+  hideStaleListings: Boolean
 }
 
 input Input_reverb_search_CSPInventory {
@@ -24594,6 +24595,7 @@ type reverb_search_CompletionsRequest {
   shippingRegionCode: String
   locale: String
   experiments: [String]
+  hideStaleListings: Boolean
 }
 
 enum reverb_search_CompletionType {
