@@ -8317,11 +8317,13 @@ type core_apimessages_UpdateInternationalTaxProfileResponse {
 type core_apimessages_UpdateListingRequest {
   listingEntry: core_apimessages_ListingEntry
   updateType: core_apimessages_UpdateListingRequest_UpdateType
+  fields: [String]
 }
 
 enum core_apimessages_UpdateListingRequest_UpdateType {
   DEFAULT
   CROSS_PLATFORM_PHOTOS
+  SPECIFIC_FIELDS
 }
 
 type core_apimessages_UpdateListingResponse {
@@ -16920,6 +16922,7 @@ input Input_core_apimessages_UpdateInternationalTaxProfileResponse {
 input Input_core_apimessages_UpdateListingRequest {
   listingEntry: Input_core_apimessages_ListingEntry
   updateType: core_apimessages_UpdateListingRequest_UpdateType
+  fields: [String]
 }
 
 input Input_core_apimessages_UpdateListingResponse {
