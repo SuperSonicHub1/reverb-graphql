@@ -20701,6 +20701,7 @@ input Input_reverb_search_ListingsSearchRequest {
   showMostWatchedListingsSort: Boolean
   onlyStale: Boolean
   excludeStale: Boolean
+  applyProximityBoost: Boolean
 }
 
 input Input_reverb_search_ListingsSearchResult {
@@ -25022,6 +25023,7 @@ type reverb_search_ListingsSearchRequest {
   showMostWatchedListingsSort: Boolean
   onlyStale: Boolean
   excludeStale: Boolean
+  applyProximityBoost: Boolean
 }
 
 enum reverb_search_ListingsSearchRequest_Aggregation {
