@@ -20681,7 +20681,6 @@ input Input_reverb_search_ListingsSearchRequest {
   excludePreorders: Boolean
   excludeCategoryUuids: [String]
   excludeBrandSlugs: [String]
-  isUserInCspOptimizationExp: Boolean
   outlet: Boolean
   shippingProfileId: String
   calculatedRate: Boolean
@@ -25003,7 +25002,6 @@ type reverb_search_ListingsSearchRequest {
   excludePreorders: Boolean
   excludeCategoryUuids: [String]
   excludeBrandSlugs: [String]
-  isUserInCspOptimizationExp: Boolean
   outlet: Boolean
   shippingProfileId: String
   calculatedRate: Boolean
