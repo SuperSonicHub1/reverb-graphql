@@ -26262,6 +26262,7 @@ type rql_Me {
   name: String
   firstName: String
   shortname: String
+  _id: ID
   id: String
   uuid: String
   shopUuid: String
