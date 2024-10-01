@@ -26754,12 +26754,12 @@ type UniversalPromoCampaignCollection {
 type User implements INode {
   _id: ID
   _source: String
+  uuid: String
   name: String
   shopUuid: String
   id: String
   firstName: String
   shortname: String
-  uuid: String
   shop(input: Input_core_apimessages_ShopsRequest): core_apimessages_Shop
   avatar: core_apimessages_Image
   feedback(input: Input_core_apimessages_FeedbacksRequest!): core_apimessages_FeedbacksResponse
