@@ -21973,6 +21973,7 @@ type mparticle_TokenResponse {
 }
 
 type Mutation {
+  _source: String
   createNegotiation(input: Input_core_apimessages_CreateNegotiationRequest): core_apimessages_NegotiationsResponse
   createAutoOffer(input: Input_core_apimessages_CreateAutoOfferRequest): core_apimessages_CreateAutoOfferResponse
   updateShopKYC(input: Input_core_apimessages_UpdateShopKYCRequest): core_apimessages_UpdateShopKYCResponse
@@ -22417,6 +22418,7 @@ type PublicPriceRecord implements INode {
 }
 
 type Query {
+  _source: String
   cspSearch(input: Input_reverb_search_CSPSearchRequest): reverb_search_SearchResponse
   completions(input: Input_reverb_search_CompletionsRequest): reverb_search_SearchResponse
   autocomplete(input: Input_reverb_search_AutocompleteRequest): reverb_search_AutocompleteResponse
@@ -26509,6 +26511,7 @@ type rql_Update {
 type rql_UpdateEntity {
   _: Boolean
   id: String
+  _id: String
   type: reverb_updates_Entity_EntityType
 
   """the listing of the update, e.g. the watched listing"""
