@@ -291,6 +291,8 @@ type arbiter_SellerInteractionTimeSeriesResponse {
 type Article implements INode {
   _id: ID
   _source: String
+
+  """articles.id"""
   id: String
   title: String
   webLink: core_apimessages_Link
@@ -303,6 +305,8 @@ type Article implements INode {
 type Brand implements INode {
   _id: ID
   _source: String
+
+  """brands.uuid"""
   id: String
   name: String
   webLink: core_apimessages_Link
@@ -433,6 +437,8 @@ type CanonicalProduct implements INode {
 type Category implements INode {
   _id: ID
   _source: String
+
+  """categories.uuid"""
   id: String
   name: String
   webLink: core_apimessages_Link
@@ -452,7 +458,13 @@ type Category implements INode {
 type Checkout implements INode {
   _id: ID
   _source: String
+
+  """Checkout UUID"""
   id: String
+
+  """
+  Semi-opaque identifier to bundle a checkout, for example RCP-USD-direct_checkout.
+  """
   checkoutBundlingId: String
   paymentMethod: core_apimessages_CheckoutPaymentMethod
   shippingAddress: core_apimessages_Address
@@ -464,10 +476,16 @@ type Checkout implements INode {
   type: core_apimessages_Checkout_Type
   creditCard: core_apimessages_CreditCard
   guest: core_apimessages_CheckoutGuest
+
+  """A JSON serialized hash"""
   adyenPaymentAction: String
   availablePaymentMethods: [core_apimessages_CheckoutPaymentMethod]
   isAllPaidWithBucks: Boolean
   source: core_apimessages_Checkout_Source
+
+  """
+  Amount owed. Use this field to send the displayed amount owed value to a finalize checkout
+  """
   total: core_apimessages_Checkout_Total
   orderBundle: OrderBundle
   action(input: Input_rql_CheckoutActionRequestInput): CheckoutAction
@@ -880,6 +898,10 @@ type CMSPage implements INode {
   noIndex: Boolean
   secondaryImage: cms_PageImage
   live: Boolean
+
+  """
+  Flag used to thread to the frontend to indicate a cms slug was not found and we should render the not found page.
+  """
   pageNotFound: Boolean
   targetLocales: [String]
   breadcrumbs: String
@@ -906,17 +928,20 @@ type CollectionHeader implements INode {
 
 type core_apimessages_AcceptAddressSuggestionRequest {
   suggestionId: String
+  _source: String
 }
 
 type core_apimessages_AcceptAddressSuggestionResponse {
   """address uuid"""
   id: String
+  _source: String
 }
 
 type core_apimessages_AcceptedPaymentMethodsRequest {
   """either shops.uuid or products.id"""
   ids: [String]
   type: core_apimessages_AcceptedPaymentMethodsRequest_PaymentMethodsType
+  _source: String
 }
 
 enum core_apimessages_AcceptedPaymentMethodsRequest_PaymentMethodsType {
@@ -926,14 +951,17 @@ enum core_apimessages_AcceptedPaymentMethodsRequest_PaymentMethodsType {
 
 type core_apimessages_AcceptedPaymentMethodsResponse {
   paymentMethods: [core_apimessages_PaymentMethods]
+  _source: String
 }
 
 type core_apimessages_AccountAlertsResponse {
   alerts: [core_apimessages_Alert]
+  _source: String
 }
 
 type core_apimessages_ActionSourceAttributes {
   device: String
+  _source: String
 }
 
 type core_apimessages_Ad {
@@ -948,10 +976,12 @@ type core_apimessages_Ad {
   localizedContents: [core_apimessages_AdLocalizedContent]
   deletedAt: Timestamp
   adGroupName: String
+  _source: String
 }
 
 type core_apimessages_AdaChatTokenResponse {
   token: String
+  _source: String
 }
 
 type core_apimessages_AdCampaign {
@@ -962,6 +992,7 @@ type core_apimessages_AdCampaign {
   startsAt: Timestamp
   endsAt: Timestamp
   advertiserUuid: String
+  _source: String
 }
 
 enum core_apimessages_AdCampaign_AdStatus {
@@ -977,6 +1008,7 @@ type core_apimessages_AdCampaignsSearchRequest {
   withinDate: String
   advertiserUuids: [String]
   adZoneSlugs: [String]
+  _source: String
 }
 
 enum core_apimessages_AdCampaignsSearchRequest_Status {
@@ -992,6 +1024,7 @@ type core_apimessages_AdCampaignsSearchResponse {
   limit: Int
   total: Int
   adCampaigns: [AdCampaign]
+  _source: String
 }
 
 """For API response"""
@@ -1028,6 +1061,7 @@ type core_apimessages_Address {
   """True if primary address fields match address details in Loqate"""
   verified: Boolean
   _id: ID
+  _source: String
 }
 
 type core_apimessages_AddressDeleteRequest {
@@ -1035,6 +1069,7 @@ type core_apimessages_AddressDeleteRequest {
   id: String
   uuid: String
   addressType: core_apimessages_MyAddressType
+  _source: String
 }
 
 """For POST/PUT API requests"""
@@ -1048,6 +1083,7 @@ type core_apimessages_AddressEntry {
   locality: String
   countryCode: String
   email: String
+  _source: String
 }
 
 enum core_apimessages_AddressVerificationStatus {
@@ -1058,12 +1094,14 @@ enum core_apimessages_AddressVerificationStatus {
 type core_apimessages_AddressVerifyRequest {
   """address uuid"""
   id: String
+  _source: String
 }
 
 type core_apimessages_AddressVerifyResponse {
   """The verified address, null if no suggestion is found."""
   suggestion: core_apimessages_Address
   address: core_apimessages_Address
+  _source: String
 }
 
 enum core_apimessages_AdFormat {
@@ -1082,6 +1120,7 @@ type core_apimessages_AdGroup {
   targetedAdZones: [core_apimessages_AdGroupZone]
   targetedDevices: [String]
   targetedBrandSlugs: [String]
+  _source: String
 }
 
 enum core_apimessages_AdGroup_AdStatus {
@@ -1093,12 +1132,14 @@ enum core_apimessages_AdGroup_AdStatus {
 type core_apimessages_AdGroupKeyword {
   id: String
   keyword: String
+  _source: String
 }
 
 type core_apimessages_AdGroupsSearchRequest {
   offset: Int
   limit: Int
   adCampaignUuids: [String]
+  _source: String
 }
 
 type core_apimessages_AdGroupsSearchResponse {
@@ -1107,6 +1148,7 @@ type core_apimessages_AdGroupsSearchResponse {
   limit: Int
   total: Int
   adGroups: [AdGroup]
+  _source: String
 }
 
 type core_apimessages_AdGroupZone {
@@ -1114,32 +1156,38 @@ type core_apimessages_AdGroupZone {
   adZone: core_apimessages_AdZone
   startsAt: Timestamp
   endsAt: Timestamp
+  _source: String
 }
 
 type core_apimessages_AdLocalizedContent {
   locale: String
   imageAdCreative: core_apimessages_ImageAdCreative
+  _source: String
 }
 
 type core_apimessages_AdminBlockProductReviewRequest {
   productReviewId: String
+  _source: String
 }
 
 type core_apimessages_AdminBlockProductReviewResponse {
   """Blocked Product Review ID"""
   id: String
+  _source: String
 }
 
 type core_apimessages_AdminCuratedSetsCurateRequest {
   curatedSetSlug: String
   listingId: String
   featuredInSet: Boolean
+  _source: String
 }
 
 type core_apimessages_AdminCuratedSetsCurateResponse {
   curatedSetSlug: String
   listingId: String
   featuredInSet: Boolean
+  _source: String
 }
 
 type core_apimessages_AdminNote {
@@ -1153,6 +1201,7 @@ type core_apimessages_AdminNote {
   updatedAt: Timestamp
   lastEditedByName: String
   versions: [core_apimessages_AdminNoteVersion]
+  _source: String
 }
 
 type core_apimessages_AdminNoteCreateRequest {
@@ -1160,6 +1209,7 @@ type core_apimessages_AdminNoteCreateRequest {
   notableId: String
   body: String
   pinned: Boolean
+  _source: String
 }
 
 type core_apimessages_AdminNotesSearchRequest {
@@ -1172,6 +1222,7 @@ type core_apimessages_AdminNotesSearchRequest {
   linkableId: String
   linkableType: String
   ignorePinned: Boolean
+  _source: String
 }
 
 type core_apimessages_AdminNotesSearchResponse {
@@ -1179,12 +1230,14 @@ type core_apimessages_AdminNotesSearchResponse {
   offset: String
   limit: String
   adminNotes: [core_apimessages_AdminNote]
+  _source: String
 }
 
 type core_apimessages_AdminNoteUpdateRequest {
   id: String
   body: String
   pinned: Boolean
+  _source: String
 }
 
 type core_apimessages_AdminNoteVersion {
@@ -1192,6 +1245,7 @@ type core_apimessages_AdminNoteVersion {
   editedAt: Timestamp
   editedByName: String
   body: String
+  _source: String
 }
 
 type core_apimessages_AdminTax1099kReportingThresholdCreateRequest {
@@ -1199,6 +1253,7 @@ type core_apimessages_AdminTax1099kReportingThresholdCreateRequest {
   region: String
   salesAmountCents: String
   transactionCount: String
+  _source: String
 }
 
 type core_apimessages_AdminTax1099kReportingThresholdCreateResponse {
@@ -1207,14 +1262,17 @@ type core_apimessages_AdminTax1099kReportingThresholdCreateResponse {
   region: String
   salesAmountCents: String
   transactionCount: String
+  _source: String
 }
 
 type core_apimessages_AdminTax1099kReportingThresholdDeleteRequest {
   id: String
+  _source: String
 }
 
 type core_apimessages_AdminTax1099kReportingThresholdDeleteResponse {
   id: String
+  _source: String
 }
 
 type core_apimessages_AdminTax1099kReportingThresholdSearchRequest {
@@ -1222,6 +1280,7 @@ type core_apimessages_AdminTax1099kReportingThresholdSearchRequest {
   region: String
   offset: String
   limit: String
+  _source: String
 }
 
 type core_apimessages_AdminTax1099kReportingThresholdSearchResponse {
@@ -1229,6 +1288,7 @@ type core_apimessages_AdminTax1099kReportingThresholdSearchResponse {
   offset: String
   limit: String
   taxReportingThresholds: [core_apimessages_Tax1099kReportingThresholdSearchResult]
+  _source: String
 }
 
 type core_apimessages_AdminTax1099kReportingThresholdUpdateRequest {
@@ -1237,6 +1297,7 @@ type core_apimessages_AdminTax1099kReportingThresholdUpdateRequest {
   region: String
   salesAmountCents: String
   transactionCount: String
+  _source: String
 }
 
 type core_apimessages_AdminTax1099kReportingThresholdUpdateResponse {
@@ -1245,14 +1306,17 @@ type core_apimessages_AdminTax1099kReportingThresholdUpdateResponse {
   region: String
   salesAmountCents: String
   transactionCount: String
+  _source: String
 }
 
 type core_apimessages_AdminUserDatadogErrorsSearchRequest {
   userId: String
+  _source: String
 }
 
 type core_apimessages_AdminUserDatadogErrorsSearchResponse {
   datadogErrors: [core_apimessages_DatadogError]
+  _source: String
 }
 
 type core_apimessages_AdminUserSearchRequest {
@@ -1261,6 +1325,7 @@ type core_apimessages_AdminUserSearchRequest {
   userFilter: String
   page: String
   perPage: String
+  _source: String
 }
 
 enum core_apimessages_AdminUserSearchRequest_ActivatedFilter {
@@ -1274,15 +1339,18 @@ type core_apimessages_AdminUserSearchResponse {
   page: String
   perPage: String
   users: [core_apimessages_UserSearchResult]
+  _source: String
 }
 
 type core_apimessages_AdPlacement {
   format: core_apimessages_AdFormat
+  _source: String
 }
 
 type core_apimessages_AdPlacementRequest {
   adZones: [core_apimessages_AdZone]
   adTypes: [core_apimessages_AdType]
+  _source: String
 }
 
 type core_apimessages_AdPlacementResponse {
@@ -1290,6 +1358,7 @@ type core_apimessages_AdPlacementResponse {
   adZones: [core_apimessages_AdZone]
   candidates: [core_apimessages_Candidate]
   _id: ID
+  _source: String
 }
 
 type core_apimessages_AdServeRequest {
@@ -1297,17 +1366,20 @@ type core_apimessages_AdServeRequest {
   targeting: core_apimessages_TargetingContext
   placements: [core_apimessages_AdPlacementRequest]
   includeDrafts: Boolean
+  _source: String
 }
 
 type core_apimessages_AdServeResponse {
   ad: core_apimessages_Ad
   placements: [core_apimessages_AdPlacementResponse]
+  _source: String
 }
 
 type core_apimessages_AdsSearchRequest {
   offset: Int
   limit: Int
   adGroupUuids: [String]
+  _source: String
 }
 
 type core_apimessages_AdsSearchResponse {
@@ -1316,14 +1388,17 @@ type core_apimessages_AdsSearchResponse {
   limit: Int
   total: Int
   ads: [Ad]
+  _source: String
 }
 
 type core_apimessages_AdType {
   format: core_apimessages_AdFormat
+  _source: String
 }
 
 type core_apimessages_AdUserContext {
   mparticleProfileResponse: core_apimessages_MparticleProfileResponse
+  _source: String
 }
 
 type core_apimessages_Advertiser {
@@ -1331,11 +1406,13 @@ type core_apimessages_Advertiser {
   name: String
   brandSlugs: [String]
   shopSlugs: [String]
+  _source: String
 }
 
 type core_apimessages_AdvertisersSearchRequest {
   offset: Int
   limit: Int
+  _source: String
 }
 
 type core_apimessages_AdvertisersSearchResponse {
@@ -1344,6 +1421,7 @@ type core_apimessages_AdvertisersSearchResponse {
   limit: Int
   total: Int
   advertisers: [Advertiser]
+  _source: String
 }
 
 type core_apimessages_AdyenBalanceOnboardingResponse {
@@ -1351,22 +1429,26 @@ type core_apimessages_AdyenBalanceOnboardingResponse {
   legalEntityId: String
   balanceAccountId: String
   transferInstrumentId: String
+  _source: String
 }
 
 type core_apimessages_AdyenBalancePlatformNotification {
   id: String
   createdAt: Timestamp
   rawBody: String
+  _source: String
 }
 
 type core_apimessages_AdyenChallengeShopperResults {
   threeds2ChallengeResult: String
   paymentData: String
+  _source: String
 }
 
 type core_apimessages_AdyenCheckoutPaymentMethods {
   """JSON-encoded Adyen response to parse client-side"""
   adyenCheckoutPaymentMethodsConfig: String
+  _source: String
 }
 
 type core_apimessages_AdyenCreditCardEntry {
@@ -1384,11 +1466,13 @@ type core_apimessages_AdyenCreditCardEntry {
   needs to be passed separately as an unencrypted field.
   """
   cardholderName: String
+  _source: String
 }
 
 type core_apimessages_AdyenIdentifyShopperResults {
   threeds2FingerprintResult: String
   paymentData: String
+  _source: String
 }
 
 enum core_apimessages_AdyenLegalEntity {
@@ -1398,10 +1482,12 @@ enum core_apimessages_AdyenLegalEntity {
 
 type core_apimessages_AdyenOnboardingLinkRequest {
   redirectUrl: String
+  _source: String
 }
 
 type core_apimessages_AdyenOnboardingLinkResponse {
   url: String
+  _source: String
 }
 
 type core_apimessages_AdyenParentCompanyDetails {
@@ -1412,6 +1498,7 @@ type core_apimessages_AdyenParentCompanyDetails {
   registrationNumber: String
   countryCode: String
   companyCode: String
+  _source: String
 }
 
 type core_apimessages_AdyenPaymentResult {
@@ -1422,6 +1509,7 @@ type core_apimessages_AdyenPaymentResult {
   action: String
   threeDsOneRedirectUrl: String
   threeDsOneData: core_apimessages_ThreeDSOneData
+  _source: String
 }
 
 enum core_apimessages_AdyenPaymentResult_PaymentStatus {
@@ -1435,15 +1523,18 @@ enum core_apimessages_AdyenPaymentResult_PaymentStatus {
 type core_apimessages_AdyenPhoneNumber {
   phoneNumber: String
   countryCode: String
+  _source: String
 }
 
 type core_apimessages_AdyenThreeDSBillingMethodEntry {
   billingCardEntry: core_apimessages_BillingCreditCardEntry
   paymentData: String
+  _source: String
 }
 
 type core_apimessages_AdyenVerifyShopperResults {
   threeds2Result: String
+  _source: String
 }
 
 type core_apimessages_AdZone {
@@ -1452,6 +1543,7 @@ type core_apimessages_AdZone {
   name: String
   status: core_apimessages_AdZone_AdZoneStatus
   description: String
+  _source: String
 }
 
 enum core_apimessages_AdZone_AdZoneStatus {
@@ -1462,11 +1554,13 @@ enum core_apimessages_AdZone_AdZoneStatus {
 type core_apimessages_AdZonesSearchRequest {
   offset: Int
   limit: Int
+  _source: String
 }
 
 type core_apimessages_AdZonesSearchResponse {
   resultUuids: [String]
   adZones: [AdZone]
+  _source: String
 }
 
 type core_apimessages_AffirmFinancingPromotion {
@@ -1479,37 +1573,44 @@ type core_apimessages_AffirmFinancingPromotion {
   maxTermMonth: Int
   zeroPercentFinancing: Boolean
   links: core_apimessages_AffirmFinancingPromotionLinks
+  _source: String
 }
 
 type core_apimessages_AffirmFinancingPromotionLinks {
   curatedSet: core_apimessages_Link
+  _source: String
 }
 
 type core_apimessages_AffirmFinancingPromotionsRequest {
   """products.id"""
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_AffirmFinancingPromotionsResponse {
   affirmFinancingPromotions: [core_apimessages_AffirmFinancingPromotion]
+  _source: String
 }
 
 type core_apimessages_Alert {
   title: String
   description: String
   url: String
+  _source: String
 }
 
 type core_apimessages_ApplyCheckoutDiscountCodeRequest {
   """checkout UUID"""
   id: String
   discountCode: String
+  _source: String
 }
 
 type core_apimessages_ApplyCheckoutDiscountCodeResponse {
   """checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_Article {
@@ -1519,14 +1620,17 @@ type core_apimessages_Article {
   webLink: core_apimessages_Link
   articleCategories: [core_apimessages_ArticleCategory]
   slug: String
+  _source: String
 }
 
 type core_apimessages_ArticleCategories {
   categories: [core_apimessages_ArticleCategory]
+  _source: String
 }
 
 type core_apimessages_ArticleCategoriesResponse {
   articleCategories: core_apimessages_ArticleCategories
+  _source: String
 }
 
 type core_apimessages_ArticleCategory {
@@ -1534,16 +1638,19 @@ type core_apimessages_ArticleCategory {
   id: String
   name: String
   slug: String
+  _source: String
 }
 
 type core_apimessages_ArticlesRequest {
   """articles.id"""
   ids: [String]
   slugs: [String]
+  _source: String
 }
 
 type core_apimessages_ArticlesResponse {
   articles: [core_apimessages_Article]
+  _source: String
 }
 
 type core_apimessages_AutomatchingCanonicalProduct {
@@ -1554,6 +1661,7 @@ type core_apimessages_AutomatchingCanonicalProduct {
   upc: String
   brand: core_apimessages_Brand
   primaryImage: core_apimessages_Image
+  _source: String
 }
 
 type core_apimessages_AutoOffer {
@@ -1565,14 +1673,17 @@ type core_apimessages_AutoOffer {
   percentage: Int
   instantOffersEnabled: Boolean @deprecated
   shippingPriceOverride: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_AutoOffersRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_AutoOffersResponse {
   autoOffers: [core_apimessages_AutoOffer]
+  _source: String
 }
 
 type core_apimessages_AvailableAction {
@@ -1581,15 +1692,18 @@ type core_apimessages_AvailableAction {
   """Same value as name, but calling it id helps with frontend apollo cache"""
   id: core_apimessages_UserActionName
   status: core_apimessages_UserActionStatus
+  _source: String
 }
 
 type core_apimessages_AvailableForPickupSignal {
   translations: core_apimessages_SignalTranslation
   isValid: Boolean
+  _source: String
 }
 
 type core_apimessages_AvailableNearbyForPickupSignal {
   translations: core_apimessages_SignalTranslation
+  _source: String
 }
 
 type core_apimessages_BankDetails {
@@ -1599,10 +1713,12 @@ type core_apimessages_BankDetails {
   ukBankDetails: core_apimessages_UKBankDetails
   address: core_apimessages_KYCAddress
   bankCountryCode: String
+  _source: String
 }
 
 type core_apimessages_BearerV2TokenRequest {
   client: core_apimessages_BearerV2TokenRequest_Client
+  _source: String
 }
 
 enum core_apimessages_BearerV2TokenRequest_Client {
@@ -1612,6 +1728,7 @@ enum core_apimessages_BearerV2TokenRequest_Client {
 
 type core_apimessages_BearerV2TokenResponse {
   token: String
+  _source: String
 }
 
 type core_apimessages_BillingCreditCardEntry {
@@ -1626,11 +1743,13 @@ type core_apimessages_BillingCreditCardEntry {
   adyenToken: String
   adyenCreditCard: core_apimessages_AdyenCreditCardEntry
   address: core_apimessages_AddressEntry
+  _source: String
 }
 
 type core_apimessages_BillingMethodChallengeShopperRequest {
   results: core_apimessages_AdyenChallengeShopperResults
   billingMethodUuid: String
+  _source: String
 }
 
 type core_apimessages_BillingMethodChallengeShopperResponse {
@@ -1639,11 +1758,13 @@ type core_apimessages_BillingMethodChallengeShopperResponse {
   adyenPaymentResult: core_apimessages_AdyenPaymentResult
   billingMethodUuid: String
   me: rql_Me
+  _source: String
 }
 
 type core_apimessages_BillingMethodIdentifyShopperRequest {
   results: core_apimessages_AdyenIdentifyShopperResults
   billingMethodUuid: String
+  _source: String
 }
 
 type core_apimessages_BillingMethodIdentifyShopperResponse {
@@ -1652,6 +1773,7 @@ type core_apimessages_BillingMethodIdentifyShopperResponse {
   adyenPaymentResult: core_apimessages_AdyenPaymentResult
   billingMethodUuid: String
   me: rql_Me
+  _source: String
 }
 
 type core_apimessages_BillingMethodVerifyShopperRequest {
@@ -1662,6 +1784,7 @@ type core_apimessages_BillingMethodVerifyShopperRequest {
   optional, to indicate that a new card is being added specifically for a partial payment
   """
   partialPayment: Boolean
+  _source: String
 }
 
 type core_apimessages_BillingMethodVerifyShopperResponse {
@@ -1670,6 +1793,7 @@ type core_apimessages_BillingMethodVerifyShopperResponse {
   adyenPaymentResult: core_apimessages_AdyenPaymentResult
   billingMethodUuid: String
   me: rql_Me
+  _source: String
 }
 
 type core_apimessages_Brand {
@@ -1679,14 +1803,17 @@ type core_apimessages_Brand {
   webLink: core_apimessages_Link
   slug: String
   uuid: String
+  _source: String
 }
 
 type core_apimessages_BrandManagerBrandRequest {
   slug: String
+  _source: String
 }
 
 type core_apimessages_BrandManagerBrandResponse {
   brand: core_apimessages_Brand
+  _source: String
 }
 
 type core_apimessages_BrandManagerBrandsRequest {
@@ -1694,21 +1821,25 @@ type core_apimessages_BrandManagerBrandsRequest {
   offset: Int
   limit: Int
   uuids: [String]
+  _source: String
 }
 
 type core_apimessages_BrandManagerBrandsResponse {
   brandManagerBrands: [core_apimessages_Brand]
   offset: Int
   limit: Int
+  _source: String
 }
 
 type core_apimessages_BrandsRequest {
   uuids: [String]
   slugs: [String]
+  _source: String
 }
 
 type core_apimessages_BrandsResponse {
   brands: [core_apimessages_Brand]
+  _source: String
 }
 
 type core_apimessages_BrowsePage {
@@ -1718,11 +1849,13 @@ type core_apimessages_BrowsePage {
   breadcrumbs: [core_apimessages_BrowsePageBreadcrumb]
   combinedFilters: String
   ownFilters: String
+  _source: String
 }
 
 type core_apimessages_BrowsePageBreadcrumb {
   title: String
   url: String
+  _source: String
 }
 
 type core_apimessages_BrowsePageLink {
@@ -1730,11 +1863,13 @@ type core_apimessages_BrowsePageLink {
   matchType: core_apimessages_BrowsePageLink_MatchType
   matchParams: [core_apimessages_BrowsePageLink_MatchParams]
   combinedFilters: String
+  _source: String
 }
 
 type core_apimessages_BrowsePageLink_MatchParams {
   paramName: String
   value: String
+  _source: String
 }
 
 enum core_apimessages_BrowsePageLink_MatchType {
@@ -1747,19 +1882,23 @@ enum core_apimessages_BrowsePageLink_MatchType {
 
 type core_apimessages_BrowsePageLinksRequest {
   id: String
+  _source: String
 }
 
 type core_apimessages_BrowsePageLinksResponse {
   browsePageLinks: [core_apimessages_BrowsePageLink]
+  _source: String
 }
 
 type core_apimessages_BulkAddressesRequest {
   queries: [core_apimessages_BulkAddressesRequest_Query]
+  _source: String
 }
 
 type core_apimessages_BulkAddressesRequest_Query {
   relation: core_apimessages_BulkAddressesRequest_Relation
   primaryKey: core_apimessages_PrimaryKey
+  _source: String
 }
 
 enum core_apimessages_BulkAddressesRequest_Relation {
@@ -1781,18 +1920,22 @@ enum core_apimessages_BulkAddressesRequest_Relation {
 
 type core_apimessages_BulkAddressesResponse {
   results: [core_apimessages_BulkAddressesResponse_QueryResult]
+  _source: String
 }
 
 type core_apimessages_BulkAddressesResponse_QueryResult {
   addresses: [core_apimessages_Address]
+  _source: String
 }
 
 type core_apimessages_BulkCategoriesRequest {
   requests: [core_apimessages_CategoryRequest]
+  _source: String
 }
 
 type core_apimessages_BulkCategoriesResponse {
   responses: [core_apimessages_CategoriesResponse]
+  _source: String
 }
 
 type core_apimessages_BulkCreateAutoOffersAsyncRequest {
@@ -1801,11 +1944,13 @@ type core_apimessages_BulkCreateAutoOffersAsyncRequest {
   """Serialized JSON of dashboard listing search params"""
   serializedDashboardSearchParams: String
   expectedTotal: Int
+  _source: String
 }
 
 type core_apimessages_BulkCreateAutoOffersRequest {
   listingIds: [String]
   percentage: Int
+  _source: String
 }
 
 type core_apimessages_BulkCreateBumpedAsyncRequest {
@@ -1814,31 +1959,37 @@ type core_apimessages_BulkCreateBumpedAsyncRequest {
   """Serialized JSON of dashboard listing search params"""
   serializedDashboardSearchParams: String
   expectedTotal: Int
+  _source: String
 }
 
 type core_apimessages_BulkCreateBumpedRequest {
   listingIds: [String]
   rate: Float
+  _source: String
 }
 
 type core_apimessages_BulkCreateZeroPercentAffirmAsyncRequest {
   """Serialized JSON of dashboard listing search params"""
   serializedDashboardSearchParams: String
   expectedTotal: Int
+  _source: String
 }
 
 type core_apimessages_BulkCreateZeroPercentAffirmRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_BulkCuratedSetsRequest {
   queries: [core_apimessages_BulkCuratedSetsRequest_Query]
+  _source: String
 }
 
 type core_apimessages_BulkCuratedSetsRequest_Query {
   relation: core_apimessages_BulkCuratedSetsRequest_Relation
   primaryKey: core_apimessages_PrimaryKey
   setTypes: [core_apimessages_CuratedSet_SetType]
+  _source: String
 }
 
 enum core_apimessages_BulkCuratedSetsRequest_Relation {
@@ -1848,60 +1999,72 @@ enum core_apimessages_BulkCuratedSetsRequest_Relation {
 
 type core_apimessages_BulkCuratedSetsResponse {
   results: [core_apimessages_BulkCuratedSetsResponse_QueryResult]
+  _source: String
 }
 
 type core_apimessages_BulkCuratedSetsResponse_QueryResult {
   curatedSets: [core_apimessages_CuratedSet]
+  _source: String
 }
 
 type core_apimessages_BulkDeleteAutoOffersAsyncRequest {
   """Serialized JSON of dashboard listing search params"""
   serializedDashboardSearchParams: String
   expectedTotal: Int
+  _source: String
 }
 
 type core_apimessages_BulkDeleteAutoOffersRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_BulkDeleteBumpedAsyncRequest {
   """Serialized JSON of dashboard listing search params"""
   serializedDashboardSearchParams: String
   expectedTotal: Int
+  _source: String
 }
 
 type core_apimessages_BulkDeleteBumpedRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_BulkDeleteListingsAsyncRequest {
   """Serialized JSON of dashboard listing search params"""
   serializedDashboardSearchParams: String
   expectedTotal: Int
+  _source: String
 }
 
 type core_apimessages_BulkDeleteListingsRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_BulkDeleteListingsResponse {
   listings: [core_apimessages_BulkDeleteListingsResponse_ListingDeleted]
+  _source: String
 }
 
 type core_apimessages_BulkDeleteListingsResponse_ListingDeleted {
   listingId: String
   success: Boolean
   deleteErrors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_BulkDeleteZeroPercentAffirmAsyncRequest {
   """Serialized JSON of dashboard listing search params"""
   serializedDashboardSearchParams: String
   expectedTotal: Int
+  _source: String
 }
 
 type core_apimessages_BulkDeleteZeroPercentAffirmRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_BulkExportListingsRequest {
@@ -1909,6 +2072,7 @@ type core_apimessages_BulkExportListingsRequest {
   state: core_apimessages_BulkExportListingsRequest_ListingState
   serializedDashboardSearchParams: String
   recipientId: String
+  _source: String
 }
 
 enum core_apimessages_BulkExportListingsRequest_ListingState {
@@ -1925,14 +2089,17 @@ enum core_apimessages_BulkExportListingsRequest_ListingState {
 type core_apimessages_BulkExportListingsResponse {
   enqueued: Boolean
   message: String
+  _source: String
 }
 
 type core_apimessages_BulkImageRequest {
   requests: [core_apimessages_ImageRequest]
+  _source: String
 }
 
 type core_apimessages_BulkOrdersRequest {
   queries: [core_apimessages_BulkOrdersRequest_Query]
+  _source: String
 }
 
 enum core_apimessages_BulkOrdersRequest_Party {
@@ -1944,6 +2111,7 @@ type core_apimessages_BulkOrdersRequest_Query {
   relation: core_apimessages_BulkOrdersRequest_Relation
   primaryKey: core_apimessages_PrimaryKey
   as: core_apimessages_BulkOrdersRequest_Party
+  _source: String
 }
 
 enum core_apimessages_BulkOrdersRequest_Relation {
@@ -1961,53 +2129,64 @@ enum core_apimessages_BulkOrdersRequest_Relation {
 
 type core_apimessages_BulkOrdersResponse {
   results: [core_apimessages_BulkOrdersResponse_QueryResult]
+  _source: String
 }
 
 type core_apimessages_BulkOrdersResponse_QueryResult {
   orders: [core_apimessages_Order]
+  _source: String
 }
 
 type core_apimessages_BulkPublishListingsAsyncRequest {
   """Serialized JSON of dashboard listing search params"""
   serializedDashboardSearchParams: String
   expectedTotal: Int
+  _source: String
 }
 
 type core_apimessages_BulkPublishListingsRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_BulkPublishListingsResponse {
   listings: [core_apimessages_BulkPublishListingsResponse_ListingPublished]
   prepublishStepRequired: core_apimessages_BulkPublishListingsResponse_PrepublishStepRequired
+  _source: String
 }
 
 type core_apimessages_BulkPublishListingsResponse_ListingPublished {
   listingId: String
   success: Boolean
   publishErrors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_BulkPublishListingsResponse_PrepublishStepRequired {
   step: String
+  _source: String
 }
 
 type core_apimessages_BulkSaleMembershipsRequest {
   listingIds: [String]
   saleId: String
+  _source: String
 }
 
 type core_apimessages_BulkTaxPoliciesRequest {
   requests: [core_apimessages_TaxPoliciesRequest]
+  _source: String
 }
 
 type core_apimessages_BulkTaxPoliciesResponse {
   shops: [core_apimessages_ShopTaxPolicies]
+  _source: String
 }
 
 """this is the encoded bump key sent as a response"""
 type core_apimessages_BumpKey {
   key: String
+  _source: String
 }
 
 """this is the shape of the bumpKey before it gets encoded"""
@@ -2022,6 +2201,7 @@ type core_apimessages_BumpKeyContents {
   cookieId: String
   productId: String
   source: core_apimessages_BumpKeyContents_OffsiteSource
+  _source: String
 }
 
 enum core_apimessages_BumpKeyContents_OffsiteSource {
@@ -2031,25 +2211,30 @@ enum core_apimessages_BumpKeyContents_OffsiteSource {
 
 type core_apimessages_BumpKeysRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_BumpKeysResponse {
   bumpKeys: [core_apimessages_BumpKey]
+  _source: String
 }
 
 type core_apimessages_BumpRate {
   rate: Float
+  _source: String
 }
 
 type core_apimessages_BusinessRegistrationNumber {
   registrationNumber: String
   countryCode: String
   id: String
+  _source: String
 }
 
 type core_apimessages_BuyerActions {
   canBeResold: Boolean
   canMarkReceived: Boolean
+  _source: String
 }
 
 type core_apimessages_BuyerOrder {
@@ -2063,30 +2248,36 @@ type core_apimessages_BuyerOrder {
   amountTotal: core_apimessages_Money
   amountTax: core_apimessages_Money
   amountShipping: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_BuyerOrdersResponse {
   orders: [core_apimessages_BuyerOrder]
+  _source: String
 }
 
 type core_apimessages_BuyerRefund {
   id: String
   nonBucksRefundAmount: core_apimessages_ConvertedMoney
   reverbBucksAmountRefunded: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_BuyerRefundsRequest {
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_BuyerRefundsResponse {
   buyerRefunds: [core_apimessages_BuyerRefund]
+  _source: String
 }
 
 type core_apimessages_BuyWithConfidenceSignal {
   isValid: Boolean
   translations: core_apimessages_SignalTranslation
   link: core_apimessages_SignalLink
+  _source: String
 }
 
 type core_apimessages_CancelOrderRequest {
@@ -2094,6 +2285,7 @@ type core_apimessages_CancelOrderRequest {
   id: String
   cancellationReason: core_apimessages_CancelOrderRequest_CancellationReason
   relist: Boolean
+  _source: String
 }
 
 enum core_apimessages_CancelOrderRequest_CancellationReason {
@@ -2106,20 +2298,24 @@ enum core_apimessages_CancelOrderRequest_CancellationReason {
 type core_apimessages_CancelOrderResponse {
   order: core_apimessages_Order
   relisted: Boolean
+  _source: String
 }
 
 type core_apimessages_CancelPlaidAccountRequest {
   _: Boolean
+  _source: String
 }
 
 type core_apimessages_CancelPlaidAccountResponse {
   shopId: String
+  _source: String
 }
 
 type core_apimessages_Candidate {
   adGroup: core_apimessages_AdGroup
   matches: [String]
   weight: Int
+  _source: String
 }
 
 type core_apimessages_CanonicalProduct {
@@ -2129,6 +2325,7 @@ type core_apimessages_CanonicalProduct {
   year: String
   finish: String
   countryOfOrigin: String
+  _source: String
 }
 
 type core_apimessages_CarrierRate {
@@ -2144,12 +2341,14 @@ type core_apimessages_CarrierRate {
   totalAmount: core_apimessages_Money
   signatureRequiredAmount: core_apimessages_Money
   expeditedOrFaster: Boolean
+  _source: String
 }
 
 type core_apimessages_CarrierRateGroup {
   displayPosition: Int
   carrier: String
   rates: [core_apimessages_CarrierRate]
+  _source: String
 }
 
 type core_apimessages_CartItem {
@@ -2171,18 +2370,21 @@ type core_apimessages_CartItem {
   _id: ID
   listing: Listing
   order: Order
+  _source: String
 }
 
 type core_apimessages_CartItem_Actions {
   canChangeQuantity: Boolean
   canRemoveFromCart: Boolean
   canMoveToWatchlist: Boolean
+  _source: String
 }
 
 type core_apimessages_CartItem_Alert {
   type: core_apimessages_CartItem_Alert_Type
   text: String
   severity: core_apimessages_CartItem_Alert_Severity
+  _source: String
 }
 
 enum core_apimessages_CartItem_Alert_Severity {
@@ -2208,11 +2410,13 @@ type core_apimessages_CartItem_ListingTotal {
 
   """Original unit amount before offer pricing or sales were applied."""
   originalUnitPrice: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_CartItem_ListingTotal_Discount {
   type: core_apimessages_CartItem_ListingTotal_Discount_Type
   label: String
+  _source: String
 }
 
 enum core_apimessages_CartItem_ListingTotal_Discount_Type {
@@ -2223,6 +2427,7 @@ enum core_apimessages_CartItem_ListingTotal_Discount_Type {
 type core_apimessages_CartItem_PaymentMethod {
   type: core_apimessages_CheckoutPaymentMethod_Type
   links: core_apimessages_CartLinks
+  _source: String
 }
 
 type core_apimessages_CartItem_ShippingTotal {
@@ -2235,11 +2440,13 @@ type core_apimessages_CartItem_ShippingTotal {
   """True if amount owed is less than original amount owed."""
   discounted: Boolean
   discount: core_apimessages_CartItem_ShippingTotal_Discount
+  _source: String
 }
 
 type core_apimessages_CartItem_ShippingTotal_Discount {
   type: core_apimessages_CartItem_ShippingTotal_Discount_Type
   label: String
+  _source: String
 }
 
 enum core_apimessages_CartItem_ShippingTotal_Discount_Type {
@@ -2256,6 +2463,7 @@ type core_apimessages_CartItemAttributes {
   upsell: Boolean
   uuid: String
   saleId: Int
+  _source: String
 }
 
 type core_apimessages_CartItemBundle {
@@ -2269,6 +2477,7 @@ type core_apimessages_CartItemBundle {
   total: core_apimessages_CartItemBundle_Total
   title: String
   combineAndSaveEligibleListing: Listing
+  _source: String
 }
 
 type core_apimessages_CartItemBundle_FreeShippingStatus {
@@ -2279,12 +2488,14 @@ type core_apimessages_CartItemBundle_FreeShippingStatus {
   isThresholdMet: Boolean
   amountRemaining: core_apimessages_Money
   shop: Shop
+  _source: String
 }
 
 type core_apimessages_CartItemBundle_LineItem {
   type: core_apimessages_CartItemBundle_LineItem_Type
   label: String
   amount: core_apimessages_Money
+  _source: String
 }
 
 enum core_apimessages_CartItemBundle_LineItem_Type {
@@ -2300,26 +2511,31 @@ type core_apimessages_CartItemBundle_PaymentMethod {
   googlePay: core_apimessages_CheckoutGooglePayDetails
   affirm: core_apimessages_CheckoutAffirmDetails
   paypal: core_apimessages_CheckoutPaypalDetails
+  _source: String
 }
 
 type core_apimessages_CartItemBundle_Total {
   amount: core_apimessages_Money
   label: String
+  _source: String
 }
 
 type core_apimessages_CartLinks {
   web: core_apimessages_Link
   restIndividual: core_apimessages_Link
   restBundle: core_apimessages_Link
+  _source: String
 }
 
 type core_apimessages_CartMoveToWatchListRequest {
   cartItemUuid: String
+  _source: String
 }
 
 type core_apimessages_CartMoveToWatchListResponse {
   """Listing ID for the watched product"""
   listingId: String
+  _source: String
 }
 
 type core_apimessages_CategoriesRequest {
@@ -2329,10 +2545,12 @@ type core_apimessages_CategoriesRequest {
   withParent: Boolean
   uuids: [String]
   slugs: [String]
+  _source: String
 }
 
 type core_apimessages_CategoriesResponse {
   categories: [core_apimessages_Category]
+  _source: String
 }
 
 type core_apimessages_Category {
@@ -2348,6 +2566,7 @@ type core_apimessages_Category {
   cmsUrl: core_apimessages_Link
   root: Boolean
   leaf: Boolean
+  _source: String
 }
 
 type core_apimessages_CategoryRequest {
@@ -2358,6 +2577,7 @@ type core_apimessages_CategoryRequest {
   uuid: String
   slug: String
   type: core_apimessages_CategoryRequest_CategoryType
+  _source: String
 }
 
 enum core_apimessages_CategoryRequest_CategoryType {
@@ -2383,6 +2603,7 @@ type core_apimessages_ChannelBranding {
   """for seller sites to identify which shop this came from"""
   shopIdentifier: String
   abandonUrl: String
+  _source: String
 }
 
 type core_apimessages_Checkout {
@@ -2414,6 +2635,7 @@ type core_apimessages_Checkout {
   Amount owed. Use this field to send the displayed amount owed value to a finalize checkout
   """
   total: core_apimessages_Checkout_Total
+  _source: String
 }
 
 enum core_apimessages_Checkout_Source {
@@ -2472,6 +2694,7 @@ enum core_apimessages_Checkout_Status {
 type core_apimessages_Checkout_Total {
   amount: core_apimessages_Money
   label: String
+  _source: String
 }
 
 enum core_apimessages_Checkout_Type {
@@ -2482,6 +2705,7 @@ enum core_apimessages_Checkout_Type {
 type core_apimessages_CheckoutAction {
   type: core_apimessages_CheckoutAction_Type
   redirectUrl: String
+  _source: String
 }
 
 enum core_apimessages_CheckoutAction_Type {
@@ -2500,14 +2724,17 @@ type core_apimessages_CheckoutActionRequest {
   Native app URL param. Corresponds to _reverb_app query param needed for internal navigation.
   """
   reverbApp: String
+  _source: String
 }
 
 type core_apimessages_CheckoutActionResponse {
   action: core_apimessages_CheckoutAction
+  _source: String
 }
 
 type core_apimessages_CheckoutAffirmDetails {
   financingProgramSlug: String
+  _source: String
 }
 
 type core_apimessages_CheckoutApplePayDetails {
@@ -2519,14 +2746,17 @@ type core_apimessages_CheckoutApplePayDetails {
 
   """Brand types provided by Adyen such as visa, mc, jcb"""
   brands: [String]
+  _source: String
 }
 
 type core_apimessages_CheckoutApplePayDetailsRequest {
   currency: String
+  _source: String
 }
 
 type core_apimessages_CheckoutApplePayDetailsResponse {
   details: core_apimessages_CheckoutApplePayDetails
+  _source: String
 }
 
 type core_apimessages_CheckoutCartEditRequest {
@@ -2536,6 +2766,7 @@ type core_apimessages_CheckoutCartEditRequest {
   Adds a listing by the given quantity if 1 or greater. Removes the listing from the user's cart if zero.
   """
   quantity: Int
+  _source: String
 }
 
 type core_apimessages_CheckoutCartEditResponse {
@@ -2543,6 +2774,7 @@ type core_apimessages_CheckoutCartEditResponse {
 
   """If an item was not removed, returns the added item"""
   cartItem: core_apimessages_CartItem
+  _source: String
 }
 
 type core_apimessages_CheckoutChallengeShopperRequest {
@@ -2551,6 +2783,7 @@ type core_apimessages_CheckoutChallengeShopperRequest {
   totalPrice: core_apimessages_Money
   results: core_apimessages_AdyenChallengeShopperResults
   channelBrandingToken: String
+  _source: String
 }
 
 type core_apimessages_CheckoutChallengeShopperResponse {
@@ -2559,12 +2792,14 @@ type core_apimessages_CheckoutChallengeShopperResponse {
   orderBundleId: String
   checkoutId: String
   paymentResultUrl: String
+  _source: String
 }
 
 type core_apimessages_CheckoutCreatePaymentRedirectUrlRequest {
   """Checkout UUID"""
   id: String
   reverbApp: String
+  _source: String
 }
 
 type core_apimessages_CheckoutCreatePaymentRedirectUrlResponse {
@@ -2574,6 +2809,7 @@ type core_apimessages_CheckoutCreatePaymentRedirectUrlResponse {
   """Redirect url for payment method"""
   redirectUrl: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_CheckoutFinalizeDigitalWalletPaymentRequest {
@@ -2584,6 +2820,7 @@ type core_apimessages_CheckoutFinalizeDigitalWalletPaymentRequest {
   shippingAddress: core_apimessages_AddressEntry
   guestUser: core_apimessages_GuestCheckoutUserEntry
   resultConfirmation: core_apimessages_CheckoutFinalizeDigitalWalletPaymentRequest_ResultConfirmation
+  _source: String
 }
 
 enum core_apimessages_CheckoutFinalizeDigitalWalletPaymentRequest_ResultConfirmation {
@@ -2602,6 +2839,7 @@ type core_apimessages_CheckoutFinalizeDigitalWalletPaymentResponse {
   """Checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_CheckoutFinalizeRedirectPaymentCheckoutRequest {
@@ -2610,12 +2848,14 @@ type core_apimessages_CheckoutFinalizeRedirectPaymentCheckoutRequest {
   redirectResult: String
   merchantReference: String
   displayedAmountOwedCents: String
+  _source: String
 }
 
 type core_apimessages_CheckoutFinalizeRedirectPaymentCheckoutResponse {
   """Checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_CheckoutGooglePayDetails {
@@ -2630,6 +2870,7 @@ type core_apimessages_CheckoutGooglePayDetails {
 
   """Card networks supported by both Reverb and Google Pay"""
   cardNetworks: [core_apimessages_CheckoutGooglePayDetails_CardNetwork]
+  _source: String
 }
 
 enum core_apimessages_CheckoutGooglePayDetails_CardNetwork {
@@ -2644,6 +2885,7 @@ type core_apimessages_CheckoutGuest {
   lastName: String
   email: String
   isComplete: Boolean
+  _source: String
 }
 
 type core_apimessages_CheckoutIdentifyShopperRequest {
@@ -2652,6 +2894,7 @@ type core_apimessages_CheckoutIdentifyShopperRequest {
   totalPrice: core_apimessages_Money
   results: core_apimessages_AdyenIdentifyShopperResults
   channelBrandingToken: String
+  _source: String
 }
 
 type core_apimessages_CheckoutIdentifyShopperResponse {
@@ -2660,12 +2903,14 @@ type core_apimessages_CheckoutIdentifyShopperResponse {
   orderBundleId: String
   checkoutId: String
   paymentResultUrl: String
+  _source: String
 }
 
 type core_apimessages_CheckoutLineItem {
   type: core_apimessages_CheckoutLineItem_Type
   label: String
   amount: core_apimessages_Money
+  _source: String
 }
 
 enum core_apimessages_CheckoutLineItem_Type {
@@ -2693,11 +2938,13 @@ type core_apimessages_CheckoutOrder {
   notes: [core_apimessages_CheckoutOrder_Note]
   protectionPlan: core_apimessages_ProtectionPlan
   listing: Listing
+  _source: String
 }
 
 type core_apimessages_CheckoutOrder_Note {
   text: String
   severity: core_apimessages_CheckoutOrder_Note_Severity
+  _source: String
 }
 
 enum core_apimessages_CheckoutOrder_Note_Severity {
@@ -2715,11 +2962,13 @@ type core_apimessages_CheckoutOrder_ShippingTotal {
   """True if amount owed is less than original amount owed."""
   discounted: Boolean
   discount: core_apimessages_CheckoutOrder_ShippingTotalDiscount
+  _source: String
 }
 
 type core_apimessages_CheckoutOrder_ShippingTotalDiscount {
   type: core_apimessages_CheckoutOrder_ShippingTotalDiscount_Type
   label: String
+  _source: String
 }
 
 enum core_apimessages_CheckoutOrder_ShippingTotalDiscount_Type {
@@ -2737,11 +2986,13 @@ type core_apimessages_CheckoutOrder_Subtotal {
   """True if order listing price is less than original listing price."""
   discounted: Boolean
   discount: core_apimessages_CheckoutOrder_SubtotalDiscount
+  _source: String
 }
 
 type core_apimessages_CheckoutOrder_SubtotalDiscount {
   type: core_apimessages_CheckoutOrder_SubtotalDiscount_Type
   label: String
+  _source: String
 }
 
 enum core_apimessages_CheckoutOrder_SubtotalDiscount_Type {
@@ -2761,6 +3012,7 @@ type core_apimessages_CheckoutPaymentMethod {
   affirm: core_apimessages_CheckoutAffirmDetails
   googlePay: core_apimessages_CheckoutGooglePayDetails
   paypal: core_apimessages_CheckoutPaypalDetails
+  _source: String
 }
 
 enum core_apimessages_CheckoutPaymentMethod_Type {
@@ -2786,6 +3038,7 @@ type core_apimessages_CheckoutPaymentResponse {
   orderBundleId: String
   checkoutId: String
   paymentResultUrl: String
+  _source: String
 }
 
 type core_apimessages_CheckoutPaypalDetails {
@@ -2793,21 +3046,25 @@ type core_apimessages_CheckoutPaypalDetails {
   currency: String
   clientId: String
   merchantId: String
+  _source: String
 }
 
 type core_apimessages_CheckoutSelectOrderShippingMethodRequest {
   id: String
   order: core_apimessages_CheckoutSelectOrderShippingMethodRequest_OrderEntry
+  _source: String
 }
 
 type core_apimessages_CheckoutSelectOrderShippingMethodRequest_OrderEntry {
   listingId: String
   shippingMethodType: core_apimessages_ShippingMethod
+  _source: String
 }
 
 type core_apimessages_CheckoutSelectOrderShippingMethodResponse {
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_CheckoutSelectShippingAddressRequest {
@@ -2816,12 +3073,14 @@ type core_apimessages_CheckoutSelectShippingAddressRequest {
 
   """addresses.uuid"""
   shippingAddressId: String
+  _source: String
 }
 
 type core_apimessages_CheckoutSelectShippingAddressResponse {
   """Checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_CheckoutShippingMethod {
@@ -2829,29 +3088,35 @@ type core_apimessages_CheckoutShippingMethod {
   name: String
   description: String
   amount: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_CheckoutShowRequest {
   """Checkout UUID"""
   id: String
+  _source: String
 }
 
 type core_apimessages_CheckoutShowResponse {
   checkout: core_apimessages_Checkout
+  _source: String
 }
 
 type core_apimessages_CheckoutUpdateOrderQuantityRequest {
   id: String
   order: core_apimessages_CheckoutUpdateOrderQuantityRequest_OrderEntry
+  _source: String
 }
 
 type core_apimessages_CheckoutUpdateOrderQuantityRequest_OrderEntry {
   listingId: String
   quantity: Int
+  _source: String
 }
 
 type core_apimessages_CheckoutUpdateOrderQuantityResponse {
   id: String
+  _source: String
 }
 
 type core_apimessages_CheckoutUpdateShippingAddressRequest {
@@ -2861,22 +3126,26 @@ type core_apimessages_CheckoutUpdateShippingAddressRequest {
 
   """Information required only for guest checkout."""
   guest: core_apimessages_GuestCheckoutUserEntry
+  _source: String
 }
 
 type core_apimessages_CheckoutUpdateShippingAddressResponse {
   """Checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_CheckoutUpdateShippingEstimateRequest {
   id: String
   shippingAddress: core_apimessages_AddressEntry
+  _source: String
 }
 
 type core_apimessages_CheckoutUpdateShippingEstimateResponse {
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_CheckoutVerifyShopperRequest {
@@ -2884,6 +3153,7 @@ type core_apimessages_CheckoutVerifyShopperRequest {
   checkoutId: String
   totalPrice: core_apimessages_Money
   results: core_apimessages_AdyenVerifyShopperResults
+  _source: String
 }
 
 type core_apimessages_CheckoutVerifyShopperResponse {
@@ -2892,6 +3162,7 @@ type core_apimessages_CheckoutVerifyShopperResponse {
   orderBundleId: String
   checkoutId: String
   paymentResultUrl: String
+  _source: String
 }
 
 type core_apimessages_CollectionHeader {
@@ -2902,6 +3173,7 @@ type core_apimessages_CollectionHeader {
   metaDescription: String
   collectionType: core_apimessages_CollectionHeader_CollectionType
   collectionId: String
+  _source: String
 }
 
 enum core_apimessages_CollectionHeader_CollectionType {
@@ -2917,10 +3189,12 @@ type core_apimessages_CollectionHeaderRequest {
 
   """for category, `productType:category` compound key"""
   collectionSlug: String
+  _source: String
 }
 
 type core_apimessages_CollectionHeaderResponse {
   collectionHeader: core_apimessages_CollectionHeader
+  _source: String
 }
 
 type core_apimessages_CompanyInformation {
@@ -2929,14 +3203,17 @@ type core_apimessages_CompanyInformation {
   phoneNumber: String
   registrationNumber: String
   parentCompanyDetails: core_apimessages_AdyenParentCompanyDetails
+  _source: String
 }
 
 type core_apimessages_CompleteExpressSaleCheckoutRequest {
   checkoutId: String
+  _source: String
 }
 
 type core_apimessages_CompleteExpressSaleCheckoutResponse {
   orderId: String
+  _source: String
 }
 
 type core_apimessages_Condition {
@@ -2944,11 +3221,13 @@ type core_apimessages_Condition {
   displayName: String
   conditionSlug: String
   description: String
+  _source: String
 }
 
 type core_apimessages_ContentSponsorship {
   sponsorshipType: core_apimessages_ContentSponsorship_SponsorshipType
   partnershipName: String
+  _source: String
 }
 
 enum core_apimessages_ContentSponsorship_SponsorshipType {
@@ -2959,24 +3238,29 @@ enum core_apimessages_ContentSponsorship_SponsorshipType {
 type core_apimessages_ConversationFlagMessageRequest {
   messageId: String
   reasonType: core_apimessages_ConversationMessageFlag_Reason_Type
+  _source: String
 }
 
 type core_apimessages_ConversationFlagMessageResponse {
   """Created Message Flag ID"""
   id: String
+  _source: String
 }
 
 type core_apimessages_ConversationMessage {
   id: String
   conversationId: String
+  _source: String
 }
 
 type core_apimessages_ConversationMessageFlag {
   id: String
+  _source: String
 }
 
 type core_apimessages_ConversationMessageFlag_Reason {
   _: Boolean
+  _source: String
 }
 
 enum core_apimessages_ConversationMessageFlag_Reason_Type {
@@ -2988,24 +3272,29 @@ enum core_apimessages_ConversationMessageFlag_Reason_Type {
 type core_apimessages_ConvertedMoney {
   original: core_apimessages_Money
   display: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_ConvertShopTypeRequest {
   bankDetails: core_apimessages_BankDetails
   personalInformation: [core_apimessages_PersonalInformation]
   companyInformation: core_apimessages_CompanyInformation
+  _source: String
 }
 
 type core_apimessages_ConvertShopTypeResponse {
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_CopyAdGroupRequest {
   adGroupUuid: String
+  _source: String
 }
 
 type core_apimessages_CopyAdGroupResponse {
   adGroup: core_apimessages_AdGroup
+  _source: String
 }
 
 type core_apimessages_Core {
@@ -3367,10 +3656,12 @@ type core_apimessages_Core {
   UpdateUserShopPermission(input: Input_core_apimessages_UpdateUserShopPermissionRequest): core_apimessages_CreateOrUpdateUserShopPermissionResponse
   DeleteUserShopPermission(input: Input_core_apimessages_DeleteUserShopPermissionRequest): core_apimessages_DeleteUserShopPermissionResponse
   PaypalOnboardSeller(input: Input_core_apimessages_PaypalOnboardSellerRequest): core_apimessages_PaypalOnboardSellerResponse
+  _source: String
 }
 
 type core_apimessages_CountriesResponse {
   countries: [core_apimessages_Country]
+  _source: String
 }
 
 type core_apimessages_Country {
@@ -3380,10 +3671,12 @@ type core_apimessages_Country {
   subregions: [core_apimessages_Subregion]
   superRegion: core_apimessages_SuperRegion
   _id: ID
+  _source: String
 }
 
 type core_apimessages_CountsLinks {
   self: core_apimessages_Link
+  _source: String
 }
 
 type core_apimessages_CountsResponse {
@@ -3405,10 +3698,12 @@ type core_apimessages_CountsResponse {
   buyerOrdersAwaitingPickup: core_apimessages_UserBadge
   countsLinks: core_apimessages_CountsLinks
   userNotifications: [core_apimessages_UserNotification]
+  _source: String
 }
 
 type core_apimessages_CountsTotal {
   count: Int
+  _source: String
 }
 
 type core_apimessages_CPSuggestion {
@@ -3416,18 +3711,22 @@ type core_apimessages_CPSuggestion {
   service: String
   confidence: Float
   canonicalProduct: core_apimessages_AutomatchingCanonicalProduct
+  _source: String
 }
 
 type core_apimessages_CPSuggestions {
   suggestions: [core_apimessages_CPSuggestion]
+  _source: String
 }
 
 type core_apimessages_CPSuggestionsRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_CPSuggestionsResponse {
   cpSuggestions: [core_apimessages_CPSuggestions]
+  _source: String
 }
 
 type core_apimessages_CreateAutoOfferRequest {
@@ -3438,10 +3737,12 @@ type core_apimessages_CreateAutoOfferRequest {
   percentage: Int
   instantOffersEnabled: Boolean @deprecated
   shippingPriceOverride: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_CreateAutoOfferResponse {
   autoOffer: core_apimessages_AutoOffer
+  _source: String
 }
 
 type core_apimessages_CreateBillingCardRequest {
@@ -3450,10 +3751,12 @@ type core_apimessages_CreateBillingCardRequest {
   adyenToken: String
   adyenCreditCard: core_apimessages_AdyenCreditCardEntry
   address: core_apimessages_AddressEntry
+  _source: String
 }
 
 type core_apimessages_CreateBillingCardResponse {
   creditCard: core_apimessages_CreditCard
+  _source: String
 }
 
 type core_apimessages_CreateCheckoutPaypalOrderRequest {
@@ -3461,6 +3764,7 @@ type core_apimessages_CreateCheckoutPaypalOrderRequest {
   id: String
   reverbApp: String
   noShipping: Boolean
+  _source: String
 }
 
 type core_apimessages_CreateCheckoutPaypalOrderResponse {
@@ -3468,6 +3772,7 @@ type core_apimessages_CreateCheckoutPaypalOrderResponse {
   id: String
   paypalOrderId: String
   redirectUrl: String
+  _source: String
 }
 
 type core_apimessages_CreateExpressSaleCheckoutRequest {
@@ -3476,16 +3781,19 @@ type core_apimessages_CreateExpressSaleCheckoutRequest {
   isTermsAccepted: Boolean
   addressUuid: String
   address: core_apimessages_AddressEntry
+  _source: String
 }
 
 type core_apimessages_CreateExpressSaleCheckoutResponse {
   checkoutId: String
+  _source: String
 }
 
 type core_apimessages_CreateKYCPresignedS3UrlResponse {
   url: String
   fileKey: String
   headers: String
+  _source: String
 }
 
 type core_apimessages_CreateKYCRequest {
@@ -3493,60 +3801,73 @@ type core_apimessages_CreateKYCRequest {
   personalInformation: [core_apimessages_PersonalInformation]
   companyInformation: core_apimessages_CompanyInformation
   legalEntity: String
+  _source: String
 }
 
 type core_apimessages_CreateKYCResponse {
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_CreateMyActionRequest {
   name: core_apimessages_UserActionName
+  _source: String
 }
 
 type core_apimessages_CreateMyActionResponse {
   errors: [core_apimessages_Error]
   action: core_apimessages_AvailableAction
+  _source: String
 }
 
 type core_apimessages_CreateMyCreditCardRequest {
   creditCard: core_apimessages_CreateMyCreditCardRequest_CreditCardEntry
   billingAddress: core_apimessages_AddressEntry
+  _source: String
 }
 
 type core_apimessages_CreateMyCreditCardRequest_CreditCardEntry {
   tokenizedFields: core_apimessages_CreditCardTokenizedFields
   cardholderName: String
+  _source: String
 }
 
 type core_apimessages_CreateMyCreditCardResponse {
   creditCard: core_apimessages_CreditCard
+  _source: String
 }
 
 type core_apimessages_CreateMyFeedbackMessageRequest {
   message: String
+  _source: String
 }
 
 type core_apimessages_CreateMyFeedbackMessageResponse {
   id: String
+  _source: String
 }
 
 type core_apimessages_CreateMyPlaidLinkTokenRequest {
   countryCode: String
   plaidAccountId: String
   requiresMobileRedirect: Boolean
+  _source: String
 }
 
 type core_apimessages_CreateMyPlaidLinkTokenResponse {
   linkToken: String
+  _source: String
 }
 
 type core_apimessages_CreateMySaleMembershipRequest {
   listingId: String
   saleId: String
+  _source: String
 }
 
 type core_apimessages_CreateMySaleMembershipResponse {
   saleMembership: core_apimessages_ListingSaleMembership
+  _source: String
 }
 
 type core_apimessages_CreateNegotiationRequest {
@@ -3567,11 +3888,13 @@ type core_apimessages_CreateNegotiationRequest {
   bumpKey: core_apimessages_BumpKey
   shippingAddressUuid: String
   creditCardId: String
+  _source: String
 }
 
 type core_apimessages_CreateNegotiationRequest_ConversationData {
   listingId: String
   photos: [core_apimessages_ImageEntry]
+  _source: String
 }
 
 type core_apimessages_CreateOrderNoteRequest {
@@ -3579,36 +3902,44 @@ type core_apimessages_CreateOrderNoteRequest {
 
   """orders.id"""
   orderId: String
+  _source: String
 }
 
 type core_apimessages_CreateOrderNoteResponse {
   errors: [core_apimessages_Error]
   orderNote: core_apimessages_OrderNote
+  _source: String
 }
 
 type core_apimessages_CreateOrUpdateUserShopPermissionResponse {
   userShopPermission: core_apimessages_UserShopPermission
+  _source: String
 }
 
 type core_apimessages_CreatePacklinkDraftRequest {
   orderId: String
+  _source: String
 }
 
 type core_apimessages_CreatePacklinkDraftResponse {
   shipment: core_apimessages_PacklinkShipment
+  _source: String
 }
 
 type core_apimessages_CreateRecentSearchRequest {
   query: String
+  _source: String
 }
 
 type core_apimessages_CreateRecentSearchResponse {
   query: String
+  _source: String
 }
 
 type core_apimessages_CreateShipmentError {
   message: String
   errorType: core_apimessages_CreateShipmentErrorType
+  _source: String
 }
 
 enum core_apimessages_CreateShipmentErrorType {
@@ -3634,33 +3965,39 @@ type core_apimessages_CreateShipmentRequest {
   toAddressIsResidential: Boolean
   shipmentType: core_apimessages_Shipment_ShipmentType
   modifiedCarrierCalculatedShipment: Boolean
+  _source: String
 }
 
 type core_apimessages_CreateShipmentResponse {
   shipment: core_apimessages_Shipment
   errors: [core_apimessages_CreateShipmentError]
+  _source: String
 }
 
 type core_apimessages_CreateTaxIdentificationRequest {
   taxId: String
   countryCode: String
   taxType: String
+  _source: String
 }
 
 type core_apimessages_CreateTaxIdentificationResponse {
   taxIdentification: core_apimessages_TaxIdentification
   shopId: String
   shop: MyShop
+  _source: String
 }
 
 type core_apimessages_CreateTruliooOnboardingRecordResponse {
   errors: [core_apimessages_Error]
   truliooOnboardingRecord: core_apimessages_TruliooOnboardingRecord
+  _source: String
 }
 
 type core_apimessages_CreateUserShopPermissionRequest {
   email: String
   permissionLevel: core_apimessages_UserShopPermission_PermissionLevel
+  _source: String
 }
 
 type core_apimessages_CreditCard {
@@ -3680,6 +4017,7 @@ type core_apimessages_CreditCard {
   primaryForCheckout: Boolean
   brand: core_apimessages_CreditCard_Brand
   display: core_apimessages_CreditCard_Display
+  _source: String
 }
 
 type core_apimessages_CreditCard_Brand {
@@ -3689,6 +4027,7 @@ type core_apimessages_CreditCard_Brand {
   Readable brand name of type. Examples: AMEX is "American Express," MASTERCARD is "MasterCard"
   """
   name: String
+  _source: String
 }
 
 enum core_apimessages_CreditCard_Brand_Type {
@@ -3707,6 +4046,7 @@ type core_apimessages_CreditCard_Display {
   """
   summary: String
   expirationDate: String
+  _source: String
 }
 
 """
@@ -3721,15 +4061,18 @@ type core_apimessages_CreditCardTokenizedFields {
   encryptedExpiryMonth: String
   encryptedExpiryYear: String
   encryptedSecurityCode: String
+  _source: String
 }
 
 type core_apimessages_CrossPlatformListingStatusRequest {
   listingId: String
+  _source: String
 }
 
 type core_apimessages_CrossPlatformListingStatusResponse {
   status: core_apimessages_CrossPlatformListingStatusResponse_SessionStatus
   ttlSeconds: Int
+  _source: String
 }
 
 enum core_apimessages_CrossPlatformListingStatusResponse_SessionStatus {
@@ -3760,6 +4103,7 @@ type core_apimessages_CSP {
   generic: Boolean
   categoryRootUuid: String
   canonicalProductImageApprovedIds: [String]
+  _source: String
 }
 
 type core_apimessages_CSPExpressSaleItemBid {
@@ -3768,6 +4112,7 @@ type core_apimessages_CSPExpressSaleItemBid {
   carrier: String
   bidId: String
   shopName: String
+  _source: String
 }
 
 type core_apimessages_CSPInventory {
@@ -3779,6 +4124,7 @@ type core_apimessages_CSPInventory {
   usedLowPrice: core_apimessages_Money
   uuid: String
   slug: String
+  _source: String
 }
 
 type core_apimessages_CSPPricing {
@@ -3786,6 +4132,7 @@ type core_apimessages_CSPPricing {
   mid: core_apimessages_Money
   high: core_apimessages_Money
   hasData: Boolean
+  _source: String
 }
 
 type core_apimessages_CSPReview {
@@ -3800,6 +4147,7 @@ type core_apimessages_CSPReview {
   blocked: Boolean
   isMyReview: Boolean
   didIVote: Boolean
+  _source: String
 }
 
 type core_apimessages_CSPReviews {
@@ -3809,6 +4157,7 @@ type core_apimessages_CSPReviews {
   total: Int
   avgRating: Float
   myReview: core_apimessages_CSPReview
+  _source: String
 }
 
 type core_apimessages_CSPReviewsRequest {
@@ -3817,10 +4166,12 @@ type core_apimessages_CSPReviewsRequest {
   uuids: [String]
   offset: Int
   limit: Int
+  _source: String
 }
 
 type core_apimessages_CSPReviewsResponse {
   reviews: [core_apimessages_CSPReviews]
+  _source: String
 }
 
 type core_apimessages_CspRowQuery {
@@ -3829,6 +4180,7 @@ type core_apimessages_CspRowQuery {
   brandSlugs: [String]
   sort: String
   categoryUuids: [String]
+  _source: String
 }
 
 type core_apimessages_CSPsFeaturedListingRequest {
@@ -3836,10 +4188,12 @@ type core_apimessages_CSPsFeaturedListingRequest {
   ids: [String]
   uuids: [String]
   slugs: [String]
+  _source: String
 }
 
 type core_apimessages_CSPsFeaturedListingResponse {
   featuredListingIds: [String]
+  _source: String
 }
 
 type core_apimessages_CSPsInventoryRequest {
@@ -3847,24 +4201,29 @@ type core_apimessages_CSPsInventoryRequest {
   ids: [String]
   uuids: [String]
   slugs: [String]
+  _source: String
 }
 
 type core_apimessages_CSPsInventoryResponse {
   inventories: [core_apimessages_CSPInventory]
+  _source: String
 }
 
 type core_apimessages_CSPSpec {
   productSpecs: [core_apimessages_ProductSpec]
+  _source: String
 }
 
 type core_apimessages_CSPsRequest {
   ids: [String]
   slugs: [String]
   uuids: [String]
+  _source: String
 }
 
 type core_apimessages_CSPsResponse {
   csps: [core_apimessages_CSP]
+  _source: String
 }
 
 type core_apimessages_CSPsSpecsRequest {
@@ -3872,10 +4231,12 @@ type core_apimessages_CSPsSpecsRequest {
   ids: [String]
   slugs: [String]
   uuids: [String]
+  _source: String
 }
 
 type core_apimessages_CSPsSpecsResponse {
   specs: [core_apimessages_CSPSpec]
+  _source: String
 }
 
 type core_apimessages_CSPsVideoRequest {
@@ -3883,14 +4244,17 @@ type core_apimessages_CSPsVideoRequest {
   ids: [String]
   slugs: [String]
   uuids: [String]
+  _source: String
 }
 
 type core_apimessages_CSPsVideoResponse {
   videos: [core_apimessages_CSPVideo]
+  _source: String
 }
 
 type core_apimessages_CSPVideo {
   videoLinks: [core_apimessages_VideoLink]
+  _source: String
 }
 
 type core_apimessages_CuratedSet {
@@ -3900,6 +4264,7 @@ type core_apimessages_CuratedSet {
   webLink: core_apimessages_Link
   slug: String
   setType: String
+  _source: String
 }
 
 enum core_apimessages_CuratedSet_SetType {
@@ -3913,34 +4278,40 @@ type core_apimessages_CuratedSetFeatureRequest {
 
   """products.id"""
   productId: String
+  _source: String
 }
 
 type core_apimessages_CuratedSetMembership {
   id: String
   curatedSetId: String
   productId: String
+  _source: String
 }
 
 type core_apimessages_CuratedSetsForListing {
   """products.id"""
   id: String
   curatedSets: [core_apimessages_ListingCuratedSet]
+  _source: String
 }
 
 type core_apimessages_CuratedSetsRequest {
   """curated_sets.id"""
   ids: [String]
   slugs: [String]
+  _source: String
 }
 
 type core_apimessages_CuratedSetsResponse {
   curatedSets: [core_apimessages_CuratedSet]
+  _source: String
 }
 
 type core_apimessages_CustomsInfo {
   signer: String
   certifiedAccuracy: Boolean
   orders: [core_apimessages_OrderCustoms]
+  _source: String
 }
 
 type core_apimessages_DatadogError {
@@ -3949,137 +4320,168 @@ type core_apimessages_DatadogError {
   content: String
   context: String
   timestamp: String
+  _source: String
 }
 
 type core_apimessages_Date {
   day: String
   month: String
   year: String
+  _source: String
 }
 
 type core_apimessages_DeactivateTaxIdentificationRequest {
   id: String
+  _source: String
 }
 
 type core_apimessages_DeactivateTaxIdentificationResponse {
   taxIdentification: core_apimessages_TaxIdentification
   shopId: String
   shop: MyShop
+  _source: String
 }
 
 type core_apimessages_DeclineFeedbackRequest {
   orderUuid: String
+  _source: String
 }
 
 type core_apimessages_DeclineFeedbackResponse {
   orderUuid: String
+  _source: String
 }
 
 type core_apimessages_DeleteAdRequest {
   uuid: String
+  _source: String
 }
 
 type core_apimessages_DeleteAdResponse {
   ad: core_apimessages_Ad
+  _source: String
 }
 
 type core_apimessages_DeleteAutoOfferRequest {
   listingId: String
+  _source: String
 }
 
 type core_apimessages_DeleteAutoOfferResponse {
   autoOffer: core_apimessages_AutoOffer
+  _source: String
 }
 
 type core_apimessages_DeleteCartItemProtectionPlanRequest {
   cartItemUuid: String
+  _source: String
 }
 
 type core_apimessages_DeleteCartItemProtectionPlanResponse {
   cartItemUuid: String
+  _source: String
 }
 
 type core_apimessages_DeleteGearCollectionItemRequest {
   id: String
+  _source: String
 }
 
 type core_apimessages_DeleteGearCollectionItemResponse {
   gearCollectionItem: core_apimessages_GearCollectionItem
+  _source: String
 }
 
 type core_apimessages_DeleteMyCreditCardRequest {
   id: String
+  _source: String
 }
 
 type core_apimessages_DeleteMyCreditCardResponse {
   """Deleted credit card ID"""
   id: String
+  _source: String
 }
 
 type core_apimessages_DeleteMyFavoriteRequest {
   id: String
+  _source: String
 }
 
 type core_apimessages_DeleteMyFavoriteResponse {
   errors: [core_apimessages_Error]
   favorite: core_apimessages_Favorite
+  _source: String
 }
 
 type core_apimessages_DeleteMyFeedbackMessageRequest {
   id: String
+  _source: String
 }
 
 type core_apimessages_DeleteMyFeedbackMessageResponse {
   id: String
+  _source: String
 }
 
 type core_apimessages_DeleteMySaleMembershipRequest {
   listingId: String
   saleId: String
+  _source: String
 }
 
 type core_apimessages_DeleteMySaleMembershipResponse {
   saleMembership: core_apimessages_ListingSaleMembership
+  _source: String
 }
 
 type core_apimessages_DeleteOrderNotesRequest {
   orderNoteIds: [String]
+  _source: String
 }
 
 type core_apimessages_DeleteRequest {
   """deprecated, use uuid"""
   id: String
   uuid: String
+  _source: String
 }
 
 type core_apimessages_DeleteResponse {
   """deprecated, use uuid"""
   id: String
   uuid: String
+  _source: String
 }
 
 type core_apimessages_DeleteUserShopPermissionRequest {
   userId: String
+  _source: String
 }
 
 type core_apimessages_DeleteUserShopPermissionResponse {
   id: String
+  _source: String
 }
 
 type core_apimessages_DelinkUserServiceRequest {
   provider: core_apimessages_UserService_Provider
+  _source: String
 }
 
 type core_apimessages_DelinkUserServiceResponse {
   _: Boolean
+  _source: String
 }
 
 type core_apimessages_DraftListingDeleteRequest {
   listingId: String
+  _source: String
 }
 
 type core_apimessages_DraftListingDeleteResponse {
   listingId: String
+  _source: String
 }
 
 type core_apimessages_Error {
@@ -4087,10 +4489,12 @@ type core_apimessages_Error {
   field: String
   context: String
   errorType: String
+  _source: String
 }
 
 type core_apimessages_ErrorResponse {
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_EstimatedMonthlyPayment {
@@ -4103,25 +4507,30 @@ type core_apimessages_EstimatedMonthlyPayment {
   zeroPercentFinancingPlan: Boolean
   splitPay: Boolean
   financingProgramSlug: String
+  _source: String
 }
 
 type core_apimessages_EstimatedMonthlyPaymentsRequest {
   """products.id"""
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_EstimatedMonthlyPaymentsResponse {
   estimatedMonthlyPayments: [core_apimessages_EstimatedMonthlyPayment]
+  _source: String
 }
 
 type core_apimessages_EstimatedNewListingPrice {
   id: String
   price: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_EstimatedShipping {
   description: String
   rates: [core_apimessages_ShippingRate]
+  _source: String
 }
 
 type core_apimessages_EstimatedShippingRequest {
@@ -4133,45 +4542,55 @@ type core_apimessages_EstimatedShippingRequest {
   metric: Boolean
   toCountrycode: String
   fromCountrycode: String
+  _source: String
 }
 
 type core_apimessages_EstimateNegotiationSalesTaxRequest {
   amountProduct: core_apimessages_MoneyMinorUnitsEntry
   amountShipping: core_apimessages_MoneyMinorUnitsEntry
   shippingAddressUuid: String
+  _source: String
 }
 
 type core_apimessages_EstimateNegotiationSalesTaxResponse {
   amountTax: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_EstimateShippingResponse {
   estimatedShipping: core_apimessages_EstimatedShipping
+  _source: String
 }
 
 type core_apimessages_EUBankDetails {
   iban: String
+  _source: String
 }
 
 type core_apimessages_ExpeditedShippingAvailableSignal {
   translations: core_apimessages_SignalTranslation
+  _source: String
 }
 
 type core_apimessages_ExperimentData {
   name: String
   group: String
+  _source: String
 }
 
 type core_apimessages_ExperimentsResponse {
   experiments: [reverb_event_Experiment]
+  _source: String
 }
 
 type core_apimessages_ExportSecondaryUserActivitiesRequest {
   _: Boolean
+  _source: String
 }
 
 type core_apimessages_ExportSecondaryUserActivitiesResponse {
   enqueued: Boolean
+  _source: String
 }
 
 type core_apimessages_ExpressSaleCheckout {
@@ -4179,6 +4598,7 @@ type core_apimessages_ExpressSaleCheckout {
   cspId: String
   status: core_apimessages_ExpressSaleCheckout_Status
   expressSaleItemBid: core_apimessages_CSPExpressSaleItemBid
+  _source: String
 }
 
 enum core_apimessages_ExpressSaleCheckout_Status {
@@ -4190,10 +4610,12 @@ enum core_apimessages_ExpressSaleCheckout_Status {
 
 type core_apimessages_ExpressSaleCheckoutShowRequest {
   checkoutId: String
+  _source: String
 }
 
 type core_apimessages_ExpressSaleCheckoutShowResponse {
   expressSaleCheckout: core_apimessages_ExpressSaleCheckout
+  _source: String
 }
 
 """
@@ -4216,6 +4638,7 @@ type core_apimessages_Favorite {
   shortSubtitle: String
   images(input: Input_core_apimessages_ImagesRequest!): [core_apimessages_Image]
   listings(input: Input_reverb_search_ListingsSearchRequest!): [Listing]
+  _source: String
 }
 
 enum core_apimessages_FavoriteType {
@@ -4238,11 +4661,13 @@ type core_apimessages_Feedback {
   listingLink: core_apimessages_Link
   author: User
   recipient: User
+  _source: String
 }
 
 type core_apimessages_Feedback_Response {
   body: String
   createdAt: google_protobuf_Timestamp
+  _source: String
 }
 
 enum core_apimessages_Feedback_Type {
@@ -4254,6 +4679,7 @@ enum core_apimessages_Feedback_Type {
 type core_apimessages_FeedbackMessage {
   message: String
   id: String
+  _source: String
 }
 
 type core_apimessages_FeedbacksRequest {
@@ -4261,6 +4687,7 @@ type core_apimessages_FeedbacksRequest {
   limit: Int
   userUuid: String
   type: core_apimessages_Feedback_Type
+  _source: String
 }
 
 type core_apimessages_FeedbacksResponse {
@@ -4268,16 +4695,19 @@ type core_apimessages_FeedbacksResponse {
   total: Int
   offset: Int
   limit: Int
+  _source: String
 }
 
 type core_apimessages_FeedbackSummariesRequest {
   userIds: [String]
   ids: [String]
   uuids: [String]
+  _source: String
 }
 
 type core_apimessages_FeedbackSummariesResponse {
   feedbackSummaries: [core_apimessages_FeedbackSummary]
+  _source: String
 }
 
 type core_apimessages_FeedbackSummary {
@@ -4285,12 +4715,14 @@ type core_apimessages_FeedbackSummary {
   userId: String
   receivedCount: Int
   rollingRatingPercentage: Int
+  _source: String
 }
 
 type core_apimessages_FeedCustomizationResponse {
   articleFollows: [String]
   followGroups: [core_apimessages_FollowGroup]
   follows: [core_apimessages_Follow]
+  _source: String
 }
 
 """
@@ -4306,6 +4738,7 @@ type core_apimessages_FeedResult {
   a saved search, or because it was a recommendation from a direct match, or another reason.
   """
   source: core_apimessages_FeedResult_Source
+  _source: String
 }
 
 enum core_apimessages_FeedResult_EntityType {
@@ -4332,12 +4765,14 @@ type core_apimessages_FinalizeAffirmCheckoutPaymentRequest {
 
   """Native app URL param"""
   reverbApp: String
+  _source: String
 }
 
 type core_apimessages_FinalizeAffirmCheckoutPaymentResponse {
   """Checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_FinalizeCardCheckoutPaymentRequest {
@@ -4353,6 +4788,7 @@ type core_apimessages_FinalizeCardCheckoutPaymentRequest {
 
   """Serialized JSON object"""
   browserInfoJson: String
+  _source: String
 }
 
 type core_apimessages_FinalizeCardCheckoutPaymentRequest_CreditCardEntry {
@@ -4365,12 +4801,14 @@ type core_apimessages_FinalizeCardCheckoutPaymentRequest_CreditCardEntry {
 
   """Last 4 digits of the credit card number"""
   lastDigits: String
+  _source: String
 }
 
 type core_apimessages_FinalizeCardCheckoutPaymentResponse {
   """checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_FinalizePaypalCheckoutPaymentRequest {
@@ -4381,6 +4819,7 @@ type core_apimessages_FinalizePaypalCheckoutPaymentRequest {
   """Native app URL param"""
   reverbApp: String
   resultConfirmation: core_apimessages_FinalizePaypalCheckoutPaymentRequest_ResultConfirmation
+  _source: String
 }
 
 enum core_apimessages_FinalizePaypalCheckoutPaymentRequest_ResultConfirmation {
@@ -4399,6 +4838,7 @@ type core_apimessages_FinalizePaypalCheckoutPaymentResponse {
   """Checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_FinalizeRedirectAuthCheckoutPaymentRequest {
@@ -4410,27 +4850,32 @@ type core_apimessages_FinalizeRedirectAuthCheckoutPaymentRequest {
 
   """Required for native clients using Adyen Checkout v66 and below"""
   legacyResult: core_apimessages_FinalizeRedirectAuthCheckoutPaymentRequest_LegacyResult
+  _source: String
 }
 
 type core_apimessages_FinalizeRedirectAuthCheckoutPaymentRequest_LegacyResult {
   paRes: String
   md: String
+  _source: String
 }
 
 type core_apimessages_FinalizeRedirectAuthCheckoutPaymentResponse {
   """Checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_FindAddressAutocompleteSuggestionsRequest {
   """loqate container id"""
   container: String
   text: String
+  _source: String
 }
 
 type core_apimessages_FindAddressAutocompleteSuggestionsResponse {
   suggestions: [core_apimessages_FindAddressAutocompleteSuggestionsResponse_AutocompleteSuggestion]
+  _source: String
 }
 
 type core_apimessages_FindAddressAutocompleteSuggestionsResponse_AutocompleteSuggestion {
@@ -4438,6 +4883,7 @@ type core_apimessages_FindAddressAutocompleteSuggestionsResponse_AutocompleteSug
   id: String
   text: String
   type: core_apimessages_FindAddressAutocompleteSuggestionsResponse_SuggestionType
+  _source: String
 }
 
 enum core_apimessages_FindAddressAutocompleteSuggestionsResponse_SuggestionType {
@@ -4449,12 +4895,14 @@ type core_apimessages_FindFavoriteRequest {
   listingsSearchRequest: reverb_search_ListingsSearchRequest
   shopId: String
   shopSlug: String
+  _source: String
 }
 
 type core_apimessages_FindFavoriteResponse {
   isFavorite: Boolean
   canFavorite: Boolean
   favorite: core_apimessages_Favorite
+  _source: String
 }
 
 type core_apimessages_FindFollowResponse {
@@ -4472,11 +4920,13 @@ type core_apimessages_FindFollowResponse {
   queryParams: String
   followedSubcategories: [String]
   hidden: Boolean
+  _source: String
 }
 
 type core_apimessages_FlagProductReviewRequest {
   productReviewId: String
   reason: core_apimessages_FlagProductReviewRequest_Reason
+  _source: String
 }
 
 enum core_apimessages_FlagProductReviewRequest_Reason {
@@ -4488,6 +4938,7 @@ enum core_apimessages_FlagProductReviewRequest_Reason {
 type core_apimessages_FlagProductReviewResponse {
   """Created Flag ID"""
   id: String
+  _source: String
 }
 
 type core_apimessages_FlatRateShippingOption {
@@ -4498,6 +4949,7 @@ type core_apimessages_FlatRateShippingOption {
   displayDimensions: String
   maximumPounds: Int
   displayPosition: Int
+  _source: String
 }
 
 type core_apimessages_Follow {
@@ -4513,15 +4965,18 @@ type core_apimessages_Follow {
   id: String
   queryParams: String
   followedSubcategories: [String]
+  _source: String
 }
 
 type core_apimessages_FollowAlert {
   type: String
+  _source: String
 }
 
 type core_apimessages_Followers {
   count: Int
   display: String
+  _source: String
 }
 
 type core_apimessages_FollowGroup {
@@ -4530,10 +4985,12 @@ type core_apimessages_FollowGroup {
   follows: [core_apimessages_Follow]
   title: String
   Links: core_apimessages_FollowGroupLinks
+  _source: String
 }
 
 type core_apimessages_FollowGroupLinks {
   callout: core_apimessages_Link
+  _source: String
 }
 
 type core_apimessages_FollowLinks {
@@ -4541,6 +4998,7 @@ type core_apimessages_FollowLinks {
   alert: core_apimessages_Link
   remove: core_apimessages_Link
   search: core_apimessages_Link
+  _source: String
 }
 
 type core_apimessages_FollowQueryParams {
@@ -4588,11 +5046,13 @@ type core_apimessages_FollowQueryParams {
   zeroPercentFinancing: Boolean
   decades: [String]
   outlet: Boolean
+  _source: String
 }
 
 type core_apimessages_FormSelectCategoriesRequest {
   entityId: String
   entityType: core_apimessages_FormSelectCategoriesRequest_FormSelectEntityType
+  _source: String
 }
 
 enum core_apimessages_FormSelectCategoriesRequest_FormSelectEntityType {
@@ -4603,21 +5063,25 @@ enum core_apimessages_FormSelectCategoriesRequest_FormSelectEntityType {
 
 type core_apimessages_FormSelectCategoriesResponse {
   categories: [core_apimessages_FormSelectCategory]
+  _source: String
 }
 
 type core_apimessages_FormSelectCategory {
   uuid: String
   name: String
   subcategories: [core_apimessages_FormSelectCategory]
+  _source: String
 }
 
 type core_apimessages_FreeExpeditedShippingSignal {
   translations: core_apimessages_SignalTranslation
+  _source: String
 }
 
 type core_apimessages_FreeStandardShippingSignal {
   translations: core_apimessages_SignalTranslation
   freeShippingThresholdRequirementsMet: Boolean
+  _source: String
 }
 
 type core_apimessages_GearCollectionItem {
@@ -4644,6 +5108,7 @@ type core_apimessages_GearCollectionItem {
   seedId: String
   seedType: core_apimessages_GearCollectionItem_SeedType
   subcategoryUuids: [String]
+  _source: String
 }
 
 enum core_apimessages_GearCollectionItem_SeedType {
@@ -4679,6 +5144,7 @@ type core_apimessages_GearCollectionItemEntry {
   hideListingDescription: Boolean
   quickCreateItemFromSeed: Boolean
   source: core_apimessages_GearCollectionItemEntry_Source
+  _source: String
 }
 
 enum core_apimessages_GearCollectionItemEntry_Source {
@@ -4695,21 +5161,25 @@ enum core_apimessages_GearCollectionItemEntry_Source {
 type core_apimessages_GearCollectionItemTag {
   id: String
   name: String
+  _source: String
 }
 
 type core_apimessages_GenerateAdminReportRequest {
   reportName: String
   startDate: String
   endDate: String
+  _source: String
 }
 
 type core_apimessages_GenerateAdminReportResponse {
   reportEnqueued: Boolean
+  _source: String
 }
 
 type core_apimessages_GetMyFavoriteSavedSearchesRequest {
   offset: Int
   limit: Int
+  _source: String
 }
 
 type core_apimessages_GetMyFavoriteSavedSearchesResponse {
@@ -4717,6 +5187,7 @@ type core_apimessages_GetMyFavoriteSavedSearchesResponse {
   total: Int
   limit: Int
   offset: Int
+  _source: String
 }
 
 """copied from common.proto which is also used by data team"""
@@ -4730,11 +5201,13 @@ type core_apimessages_GoogleShoppingClick {
 
   """This field is different than the one in common.proto"""
   expiration: String
+  _source: String
 }
 
 type core_apimessages_GreatValueSignal {
   translations: core_apimessages_SignalTranslation
   isValid: Boolean
+  _source: String
 }
 
 type core_apimessages_GuestCheckoutUserEntry {
@@ -4745,6 +5218,7 @@ type core_apimessages_GuestCheckoutUserEntry {
   consentToAdStorage: Boolean
   consentToAdPersonalization: Boolean
   consentToAnalyticsStorage: Boolean
+  _source: String
 }
 
 type core_apimessages_GuestCheckoutVerifyShopperRequest {
@@ -4753,6 +5227,7 @@ type core_apimessages_GuestCheckoutVerifyShopperRequest {
   totalPrice: core_apimessages_Money
   results: core_apimessages_AdyenVerifyShopperResults
   cartItemAttributes: [core_apimessages_CartItemAttributes]
+  _source: String
 }
 
 type core_apimessages_HomepageComponent {
@@ -4764,6 +5239,7 @@ type core_apimessages_HomepageComponent {
   slug: String
   listings: [core_apimessages_ListingData]
   componentIdentifier: core_apimessages_HomepageComponent_ComponentIdentifier
+  _source: String
 }
 
 enum core_apimessages_HomepageComponent_ComponentIdentifier {
@@ -4812,14 +5288,17 @@ type core_apimessages_HomepageNotification {
   id: String
   dismissed: Boolean
   typeColor: core_apimessages_NotificationColor
+  _source: String
 }
 
 type core_apimessages_HomepageRequest {
   affinitySlugs: [String]
+  _source: String
 }
 
 type core_apimessages_HomepageResponse {
   components: [core_apimessages_HomepageComponent]
+  _source: String
 }
 
 enum core_apimessages_IconImageType {
@@ -4844,6 +5323,7 @@ type core_apimessages_Image {
   transformation: core_apimessages_ImageEntry_Transformation
   width: Int
   height: Int
+  _source: String
 }
 
 enum core_apimessages_Image_FallbackType {
@@ -4896,6 +5376,7 @@ type core_apimessages_ImageAdCreative {
   partnershipText: String
   backgroundColors: [String]
   cspRowQuery: core_apimessages_CspRowQuery
+  _source: String
 }
 
 type core_apimessages_ImageEntry {
@@ -4908,6 +5389,7 @@ type core_apimessages_ImageEntry {
   resourceType: String
   originalFilename: String
   transformation: core_apimessages_ImageEntry_Transformation
+  _source: String
 }
 
 type core_apimessages_ImageEntry_Transformation {
@@ -4917,6 +5399,7 @@ type core_apimessages_ImageEntry_Transformation {
   y: String
   crop: String
   angle: Int
+  _source: String
 }
 
 type core_apimessages_ImageRequest {
@@ -4928,6 +5411,7 @@ type core_apimessages_ImageRequest {
   scope: String
   limit: Int
   namedTransform: core_apimessages_NamedImageTransforms
+  _source: String
 }
 
 type core_apimessages_ImagesRequest {
@@ -4941,10 +5425,12 @@ type core_apimessages_ImagesRequest {
   uuids: [String]
   slugs: [String]
   namedTransform: core_apimessages_NamedImageTransforms
+  _source: String
 }
 
 type core_apimessages_ImagesResponse {
   images: [core_apimessages_ItemImages]
+  _source: String
 }
 
 type core_apimessages_InformActThresholdStatus {
@@ -4956,11 +5442,13 @@ type core_apimessages_InformActThresholdStatus {
   thresholdCrossedAt: Timestamp
   bankAccountVerifiedDate: Timestamp
   isPaypalOnly: Boolean
+  _source: String
 }
 
 type core_apimessages_InOtherCartsSignal {
   isValid: Boolean
   translations: core_apimessages_SignalTranslation
+  _source: String
 }
 
 type core_apimessages_InternationalTaxProfile {
@@ -4971,12 +5459,14 @@ type core_apimessages_InternationalTaxProfile {
   address: core_apimessages_Address
   id: String
   updatedAt: Timestamp
+  _source: String
 }
 
 type core_apimessages_ItemImages {
   """either a uuid or id, depending on what's present in ImagesRequest"""
   id: String
   images: [core_apimessages_Image]
+  _source: String
 }
 
 type core_apimessages_ItemSearchFilterPresets {
@@ -4985,6 +5475,7 @@ type core_apimessages_ItemSearchFilterPresets {
   collectionType: String
   presets: [core_apimessages_SearchFilterPreset]
   collectionSlug: String
+  _source: String
 }
 
 type core_apimessages_KYCAccountDetails {
@@ -5002,10 +5493,12 @@ type core_apimessages_KYCAccountDetails {
   legalEntity: core_apimessages_AdyenLegalEntity
   parentCompanyDetails: core_apimessages_AdyenParentCompanyDetails
   signatoryDetails: [core_apimessages_PersonalInformation]
+  _source: String
 }
 
 type core_apimessages_KYCAccountDetailsResponse {
   accountDetails: core_apimessages_KYCAccountDetails
+  _source: String
 }
 
 enum core_apimessages_KYCAction {
@@ -5021,10 +5514,12 @@ type core_apimessages_KYCAddress {
   locality: String
   countryCode: String
   houseNumber: String
+  _source: String
 }
 
 type core_apimessages_KYCBankAccountVerificationRequest {
   fileKey: String
+  _source: String
 }
 
 enum core_apimessages_KYCPhotoIDType {
@@ -5036,6 +5531,7 @@ enum core_apimessages_KYCPhotoIDType {
 type core_apimessages_KYCPhotoIDVerificationRequest {
   kycPhotoIdType: core_apimessages_KYCPhotoIDType
   fileKeys: [String]
+  _source: String
 }
 
 type core_apimessages_KYCVerificationCheck {
@@ -5046,20 +5542,24 @@ type core_apimessages_KYCVerificationCheck {
   actionRequired: Boolean
   action: core_apimessages_KYCAction
   errorDescription: String
+  _source: String
 }
 
 type core_apimessages_KYCVerificationChecksResponse {
   kycVerificationCheck: [core_apimessages_KYCVerificationCheck]
+  _source: String
 }
 
 type core_apimessages_KYCVerificationCode {
   code: String
+  _source: String
 }
 
 type core_apimessages_LayawayTerms {
   name: String
   percentDown: Int
   timePeriod: google_protobuf_Duration
+  _source: String
 }
 
 type core_apimessages_Link {
@@ -5067,6 +5567,7 @@ type core_apimessages_Link {
 
   """rel path for use in web routing"""
   path: String
+  _source: String
 }
 
 type core_apimessages_Listing {
@@ -5147,6 +5648,7 @@ type core_apimessages_Listing {
   createdAt: google_protobuf_Timestamp
   subcategoryUuids: [String]
   usOutlet: Boolean
+  _source: String
 }
 
 enum core_apimessages_Listing_ListingType {
@@ -5171,23 +5673,28 @@ enum core_apimessages_Listing_SeedType {
 type core_apimessages_ListingAffirmZeroPercentFinancingConfiguration {
   isEligible: Boolean
   isEnabled: Boolean
+  _source: String
 }
 
 type core_apimessages_ListingAutoOfferEligibility {
   isEligible: Boolean
+  _source: String
 }
 
 type core_apimessages_ListingBuyerOfferEligibility {
   isEligible: Boolean
+  _source: String
 }
 
 type core_apimessages_ListingCorrectionRequest {
   listingId: String
   message: String
+  _source: String
 }
 
 type core_apimessages_ListingCorrectionResponse {
   _: Boolean
+  _source: String
 }
 
 type core_apimessages_ListingCounts {
@@ -5197,14 +5704,17 @@ type core_apimessages_ListingCounts {
   watchers: Int
   offers: Int
   inBuyerCarts: Int
+  _source: String
 }
 
 type core_apimessages_ListingCountsRequest {
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_ListingCountsResponse {
   listings: [core_apimessages_ListingCounts]
+  _source: String
 }
 
 type core_apimessages_ListingCuratedSet {
@@ -5214,6 +5724,7 @@ type core_apimessages_ListingCuratedSet {
   featuredInSet: Boolean
   name: String
   setType: String
+  _source: String
 }
 
 type core_apimessages_ListingData {
@@ -5229,6 +5740,7 @@ type core_apimessages_ListingData {
   eyebrow: core_apimessages_ListingData_Disruptor
   disruptor: core_apimessages_ListingData_Disruptor
   shippingText: String
+  _source: String
 }
 
 enum core_apimessages_ListingData_Disruptor {
@@ -5272,6 +5784,7 @@ type core_apimessages_ListingEntry {
   taxExempt: Boolean
   scheduledPriceDrops: [core_apimessages_ScheduledPriceDropEntry]
   sellerReportedMap: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_ListingExpressPay {
@@ -5290,25 +5803,30 @@ type core_apimessages_ListingExpressPay {
   checkoutBundlingId: String
   paypal: core_apimessages_CheckoutPaypalDetails
   _id: ID
+  _source: String
 }
 
 type core_apimessages_ListingInCartCount {
   count: google_protobuf_Int32Value
+  _source: String
 }
 
 type core_apimessages_ListingInUserCart {
   listingId: String
   inCart: Boolean
+  _source: String
 }
 
 type core_apimessages_ListingPriceRecommendationsRequest {
   listingIds: [String]
   countryCode: String
   currency: String
+  _source: String
 }
 
 type core_apimessages_ListingPriceRecommendationsResponse {
   priceRecommendations: [core_apimessages_PriceRecommendation]
+  _source: String
 }
 
 type core_apimessages_ListingPricing {
@@ -5319,6 +5837,7 @@ type core_apimessages_ListingPricing {
   ribbon: core_apimessages_Ribbon
   typicalNewPriceDisplay: core_apimessages_TypicalNewPriceDisplay
   originalPriceDescription: String
+  _source: String
 }
 
 type core_apimessages_ListingSale {
@@ -5326,6 +5845,7 @@ type core_apimessages_ListingSale {
   totalLiveListings: Int
   isListingInSale: Boolean
   isListingEligible: Boolean
+  _source: String
 }
 
 type core_apimessages_ListingSaleMembership {
@@ -5334,25 +5854,30 @@ type core_apimessages_ListingSaleMembership {
   isListingInSale: Boolean
   isListingEligible: Boolean
   listingId: String
+  _source: String
 }
 
 type core_apimessages_ListingSales {
   reverbSales: [core_apimessages_ListingSale]
   sellerSales: [core_apimessages_ListingSale]
+  _source: String
 }
 
 type core_apimessages_ListingSalesMemberships {
   reverbSalesMemberships: [core_apimessages_ListingSaleMembership]
   sellerSalesMemberships: [core_apimessages_ListingSaleMembership]
+  _source: String
 }
 
 type core_apimessages_ListingsCuratedSetsRequest {
   ids: [String]
   curatedSetSlugs: [String]
+  _source: String
 }
 
 type core_apimessages_ListingsCuratedSetsResponse {
   curatedSetsForListings: [core_apimessages_CuratedSetsForListing]
+  _source: String
 }
 
 type core_apimessages_ListingSignals {
@@ -5379,35 +5904,43 @@ type core_apimessages_ListingSignals {
   localPickupOnlySignal: core_apimessages_LocalPickupOnlySignal
   inOtherCartsSignal: core_apimessages_InOtherCartsSignal
   rareGearSignal: core_apimessages_RareGearSignal
+  _source: String
 }
 
 type core_apimessages_ListingsInUserCartRequest {
   """product.id"""
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_ListingsInUserCartResponse {
   listings: [core_apimessages_ListingInUserCart]
+  _source: String
 }
 
 type core_apimessages_ListingsOrderStatsRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_ListingsOrderStatsResponse {
   orderStats: [core_apimessages_OrderStats]
+  _source: String
 }
 
 type core_apimessages_ListingSpec {
   productSpecs: [core_apimessages_ProductSpec]
+  _source: String
 }
 
 type core_apimessages_ListingsPricingRequest {
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_ListingsPricingResponse {
   listings: [core_apimessages_ListingPricing]
+  _source: String
 }
 
 type core_apimessages_ListingsRequest {
@@ -5416,26 +5949,32 @@ type core_apimessages_ListingsRequest {
 
   """products.id"""
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_ListingsResponse {
   listings: [core_apimessages_Listing]
+  _source: String
 }
 
 type core_apimessages_ListingsSignalsRequest {
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_ListingsSignalsResponse {
   listingsSignals: [core_apimessages_ListingSignals]
+  _source: String
 }
 
 type core_apimessages_ListingsSpecsRequest {
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_ListingsSpecsResponse {
   specs: [core_apimessages_ListingSpec]
+  _source: String
 }
 
 enum core_apimessages_ListingStateUpdate {
@@ -5445,26 +5984,31 @@ enum core_apimessages_ListingStateUpdate {
 
 type core_apimessages_ListingsValidForPublishRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_ListingsValidForPublishResponse {
   listingsValidForPublish: [core_apimessages_ListingValidForPublish]
+  _source: String
 }
 
 type core_apimessages_ListingUserView {
   """True if the current user has recently viewed this item"""
   isRecentlyViewed: Boolean
+  _source: String
 }
 
 type core_apimessages_ListingValidForPublish {
   isValid: Boolean
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_LocalizationSettings {
   locale: String
   currency: String
   shippingRegion: String
+  _source: String
 }
 
 type core_apimessages_LocalizedListingContent {
@@ -5476,40 +6020,48 @@ type core_apimessages_LocalizedListingContent {
   description: String
   prop65Warning: String
   defaultForShop: Boolean
+  _source: String
 }
 
 type core_apimessages_LocalPickupOnlySignal {
   translations: core_apimessages_SignalTranslation
   isValid: Boolean
+  _source: String
 }
 
 type core_apimessages_LoginMyPacklinkAccountRequest {
   email: String
   password: String
   countryCode: String
+  _source: String
 }
 
 type core_apimessages_LoginMyPacklinkAccountResponse {
   shopId: String
+  _source: String
 }
 
 type core_apimessages_LowStockSignal {
   isValid: Boolean
   translations: core_apimessages_SignalTranslation
+  _source: String
 }
 
 type core_apimessages_MarkOrderAsReceivedRequest {
   orderId: String
+  _source: String
 }
 
 type core_apimessages_MarkOrderAsReceivedResponse {
   orderId: String
   order: Order
+  _source: String
 }
 
 type core_apimessages_Measurement {
   value: String
   unit: String
+  _source: String
 }
 
 type core_apimessages_MeResponse {
@@ -5523,6 +6075,7 @@ type core_apimessages_MeResponse {
   shopSlug: String
   requireOptIn: Boolean
   profileSlug: String
+  _source: String
 }
 
 type core_apimessages_Money {
@@ -5531,6 +6084,7 @@ type core_apimessages_Money {
   currency: String
   symbol: String
   display: String
+  _source: String
 }
 
 """
@@ -5539,12 +6093,14 @@ For POST/PUT API requests for major units, suitable for user text field input
 type core_apimessages_MoneyMajorUnitsEntry {
   amount: String
   currency: String
+  _source: String
 }
 
 """For POST/PUT API requests where minor units (cents) are known"""
 type core_apimessages_MoneyMinorUnitsEntry {
   amountCents: Int
   currency: String
+  _source: String
 }
 
 type core_apimessages_MosaicTile {
@@ -5555,6 +6111,7 @@ type core_apimessages_MosaicTile {
   imageUrl: String
   contentSponsorship: core_apimessages_ContentSponsorship
   position: core_apimessages_MosaicTilePosition
+  _source: String
 }
 
 enum core_apimessages_MosaicTilePosition {
@@ -5565,6 +6122,7 @@ enum core_apimessages_MosaicTilePosition {
 
 type core_apimessages_MosaicTilesResponse {
   mosaicTiles: [core_apimessages_MosaicTile]
+  _source: String
 }
 
 """duplicate of the Mparticle ProfileResponse defined in rql"""
@@ -5595,14 +6153,17 @@ type core_apimessages_MparticleProfileResponse {
   topProductTypeUuids: [String]
   topCategoryUuids: [String]
   topBrandCategories: [String]
+  _source: String
 }
 
 type core_apimessages_MyAddressesRequest {
   addressType: core_apimessages_MyAddressType
+  _source: String
 }
 
 type core_apimessages_MyAddressesResponse {
   addresses: [core_apimessages_Address]
+  _source: String
 }
 
 enum core_apimessages_MyAddressType {
@@ -5613,20 +6174,24 @@ enum core_apimessages_MyAddressType {
 
 type core_apimessages_MyAffirmCuratedSetMembershipRequest {
   productId: String
+  _source: String
 }
 
 type core_apimessages_MyAvailableActionsIndexRequest {
   listingId: String
+  _source: String
 }
 
 type core_apimessages_MyAvailableActionsIndexResponse {
   availableActions: [core_apimessages_AvailableAction]
+  _source: String
 }
 
 type core_apimessages_MyBuyerCouponsRequest {
   context: core_apimessages_MyBuyerCouponsRequest_Context
   checkoutUuid: String
   shopSlug: String
+  _source: String
 }
 
 enum core_apimessages_MyBuyerCouponsRequest_Context {
@@ -5638,31 +6203,38 @@ enum core_apimessages_MyBuyerCouponsRequest_Context {
 
 type core_apimessages_MyBuyerCouponsResponse {
   shopCampaignCoupons: [core_apimessages_ShopCampaignCoupon]
+  _source: String
 }
 
 type core_apimessages_MyCartItemBundlesIndexResponse {
   bundles: [core_apimessages_CartItemBundle]
+  _source: String
 }
 
 type core_apimessages_MyCartItemsIndexResponse {
   cartItems: [core_apimessages_CartItem]
+  _source: String
 }
 
 type core_apimessages_MyCreditCardsResponse {
   creditCards: [core_apimessages_CreditCard]
+  _source: String
 }
 
 type core_apimessages_MyCuratedSetMembershipRequest {
   setType: core_apimessages_CuratedSet_SetType
   productId: String
+  _source: String
 }
 
 type core_apimessages_MyCuratedSetMembershipResponse {
   curatedSetMembership: core_apimessages_CuratedSetMembership
+  _source: String
 }
 
 type core_apimessages_MyDirectCheckoutProfileRequest {
   _: Boolean
+  _source: String
 }
 
 type core_apimessages_MyDirectCheckoutProfileResponse {
@@ -5675,14 +6247,17 @@ type core_apimessages_MyDirectCheckoutProfileResponse {
   hasAcceptedReverbBankTerms: Boolean
   profileErrors: [String]
   plaidAccountId: String
+  _source: String
 }
 
 type core_apimessages_MyFeedbackMessagesRequest {
   _: Boolean
+  _source: String
 }
 
 type core_apimessages_MyFeedbackMessagesResponse {
   feedbackMessages: [core_apimessages_FeedbackMessage]
+  _source: String
 }
 
 type core_apimessages_MyFeedSearchRequest {
@@ -5697,6 +6272,7 @@ type core_apimessages_MyFeedSearchRequest {
   listingsSearchRequest: reverb_search_ListingsSearchRequest
   limit: Int
   offset: Int
+  _source: String
 }
 
 """
@@ -5713,17 +6289,20 @@ type core_apimessages_MyFeedSearchResponse {
   total: Int
   offset: Int
   limit: Int
+  _source: String
 }
 
 type core_apimessages_MyHomepageNotificationsRequest {
   limit: Int
   imageType: core_apimessages_IconImageType
   multiClientExperiments: [core_apimessages_ExperimentData]
+  _source: String
 }
 
 type core_apimessages_MyHomepageNotificationsResponse {
   homepageNotifications: [core_apimessages_HomepageNotification]
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_MyMessage {
@@ -5731,32 +6310,40 @@ type core_apimessages_MyMessage {
   createdAt: Timestamp
   body: String
   read: Boolean
+  conversationId: String
+  _source: String
 }
 
 type core_apimessages_MyMessagesRequest {
   limit: Int
   unrepliedOnly: Boolean
+  _source: String
 }
 
 type core_apimessages_MyMessagesResponse {
   messages: [core_apimessages_MyMessage]
+  _source: String
 }
 
 type core_apimessages_MyPacklinkAccountStatusResponse {
   account: core_apimessages_PacklinkAccount
+  _source: String
 }
 
 type core_apimessages_MyPayoutBalancesResponse {
   payoutBalances: [core_apimessages_Money]
+  _source: String
 }
 
 type core_apimessages_MyReverbCreditsResponse {
   reverbCredits: [core_apimessages_Money]
+  _source: String
 }
 
 type core_apimessages_MySalesResponse {
   reverbSales: [core_apimessages_Sale]
   sellerSales: [core_apimessages_Sale]
+  _source: String
 }
 
 type core_apimessages_MyShippingProfile {
@@ -5766,6 +6353,7 @@ type core_apimessages_MyShippingProfile {
   localPickup: Boolean
   offersIncrementalRates: Boolean
   shippingRates: [core_apimessages_ShippingRates]
+  _source: String
 }
 
 type core_apimessages_MyShopBumpStats {
@@ -5773,15 +6361,18 @@ type core_apimessages_MyShopBumpStats {
   sales: core_apimessages_Money
   percentageSpent: Int
   views: Int
+  _source: String
 }
 
 type core_apimessages_MyShopBumpStatsRequest {
   timePeriod: String
+  _source: String
 }
 
 type core_apimessages_MyShopBumpStatsResponse {
   brandNew: core_apimessages_MyShopBumpStats
   used: core_apimessages_MyShopBumpStats
+  _source: String
 }
 
 type core_apimessages_MyShopCampaign {
@@ -5804,6 +6395,7 @@ type core_apimessages_MyShopCampaign {
   _id: ID
   excludedBrands: [Brand]
   excludedCategories: [Category]
+  _source: String
 }
 
 enum core_apimessages_MyShopCampaign_CampaignType {
@@ -5835,33 +6427,40 @@ type core_apimessages_MyShopCampaignEntry {
   useRetroactiveSends: Boolean
   excludedBrandsSlugs: [String]
   excludedCategoryUuids: [String]
+  _source: String
 }
 
 type core_apimessages_MyShopCampaignsResponse {
   shopCampaigns: [core_apimessages_MyShopCampaign]
+  _source: String
 }
 
 type core_apimessages_MyShopComparisonStats {
   currentStats: core_apimessages_MyShopStats
   previousStats: core_apimessages_MyShopStats
   changeStats: core_apimessages_MyShopStats
+  _source: String
 }
 
 type core_apimessages_MyShopEarningsRequest {
   timePeriod: String
+  _source: String
 }
 
 type core_apimessages_MyShopEarningsResponse {
   ordersTotal: core_apimessages_Money
   accommodationsTotal: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_MyShopExportDac7OrderDataRequest {
   year: String
+  _source: String
 }
 
 type core_apimessages_MyShopExportDac7OrderDataResponse {
   success: Boolean
+  _source: String
 }
 
 type core_apimessages_MyShopOnboardingResponse {
@@ -5869,6 +6468,7 @@ type core_apimessages_MyShopOnboardingResponse {
   originCountryCode: String
   paypalSetupStatus: core_apimessages_MyShopOnboardingResponse_PaypalSetupStatus
   paymentMethod: core_apimessages_MyShopOnboardingResponse_PaymentMethod
+  _source: String
 }
 
 enum core_apimessages_MyShopOnboardingResponse_BillingMethodStatus {
@@ -5891,22 +6491,27 @@ enum core_apimessages_MyShopOnboardingResponse_PaypalSetupStatus {
 type core_apimessages_MyShopOrderRefundStatsRequest {
   startDate: String
   endDate: String
+  _source: String
 }
 
 type core_apimessages_MyShopOrderRefundStatsResponse {
   sellerInitiatedRefundCount: Int
+  _source: String
 }
 
 type core_apimessages_MyShopPaypalProfileResponse {
   paypalProfile: core_apimessages_MyShopPaypalProfileResponse_PaypalProfile
+  _source: String
 }
 
 type core_apimessages_MyShopPaypalProfileResponse_PaypalProfile {
   email: String
+  _source: String
 }
 
 type core_apimessages_MyShopResponse {
   shop: core_apimessages_Shop
+  _source: String
 }
 
 type core_apimessages_MyShopSalesChartData {
@@ -5914,26 +6519,32 @@ type core_apimessages_MyShopSalesChartData {
   series: [core_apimessages_MyShopSalesChartDataSet]
   currencySymbol: String
   salesInMoreThanOneCurrency: Boolean
+  _source: String
 }
 
 type core_apimessages_MyShopSalesChartDataSet {
   dataSet: [Int]
+  _source: String
 }
 
 type core_apimessages_MyShopShippingProfilesRequest {
   _: Boolean
+  _source: String
 }
 
 type core_apimessages_MyShopShippingProfilesResponse {
   shippingProfiles: [core_apimessages_MyShippingProfile]
+  _source: String
 }
 
 type core_apimessages_MyShopShippingRatesRequest {
   shippingProfileIds: [String]
+  _source: String
 }
 
 type core_apimessages_MyShopShippingRatesResponse {
   shippingRatesForShippingProfiles: [core_apimessages_ShippingRatesForShippingProfile]
+  _source: String
 }
 
 type core_apimessages_MyShopStats {
@@ -5941,15 +6552,18 @@ type core_apimessages_MyShopStats {
   orders: Int
   offers: Int
   watchers: Int
+  _source: String
 }
 
 type core_apimessages_MyShopStatsRequest {
   timePeriod: String
+  _source: String
 }
 
 type core_apimessages_MyShopStatsResponse {
   salesChartData: core_apimessages_MyShopSalesChartData
   comparisonStats: core_apimessages_MyShopComparisonStats
+  _source: String
 }
 
 type core_apimessages_MyUpdatesPromotion {
@@ -5958,10 +6572,12 @@ type core_apimessages_MyUpdatesPromotion {
   subtitle: String
   url: core_apimessages_Link
   startsAt: Timestamp
+  _source: String
 }
 
 type core_apimessages_MyUserServicesResponse {
   userServices: [core_apimessages_UserService]
+  _source: String
 }
 
 enum core_apimessages_NamedImageTransforms {
@@ -6001,6 +6617,7 @@ type core_apimessages_Negotiation {
   negotiationType: core_apimessages_NegotiationType
   sellerShippingWarning: String
   buyerWillPayImmediately: Boolean
+  _source: String
 }
 
 enum core_apimessages_NegotiationAction {
@@ -6012,6 +6629,7 @@ enum core_apimessages_NegotiationAction {
 
 type core_apimessages_NegotiationOffers {
   offers: [core_apimessages_Offer]
+  _source: String
 }
 
 enum core_apimessages_NegotiationParty {
@@ -6022,19 +6640,23 @@ enum core_apimessages_NegotiationParty {
 type core_apimessages_NegotiationsRequest {
   """negotiations.id"""
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_NegotiationsResponse {
   negotiations: [core_apimessages_Negotiation]
+  _source: String
 }
 
 type core_apimessages_NegotiationsShippingLocationRequest {
   """negotiations.id"""
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_NegotiationsShippingLocationResponse {
   shippingLocations: [core_apimessages_Address]
+  _source: String
 }
 
 enum core_apimessages_NegotiationState {
@@ -6053,17 +6675,20 @@ enum core_apimessages_NegotiationType {
 type core_apimessages_NewListingSignal {
   translations: core_apimessages_SignalTranslation
   isValid: Boolean
+  _source: String
 }
 
 type core_apimessages_NodeRequest {
   lookups: [core_apimessages_NodeRequest_Lookup]
   debug: Boolean
+  _source: String
 }
 
 type core_apimessages_NodeRequest_Lookup {
   lid: String
   rel: String
   params: core_apimessages_NodeRequest_Lookup_Params
+  _source: String
 }
 
 type core_apimessages_NodeRequest_Lookup_Params {
@@ -6078,41 +6703,50 @@ type core_apimessages_NodeRequest_Lookup_Params {
   productReviews: core_apimessages_NodeRequest_Lookup_Params_ProductReviews
   shopsCertifiedPreOwned: core_apimessages_NodeRequest_Lookup_Params_ShopsCertifiedPreOwned
   estimatedNewListingPrices: core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices
+  _source: String
 }
 
 type core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices {
   currency: String
+  _source: String
 }
 
 type core_apimessages_NodeRequest_Lookup_Params_Images {
   transform: core_apimessages_NamedImageTransforms
   scope: core_apimessages_Image_Scope
   limit: Int
+  _source: String
 }
 
 type core_apimessages_NodeRequest_Lookup_Params_ListingsPricings {
   ribbonPercent: String
   ruleOfOneHundred: Boolean
+  _source: String
 }
 
 type core_apimessages_NodeRequest_Lookup_Params_ProductReviews {
   forCurrentUser: Boolean
+  _source: String
 }
 
 type core_apimessages_NodeRequest_Lookup_Params_Sales {
   all: Boolean
+  _source: String
 }
 
 type core_apimessages_NodeRequest_Lookup_Params_ShippingRates {
   inOriginalCurrency: Boolean
+  _source: String
 }
 
 type core_apimessages_NodeRequest_Lookup_Params_ShopsCertifiedPreOwned {
   imageType: core_apimessages_IconImageType
+  _source: String
 }
 
 type core_apimessages_NodeRequest_Lookup_Params_TruliooOnboardingRecords {
   recordType: core_apimessages_NodeRequest_Lookup_Params_TruliooOnboardingRecords_RecordType
+  _source: String
 }
 
 enum core_apimessages_NodeRequest_Lookup_Params_TruliooOnboardingRecords_RecordType {
@@ -6123,6 +6757,7 @@ enum core_apimessages_NodeRequest_Lookup_Params_TruliooOnboardingRecords_RecordT
 
 type core_apimessages_NodeResponse {
   results: [core_apimessages_NodeResponse_Result]
+  _source: String
 }
 
 type core_apimessages_NodeResponse_Result {
@@ -6191,10 +6826,12 @@ type core_apimessages_NodeResponse_Result {
   canonicalProducts: [core_apimessages_CanonicalProduct]
   packageSizeSuggestions: [core_apimessages_PackageSizeSuggestion]
   estimatedNewListingPrices: [core_apimessages_EstimatedNewListingPrice]
+  _source: String
 }
 
 type core_apimessages_NodeResponse_Result_Meta {
   total: Int
+  _source: String
 }
 
 type core_apimessages_NodesCategory {
@@ -6208,11 +6845,13 @@ type core_apimessages_NodesCategory {
   cmsUrl: core_apimessages_Link
   root: Boolean
   leaf: Boolean
+  _source: String
 }
 
 type core_apimessages_NonUserExperiment {
   name: String
   bucket: String
+  _source: String
 }
 
 enum core_apimessages_NotificationColor {
@@ -6233,6 +6872,7 @@ type core_apimessages_Offer {
   layawayTerms: core_apimessages_LayawayTerms
   counterable: Boolean
   alerts: [core_apimessages_OfferAlert]
+  _source: String
 }
 
 enum core_apimessages_Offer_OfferStatus {
@@ -6247,6 +6887,7 @@ type core_apimessages_OfferAlert {
   level: core_apimessages_OfferAlert_Level
   title: String
   body: String
+  _source: String
 }
 
 enum core_apimessages_OfferAlert_Level {
@@ -6255,6 +6896,7 @@ enum core_apimessages_OfferAlert_Level {
 
 type core_apimessages_OfferBotRule {
   autoRejectPercentage: Int
+  _source: String
 }
 
 type core_apimessages_OfferItem {
@@ -6263,6 +6905,7 @@ type core_apimessages_OfferItem {
   prices: core_apimessages_OfferPrices
   quantity: Int
   listing: Listing
+  _source: String
 }
 
 type core_apimessages_OfferItemRequest {
@@ -6271,27 +6914,32 @@ type core_apimessages_OfferItemRequest {
   price: core_apimessages_Money
   shippingPrice: core_apimessages_Money
   quantity: Int
+  _source: String
 }
 
 type core_apimessages_OfferPrices {
   price: core_apimessages_ConvertedMoney
   shippingPrice: core_apimessages_ConvertedMoney
   totalPrice: core_apimessages_ConvertedMoney
+  _source: String
 }
 
 type core_apimessages_OffersRequest {
   """negotiations.id"""
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_OffersResponse {
   offers: [core_apimessages_NegotiationOffers]
+  _source: String
 }
 
 type core_apimessages_OnSaleSignal {
   isValid: Boolean
   translations: core_apimessages_SignalTranslation
   link: core_apimessages_SignalLink
+  _source: String
 }
 
 type core_apimessages_Order {
@@ -6335,6 +6983,8 @@ type core_apimessages_Order {
   shippingTaxed: Boolean
   paymentRequiredAt: google_protobuf_Timestamp
   protectionPlan: Boolean
+  carrierCalculatedCarrier: String
+  _source: String
 }
 
 enum core_apimessages_Order_Status {
@@ -6368,10 +7018,12 @@ type core_apimessages_OrderBundle {
   id: String
   orderType: String
   checkoutType: core_apimessages_Checkout_Type
+  _source: String
 }
 
 type core_apimessages_OrderBundleShowResponse {
   orderBundle: core_apimessages_OrderBundle
+  _source: String
 }
 
 type core_apimessages_OrderCustoms {
@@ -6381,6 +7033,7 @@ type core_apimessages_OrderCustoms {
   declaredValue: core_apimessages_Money
   tariffNumber: String
   quantity: Int
+  _source: String
 }
 
 type core_apimessages_OrderCustomsInfo {
@@ -6388,29 +7041,35 @@ type core_apimessages_OrderCustomsInfo {
   categoryName: String
   description: String
   countryOfOrigin: String
+  _source: String
 }
 
 type core_apimessages_OrderFeedbacks {
   orderUuid: String
   feedbacks: [core_apimessages_Feedback]
+  _source: String
 }
 
 type core_apimessages_OrderFeedbacksRequest {
   orderUuids: [String]
   orderIds: [String]
+  _source: String
 }
 
 type core_apimessages_OrderFeedbacksResponse {
   orderFeedbacks: [core_apimessages_OrderFeedbacks]
+  _source: String
 }
 
 type core_apimessages_OrderFlatRateShippingOptionsRequest {
   checkoutUuid: String
   orderUuid: String
+  _source: String
 }
 
 type core_apimessages_OrderFlatRateShippingOptionsResponse {
   flatRateShippingOptions: [core_apimessages_FlatRateShippingOption]
+  _source: String
 }
 
 type core_apimessages_OrderNote {
@@ -6421,19 +7080,23 @@ type core_apimessages_OrderNote {
   """orders.id"""
   orderId: String
   createdAt: google_protobuf_Timestamp
+  _source: String
 }
 
 type core_apimessages_OrderNotes {
   notes: [core_apimessages_OrderNote]
+  _source: String
 }
 
 type core_apimessages_OrderNotesIndexRequest {
   orderUuids: [String]
   orderIds: [String]
+  _source: String
 }
 
 type core_apimessages_OrderNotesIndexResponse {
   orderNotes: [core_apimessages_OrderNotes]
+  _source: String
 }
 
 """
@@ -6442,37 +7105,45 @@ Do not use this endpoint directly, instead query for order notes using RQL
 """
 type core_apimessages_OrderNotesRequest {
   orderIds: [String]
+  _source: String
 }
 
 type core_apimessages_OrderNotesResponse {
   orderNotes: [core_apimessages_OrderNote]
+  _source: String
 }
 
 type core_apimessages_OrderPackingSlip {
   packingSlipWebUrl: String
+  _source: String
 }
 
 type core_apimessages_OrderPayments {
   payments: [core_apimessages_Payment]
+  _source: String
 }
 
 type core_apimessages_OrderPaymentsRequest {
   orderUuids: [String]
   orderIds: [String]
+  _source: String
 }
 
 type core_apimessages_OrderPaymentsResponse {
   orderPayments: [core_apimessages_OrderPayments]
+  _source: String
 }
 
 type core_apimessages_OrderRefundRequests {
   refundRequests: [core_apimessages_RefundRequest]
+  _source: String
 }
 
 type core_apimessages_OrderRefunds {
   refundableState: core_apimessages_OrderRefunds_RefundableState
   refundRequests: [core_apimessages_RefundRequest]
   completedRefunds: [core_apimessages_Refund]
+  _source: String
 }
 
 enum core_apimessages_OrderRefunds_RefundableState {
@@ -6484,62 +7155,75 @@ enum core_apimessages_OrderRefunds_RefundableState {
 type core_apimessages_OrderRefundsRequest {
   orderUuids: [String]
   orderIds: [String]
+  _source: String
 }
 
 type core_apimessages_OrderRefundsResponse {
   orderRefunds: [core_apimessages_OrderRefunds]
+  _source: String
 }
 
 type core_apimessages_OrdersAddressRequest {
   uuids: [String]
   addressType: String
+  _source: String
 }
 
 type core_apimessages_OrdersAddressResponse {
   addresses: [core_apimessages_Address]
+  _source: String
 }
 
 type core_apimessages_OrdersCustomsInfoRequest {
   uuids: [String]
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_OrdersCustomsInfoResponse {
   ordersCustomsInfo: [core_apimessages_OrderCustomsInfo]
+  _source: String
 }
 
 type core_apimessages_OrderShippingAddressesRequest {
   orderUuids: [String]
   orderIds: [String]
+  _source: String
 }
 
 type core_apimessages_OrderShippingAddressesResponse {
   addresses: [core_apimessages_Address]
+  _source: String
 }
 
 type core_apimessages_OrderShippingLabel {
   shippingLabelWebUrl: String
   purchaseShippingLabelWebUrl: String
+  _source: String
 }
 
 type core_apimessages_OrdersRequest {
   uuids: [String]
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_OrdersResponse {
   orders: [core_apimessages_Order]
+  _source: String
 }
 
 type core_apimessages_OrderStats {
   listingId: String
   totalOrders: Int
   isViewable: Boolean
+  _source: String
 }
 
 type core_apimessages_OrderVerifyShippingAddressRequest {
   checkoutUuid: String
   orderUuid: String
+  _source: String
 }
 
 type core_apimessages_OrderVerifyShippingAddressResponse {
@@ -6547,20 +7231,24 @@ type core_apimessages_OrderVerifyShippingAddressResponse {
   errorMessage: String
   verificationStatus: core_apimessages_AddressVerificationStatus
   isResidential: Boolean
+  _source: String
 }
 
 type core_apimessages_OrderViewStatus {
   status: String
   description: String
+  _source: String
 }
 
 type core_apimessages_OtherBuyersWithListingInCartCountsRequest {
   """product.id"""
   ids: [String]
+  _source: String
 }
 
 type core_apimessages_OtherBuyersWithListingInCartCountsResponse {
   listingInCartCount: [core_apimessages_ListingInCartCount]
+  _source: String
 }
 
 type core_apimessages_PackageSizeSuggestion {
@@ -6569,12 +7257,14 @@ type core_apimessages_PackageSizeSuggestion {
   width: core_apimessages_Measurement
   height: core_apimessages_Measurement
   weight: core_apimessages_Measurement
+  _source: String
 }
 
 type core_apimessages_PacklinkAccount {
   id: String
   email: String
   status: core_apimessages_PacklinkAccount_Status
+  _source: String
 }
 
 enum core_apimessages_PacklinkAccount_Status {
@@ -6588,6 +7278,7 @@ type core_apimessages_PacklinkPolicies {
   marketingCalls: Boolean
   marketingEmails: Boolean
   termsAndConditions: Boolean
+  _source: String
 }
 
 type core_apimessages_PacklinkShipment {
@@ -6596,6 +7287,7 @@ type core_apimessages_PacklinkShipment {
   packlinkAccountId: String
   reference: String
   status: core_apimessages_PacklinkShipment_Status
+  _source: String
 }
 
 enum core_apimessages_PacklinkShipment_Status {
@@ -6608,6 +7300,7 @@ type core_apimessages_Payment {
   paymentMethod: core_apimessages_Payment_PaymentMethod
   paymentStatus: core_apimessages_Payment_PaymentStatus
   amount: core_apimessages_Money
+  _source: String
 }
 
 enum core_apimessages_Payment_PaymentMethod {
@@ -6645,6 +7338,7 @@ type core_apimessages_PaymentCardIcon {
   slug: String
   description: String
   url: String
+  _source: String
 }
 
 type core_apimessages_PaymentMethods {
@@ -6652,33 +7346,39 @@ type core_apimessages_PaymentMethods {
   itemId: String
   itemType: String
   acceptedPaymentMethods: [String]
+  _source: String
 }
 
 type core_apimessages_PaymentPlanSignal {
   isValid: Boolean
   translations: core_apimessages_SignalTranslation
+  _source: String
 }
 
 type core_apimessages_PayMyStatementRequest {
   statementId: String
   creditCardId: String
   payment: core_apimessages_MoneyMajorUnitsEntry
+  _source: String
 }
 
 type core_apimessages_PayMyStatementResponse {
   statementId: String
   statementBalance: Int
   amountPaidCents: Int
+  _source: String
 }
 
 type core_apimessages_PaypalOnboardSellerRequest {
   _: Boolean
+  _source: String
 }
 
 type core_apimessages_PaypalOnboardSellerResponse {
   """paypal_profiles.id"""
   id: String
   actionUrl: String
+  _source: String
 }
 
 type core_apimessages_PersonalInformation {
@@ -6692,6 +7392,7 @@ type core_apimessages_PersonalInformation {
   maskedIdNumber: String
   shareholderType: core_apimessages_PersonalInformation_AdyenShareholderType
   jobTitle: String
+  _source: String
 }
 
 enum core_apimessages_PersonalInformation_AdyenShareholderType {
@@ -6703,6 +7404,7 @@ enum core_apimessages_PersonalInformation_AdyenShareholderType {
 type core_apimessages_PredictedToSellSoonSignal {
   isValid: Boolean
   translations: core_apimessages_SignalTranslation
+  _source: String
 }
 
 type core_apimessages_PreorderInfo {
@@ -6712,6 +7414,7 @@ type core_apimessages_PreorderInfo {
   onPreorder: Boolean
   leadTimeDays: Int
   shipDate: google_protobuf_Timestamp
+  _source: String
 }
 
 type core_apimessages_PreorderInfoEntry {
@@ -6719,6 +7422,7 @@ type core_apimessages_PreorderInfoEntry {
   leadTimeUnit: core_apimessages_PreorderInfoEntry_LeadTimeUnit
   shipDate: String
   leadTimeDays: Int
+  _source: String
 }
 
 enum core_apimessages_PreorderInfoEntry_LeadTimeUnit {
@@ -6733,15 +7437,18 @@ enum core_apimessages_PreorderInfoEntry_TimeType {
 
 type core_apimessages_PreorderInfoRequest {
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_PreorderInfoResponse {
   preorderInfo: [core_apimessages_PreorderInfo]
+  _source: String
 }
 
 type core_apimessages_PrepublishStatusResponse {
   nextStep: core_apimessages_PrepublishStatusResponse_PrepublishStatus
   nextSteps: [core_apimessages_PrepublishStatusResponse_PrepublishStatus]
+  _source: String
 }
 
 enum core_apimessages_PrepublishStatusResponse_PrepublishStatus {
@@ -6761,11 +7468,13 @@ type core_apimessages_PriceChange {
   newPrice: core_apimessages_Money
   currentPriceDropPercent: Int
   totalPriceDropPercent: Int
+  _source: String
 }
 
 type core_apimessages_PriceDropSignal {
   isValid: Boolean
   translations: core_apimessages_SignalTranslation
+  _source: String
 }
 
 type core_apimessages_PriceGuide {
@@ -6776,6 +7485,7 @@ type core_apimessages_PriceGuide {
   priceLow: core_apimessages_Money
   priceHigh: core_apimessages_Money
   uuid: String
+  _source: String
 }
 
 type core_apimessages_PriceRecommendation {
@@ -6789,11 +7499,13 @@ type core_apimessages_PriceRecommendation {
   priceMiddleThirtyDaysAgo: core_apimessages_Money
   countryCode: String
   comparisonShoppingPageId: String
+  _source: String
 }
 
 type core_apimessages_PrimaryKey {
   type: core_apimessages_PrimaryKey_Type
   value: String
+  _source: String
 }
 
 enum core_apimessages_PrimaryKey_Type {
@@ -6806,22 +7518,26 @@ enum core_apimessages_PrimaryKey_Type {
 type core_apimessages_ProcessApprovedPaypalOrderRequest {
   """checkout UUID"""
   id: String
+  _source: String
 }
 
 type core_apimessages_ProcessApprovedPaypalOrderResponse {
   """checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_ProcessingFees {
   percent: String
   flatFee: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_ProductBreadcrumb {
   title: String
   url: String
+  _source: String
 }
 
 type core_apimessages_ProductReview {
@@ -6836,14 +7552,17 @@ type core_apimessages_ProductReview {
   reported: Boolean
   isMyReview: Boolean
   voted: Boolean
+  _source: String
 }
 
 type core_apimessages_ProductReviewVoteRequest {
   id: String
+  _source: String
 }
 
 type core_apimessages_ProductReviewVoteResponse {
   id: String
+  _source: String
 }
 
 type core_apimessages_ProductSpec {
@@ -6854,6 +7573,7 @@ type core_apimessages_ProductSpec {
   slug: String
   id: String
   _id: ID
+  _source: String
 }
 
 enum core_apimessages_ProductSpec_Type {
@@ -6872,6 +7592,7 @@ type core_apimessages_ProtectionPlan {
   durationMonths: String
   amount: core_apimessages_Money
   title: String
+  _source: String
 }
 
 type core_apimessages_PublicPriceRecord {
@@ -6885,48 +7606,58 @@ type core_apimessages_PublicPriceRecord {
   amountTax: core_apimessages_Money
   amountShipping: core_apimessages_Money
   condition: core_apimessages_Condition
+  _source: String
 }
 
 type core_apimessages_PublishAllListingsResponse {
   enqueued: Boolean
   message: String
   prepublishStepRequired: core_apimessages_PublishAllListingsResponse_PrepublishStepRequired
+  _source: String
 }
 
 type core_apimessages_PublishAllListingsResponse_PrepublishStepRequired {
   step: String
+  _source: String
 }
 
 type core_apimessages_PurchaseShippingRateRequest {
   shipmentUuid: String
   rateUuid: String
+  _source: String
 }
 
 type core_apimessages_PurchaseShippingRateResponse {
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_RareGearSignal {
   isValid: Boolean
   translations: core_apimessages_SignalTranslation
+  _source: String
 }
 
 type core_apimessages_RecentlyViewedListingsRequest {
   limit: Int
+  _source: String
 }
 
 type core_apimessages_RecentlyViewedListingsResponse {
   listingIds: [String]
   listings: [Listing]
+  _source: String
 }
 
 type core_apimessages_RecentSearchesResponse {
   queries: [String]
+  _source: String
 }
 
 type core_apimessages_Recommendation {
   id: String
   type: core_apimessages_Recommendation_RecommendationType
+  _source: String
 }
 
 enum core_apimessages_Recommendation_RecommendationType {
@@ -6938,20 +7669,24 @@ type core_apimessages_RecommendationsRequest {
   limit: Int
   multiClientExperiments: [core_apimessages_ExperimentData]
   listingIds: [String]
+  _source: String
 }
 
 type core_apimessages_RecommendationsResponse {
   recommendations: [core_apimessages_Recommendation]
   recommendationEngineInputIds: [String]
   recommendationEngineOutputIds: [String]
+  _source: String
 }
 
 type core_apimessages_RedeemPromotionalCodeRequest {
   token: String
+  _source: String
 }
 
 type core_apimessages_RedeemPromotionalCodeResponse {
   message: String
+  _source: String
 }
 
 type core_apimessages_ReferAFriend {
@@ -6959,10 +7694,12 @@ type core_apimessages_ReferAFriend {
   signUpBonus: core_apimessages_Money
   rewardAmount: core_apimessages_Money
   minOrderAmount: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_ReferAFriendResponse {
   referAFriend: core_apimessages_ReferAFriend
+  _source: String
 }
 
 type core_apimessages_Refund {
@@ -6972,6 +7709,7 @@ type core_apimessages_Refund {
   updatedAt: google_protobuf_Timestamp
   noteToBuyer: String
   buyerRefund: core_apimessages_BuyerRefund
+  _source: String
 }
 
 type core_apimessages_RefundRequest {
@@ -6983,6 +7721,7 @@ type core_apimessages_RefundRequest {
   id: String
   markItemReturnedWebUrl: String
   respondToRequestWebUrl: String
+  _source: String
 }
 
 enum core_apimessages_RefundRequest_RefundState {
@@ -7002,33 +7741,40 @@ enum core_apimessages_RefundRequest_RefundType {
 type core_apimessages_RegionalShippingRate {
   areas: [String]
   rate: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_RegisterMyPacklinkAccountRequest {
   email: String
   password: String
   policies: core_apimessages_PacklinkPolicies
+  _source: String
 }
 
 type core_apimessages_RegisterMyPacklinkAccountResponse {
   shopId: String
+  _source: String
 }
 
 type core_apimessages_RequestAccountDeletionRequest {
   reason: String
+  _source: String
 }
 
 type core_apimessages_RequestAccountDeletionResponse {
   uuid: String
+  _source: String
 }
 
 type core_apimessages_RequestTaxFormDownloadRequest {
   taxFormId: String
+  _source: String
 }
 
 type core_apimessages_RequestTaxFormDownloadResponse {
   taxFormDownload: core_apimessages_TaxFormDownload
   error: String
+  _source: String
 }
 
 type core_apimessages_ReturnPolicy {
@@ -7038,36 +7784,43 @@ type core_apimessages_ReturnPolicy {
   specialConditions: String
   legacyReturnPolicyText: String
   id: String
+  _source: String
 }
 
 type core_apimessages_ReturnPolicySignal {
   isValid: Boolean
   translations: core_apimessages_SignalTranslation
   link: core_apimessages_SignalLink
+  _source: String
 }
 
 type core_apimessages_ReverifyCreditCardRequest {
   creditCardId: String
   tokenizedFields: String
+  _source: String
 }
 
 type core_apimessages_ReverifyCreditCardResponse {
   creditCard: core_apimessages_CreditCard
+  _source: String
 }
 
 type core_apimessages_Reviewer {
   shortname: String
   links: core_apimessages_ReviewerLinks
+  _source: String
 }
 
 type core_apimessages_ReviewerLinks {
   avatar: core_apimessages_Link
+  _source: String
 }
 
 type core_apimessages_Ribbon {
   display: String
   reason: core_apimessages_Ribbon_Reason
   displayReason: String
+  _source: String
 }
 
 enum core_apimessages_Ribbon_Reason {
@@ -7095,6 +7848,7 @@ type core_apimessages_Sale {
   shopName: String
   links: core_apimessages_SaleLinks
   discountValue: String
+  _source: String
 }
 
 enum core_apimessages_Sale_SaleState {
@@ -7105,6 +7859,7 @@ enum core_apimessages_Sale_SaleState {
 
 type core_apimessages_SaleLinks {
   self: core_apimessages_Link
+  _source: String
 }
 
 type core_apimessages_SaveMyPlaidAccountRequest {
@@ -7112,21 +7867,25 @@ type core_apimessages_SaveMyPlaidAccountRequest {
   publicToken: String
   verificationStatus: String
   countryCode: String
+  _source: String
 }
 
 type core_apimessages_SaveMyPlaidAccountResponse {
   plaidAccountId: String
+  _source: String
 }
 
 type core_apimessages_ScheduledPriceDrop {
   newPrice: core_apimessages_Money
   active: Boolean
   dropAt: Timestamp
+  _source: String
 }
 
 type core_apimessages_ScheduledPriceDropEntry {
   newPrice: core_apimessages_Money
   active: Boolean
+  _source: String
 }
 
 type core_apimessages_SearchFilterPreset {
@@ -7137,6 +7896,7 @@ type core_apimessages_SearchFilterPreset {
   url: String
   id: String
   image(transform: String): core_apimessages_Image
+  _source: String
 }
 
 type core_apimessages_SearchFilterPresetsRequest {
@@ -7146,10 +7906,12 @@ type core_apimessages_SearchFilterPresetsRequest {
   """UUIDs"""
   collectionIds: [String]
   collectionSlugs: [String]
+  _source: String
 }
 
 type core_apimessages_SearchFilterPresetsResponse {
   searchFilterPresets: [core_apimessages_ItemSearchFilterPresets]
+  _source: String
 }
 
 type core_apimessages_SearchMetadataRequest {
@@ -7162,15 +7924,18 @@ type core_apimessages_SearchMetadataRequest {
   yearMax: String
   query: String
   searchUrlParams: String
+  _source: String
 }
 
 type core_apimessages_SearchMetadataResponse {
   title: String
+  _source: String
 }
 
 type core_apimessages_SecureCheckoutSignal {
   isValid: Boolean
   translations: core_apimessages_SignalTranslation
+  _source: String
 }
 
 type core_apimessages_SeededListing {
@@ -7196,57 +7961,68 @@ type core_apimessages_SeededListing {
   sellerPrice: core_apimessages_Money
   sellerCost: core_apimessages_Money
   shippingProfileId: String
+  _source: String
 }
 
 type core_apimessages_SeedListingRequest {
   seedId: String
   seedType: core_apimessages_Listing_SeedType
+  _source: String
 }
 
 type core_apimessages_SeedListingResponse {
   listing: core_apimessages_SeededListing
+  _source: String
 }
 
 type core_apimessages_SelectAddressAutocompleteSuggestionRequest {
   """loqate address id"""
   id: String
+  _source: String
 }
 
 type core_apimessages_SelectAddressAutocompleteSuggestionResponse {
   suggestion: core_apimessages_Address
+  _source: String
 }
 
 type core_apimessages_SelectCheckoutCreditCardRequest {
   """checkout UUID"""
   id: String
   creditCardId: String
+  _source: String
 }
 
 type core_apimessages_SelectCheckoutCreditCardResponse {
   """checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_SelectCheckoutPaymentMethodRequest {
   """checkout UUID"""
   id: String
   paymentMethod: core_apimessages_CheckoutPaymentMethod_Type
+  _source: String
 }
 
 type core_apimessages_SelectCheckoutPaymentMethodResponse {
   """checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_SellerBulkActionAsyncResponse {
   enqueued: Boolean
   message: String
+  _source: String
 }
 
 type core_apimessages_SellerBulkActionResponse {
   responses: [core_apimessages_SellerListingBulkActionResponse]
+  _source: String
 }
 
 type core_apimessages_SellerListing {
@@ -7264,16 +8040,19 @@ type core_apimessages_SellerListing {
   relistable: Boolean
   vatIncluded: Boolean
   vatIncludedHint: String
+  _source: String
 }
 
 type core_apimessages_SellerListingBulkActionResponse {
   listingId: String
   success: Boolean
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_SellerListingsResponse {
   listings: [core_apimessages_SellerListing]
+  _source: String
 }
 
 type core_apimessages_SellerOrder {
@@ -7282,6 +8061,7 @@ type core_apimessages_SellerOrder {
   packingSlip: core_apimessages_OrderPackingSlip
   taxResponsibleParty: core_apimessages_SellerOrder_TaxResponsibleParty
   orderViewStatus: core_apimessages_OrderViewStatus
+  _source: String
 }
 
 enum core_apimessages_SellerOrder_TaxResponsibleParty {
@@ -7291,6 +8071,7 @@ enum core_apimessages_SellerOrder_TaxResponsibleParty {
 
 type core_apimessages_SellerOrdersResponse {
   orders: [core_apimessages_SellerOrder]
+  _source: String
 }
 
 type core_apimessages_SellerVerificationPolicyResponse {
@@ -7298,6 +8079,7 @@ type core_apimessages_SellerVerificationPolicyResponse {
   eligibleForInformAct: Boolean
   eligibleForSellerVerification: Boolean
   eligibleForSellerVerificationBackcast: Boolean
+  _source: String
 }
 
 type core_apimessages_SellingFees {
@@ -7305,14 +8087,17 @@ type core_apimessages_SellingFees {
   maxFee: core_apimessages_Money
   sellingFeePercent: String
   processingFees: core_apimessages_ProcessingFees
+  _source: String
 }
 
 type core_apimessages_SellingFeesRequest {
   channel: core_apimessages_Channel
+  _source: String
 }
 
 type core_apimessages_SellingFeesResponse {
   fees: core_apimessages_SellingFees
+  _source: String
 }
 
 type core_apimessages_SetupPaymentMethodsRequest {
@@ -7321,6 +8106,7 @@ type core_apimessages_SetupPaymentMethodsRequest {
   paypalDetails: core_apimessages_SetupPaymentMethodsRequestPaypalDetails
   returnPolicyDetails: core_apimessages_ReturnPolicy
   creditCard: core_apimessages_BillingCreditCardEntry
+  _source: String
 }
 
 type core_apimessages_SetupPaymentMethodsRequestAdyenDetails {
@@ -7328,6 +8114,7 @@ type core_apimessages_SetupPaymentMethodsRequestAdyenDetails {
   individualDetails: core_apimessages_SetupPaymentMethodsRequestIndividualAdyenDetails
   businessDetails: core_apimessages_SetupPaymentMethodsRequestBusinessAdyenDetails
   solePropDetails: core_apimessages_SetupPaymentMethodsRequestSolePropAdyenDetails
+  _source: String
 }
 
 type core_apimessages_SetupPaymentMethodsRequestAdyenParentCompanyDetails {
@@ -7337,6 +8124,7 @@ type core_apimessages_SetupPaymentMethodsRequestAdyenParentCompanyDetails {
   legalBusinessName: String
   registrationNumber: String
   countryCode: String
+  _source: String
 }
 
 type core_apimessages_SetupPaymentMethodsRequestBusinessAdyenDetails {
@@ -7347,6 +8135,7 @@ type core_apimessages_SetupPaymentMethodsRequestBusinessAdyenDetails {
   shareholderType: core_apimessages_SetupPaymentMethodsRequestBusinessAdyenDetails_AdyenShareholderType
   jobTitle: String
   parentCompanyDetails: core_apimessages_SetupPaymentMethodsRequestAdyenParentCompanyDetails
+  _source: String
 }
 
 enum core_apimessages_SetupPaymentMethodsRequestBusinessAdyenDetails_AdyenShareholderType {
@@ -7359,26 +8148,31 @@ type core_apimessages_SetupPaymentMethodsRequestIndividualAdyenDetails {
   firstName: String
   lastName: String
   originCountryCode: String
+  _source: String
 }
 
 type core_apimessages_SetupPaymentMethodsRequestPaypalDetails {
   email: String
   legalCountryCode: String
+  _source: String
 }
 
 type core_apimessages_SetupPaymentMethodsRequestSolePropAdyenDetails {
   legalName: String
   originCountryCode: String
+  _source: String
 }
 
 type core_apimessages_SetupPaymentMethodsResponse {
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_SharedSignalData {
   buyerPrice: core_apimessages_Money
   originalPrice: core_apimessages_Money
   sellerLocationDisplay: String
+  _source: String
 }
 
 type core_apimessages_Shipment {
@@ -7397,6 +8191,7 @@ type core_apimessages_Shipment {
   orderUuids: [String]
   shippingProtectionPrice: core_apimessages_Money
   toAddressIsResidential: Boolean
+  _source: String
 }
 
 enum core_apimessages_Shipment_ShipmentType {
@@ -7408,14 +8203,17 @@ type core_apimessages_ShipmentItem {
   """products.id"""
   productId: String
   declaredValue: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_ShipmentsRequest {
   shipmentUuids: [String]
+  _source: String
 }
 
 type core_apimessages_ShipmentsResponse {
   shipments: [core_apimessages_Shipment]
+  _source: String
 }
 
 type core_apimessages_ShippingLabelPackage {
@@ -7426,6 +8224,7 @@ type core_apimessages_ShippingLabelPackage {
   predefinedPackage: String
   id: String
   reverbSuggested: Boolean
+  _source: String
 }
 
 enum core_apimessages_ShippingMethod {
@@ -7455,6 +8254,7 @@ type core_apimessages_ShippingPrice {
   originalRateVatExcluded: core_apimessages_Money
   shippingRateId: String
   _id: ID
+  _source: String
 }
 
 type core_apimessages_ShippingPrices {
@@ -7466,6 +8266,7 @@ type core_apimessages_ShippingPrices {
   """user shipping region code"""
   shippingRegionCode: String
   shippingAddress: core_apimessages_Address
+  _source: String
 }
 
 type core_apimessages_ShippingPricesRequest {
@@ -7473,11 +8274,13 @@ type core_apimessages_ShippingPricesRequest {
   shippingRegionCode: String
   usePrimaryShippingAddress: Boolean
   returnAllShippingPrices: Boolean
+  _source: String
 }
 
 type core_apimessages_ShippingPricesResponse {
   prices: [core_apimessages_Money]
   shippingPrices: [core_apimessages_ShippingPrices]
+  _source: String
 }
 
 type core_apimessages_ShippingProfile {
@@ -7487,6 +8290,7 @@ type core_apimessages_ShippingProfile {
   name: String
   id: String
   allShippingRates(input: Input_core_apimessages_NodeRequest_Lookup_Params_ShippingRates): [core_apimessages_ShippingRates]
+  _source: String
 }
 
 """POST /shipping_protection"""
@@ -7495,6 +8299,7 @@ type core_apimessages_ShippingProtectionRequest {
   fromCountryCode: String
   toCountryCode: String
   shipmentType: core_apimessages_Shipment_ShipmentType
+  _source: String
 }
 
 """POST /shipping_protection"""
@@ -7503,6 +8308,7 @@ type core_apimessages_ShippingProtectionResponse {
   shippingProtectionStatus: core_apimessages_ShippingProtectionStatus
   signatureRequiredStatus: core_apimessages_SignatureRequiredStatus
   signatureRequiredCosts: [core_apimessages_SignatureRequiredCost]
+  _source: String
 }
 
 enum core_apimessages_ShippingProtectionStatus {
@@ -7514,6 +8320,7 @@ enum core_apimessages_ShippingProtectionStatus {
 type core_apimessages_ShippingRate {
   displayName: String
   price: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_ShippingRates {
@@ -7527,6 +8334,7 @@ type core_apimessages_ShippingRates {
   rateType: String
   regionalRates: [core_apimessages_RegionalShippingRate]
   regionalExpeditedRates: [core_apimessages_RegionalShippingRate]
+  _source: String
 }
 
 enum core_apimessages_ShippingRates_RegionType {
@@ -7539,6 +8347,7 @@ enum core_apimessages_ShippingRates_RegionType {
 type core_apimessages_ShippingRatesForShippingProfile {
   shippingProfileId: String
   shippingRates: [core_apimessages_ShippingRates]
+  _source: String
 }
 
 type core_apimessages_ShippingRegionSetting {
@@ -7546,11 +8355,13 @@ type core_apimessages_ShippingRegionSetting {
   regionName: String
   isDomestic: Boolean
   allowedToShipCarrierCalculated: Boolean
+  _source: String
 }
 
 type core_apimessages_ShipsSoonSignal {
   translations: core_apimessages_SignalTranslation
   isValid: Boolean
+  _source: String
 }
 
 """A public representation of a shop, accessible to all users."""
@@ -7579,11 +8390,13 @@ type core_apimessages_Shop {
   quickShipperSpeed: core_apimessages_Shop_QuickShipperSpeed
   createdAt: Timestamp
   lowballOfferPercentage: Int
+  _source: String
 }
 
 type core_apimessages_Shop_OfferPolicy {
   autoRejectLowOffers: Boolean
   lowballPercentage: Int
+  _source: String
 }
 
 enum core_apimessages_Shop_QuickShipperSpeed {
@@ -7604,6 +8417,7 @@ type core_apimessages_ShopAdyenBalancePlatformNotificationsIndexRequest {
   eventTypes: [String]
   offset: String
   limit: String
+  _source: String
 }
 
 type core_apimessages_ShopAdyenBalancePlatformNotificationsIndexResponse {
@@ -7611,6 +8425,7 @@ type core_apimessages_ShopAdyenBalancePlatformNotificationsIndexResponse {
   totalResults: String
   offset: String
   limit: String
+  _source: String
 }
 
 type core_apimessages_ShopCampaignCoupon {
@@ -7629,6 +8444,7 @@ type core_apimessages_ShopCampaignCoupon {
   excludedBrands: [Brand]
   excludedCategories: [Category]
   shop: Shop
+  _source: String
 }
 
 enum core_apimessages_ShopCampaignCoupon_Status {
@@ -7648,6 +8464,7 @@ type core_apimessages_ShopCertifiedPreOwned {
   pageUrl: String
   lightModeBrandIconUrl: String
   darkModeBrandIconUrl: String
+  _source: String
 }
 
 """A private representation of a shop, accessible to owners and admins."""
@@ -7667,12 +8484,14 @@ type core_apimessages_ShopConfig {
   isShopInUk: Boolean
   firstTimeSeller: Boolean
   marketplaceTaxReportingCountryCode: String
+  _source: String
 }
 
 type core_apimessages_ShopConfig_OfferPolicy {
   autoRejectLowOffers: Boolean
   lowballPercentage: Int
   autoAcceptHighOffers: Boolean
+  _source: String
 }
 
 type core_apimessages_ShopEntry {
@@ -7682,6 +8501,7 @@ type core_apimessages_ShopEntry {
   name: String
   address: core_apimessages_AddressEntry
   shopType: core_apimessages_Shop_ShopType
+  _source: String
 }
 
 type core_apimessages_ShopReturnPoliciesRequest {
@@ -7689,20 +8509,24 @@ type core_apimessages_ShopReturnPoliciesRequest {
   ids: [String]
   uuids: [String]
   slugs: [String]
+  _source: String
 }
 
 type core_apimessages_ShopReturnPoliciesResponse {
   shopReturnPolicies: [core_apimessages_ShopReturnPolicy]
+  _source: String
 }
 
 type core_apimessages_ShopReturnPolicy {
   shopUuid: String
   returnPolicy: core_apimessages_ReturnPolicy
+  _source: String
 }
 
 type core_apimessages_ShopShippingProfiles {
   shopUuid: String
   shippingProfiles: [core_apimessages_ShippingProfile]
+  _source: String
 }
 
 type core_apimessages_ShopShippingProfilesRequest {
@@ -7710,25 +8534,30 @@ type core_apimessages_ShopShippingProfilesRequest {
   ids: [String]
   uuids: [String]
   slugs: [String]
+  _source: String
 }
 
 type core_apimessages_ShopShippingProfilesResponse {
   shopShippingProfiles: [core_apimessages_ShopShippingProfiles]
+  _source: String
 }
 
 type core_apimessages_ShopsRequest {
   uuids: [String]
   channel: core_apimessages_Channel
   slugs: [String]
+  _source: String
 }
 
 type core_apimessages_ShopsResponse {
   shops: [core_apimessages_Shop]
+  _source: String
 }
 
 type core_apimessages_ShopTaxPolicies {
   shopUuid: String
   taxPolicies: [core_apimessages_ShopTaxPolicy]
+  _source: String
 }
 
 type core_apimessages_ShopTaxPolicy {
@@ -7736,6 +8565,7 @@ type core_apimessages_ShopTaxPolicy {
   displayLocation: String
   displayRate: String
   vatPolicy: Boolean
+  _source: String
 }
 
 enum core_apimessages_ShopTaxPolicy_PolicyType {
@@ -7746,28 +8576,33 @@ enum core_apimessages_ShopTaxPolicy_PolicyType {
 
 type core_apimessages_ShowAdyenRegionRequest {
   _: Boolean
+  _source: String
 }
 
 type core_apimessages_ShowAdyenRegionResponse {
   webRegion: String
   iosRegion: String
   androidRegion: String
+  _source: String
 }
 
 type core_apimessages_SignalLink {
   url: String
   text: String
+  _source: String
 }
 
 type core_apimessages_SignalTranslation {
   title: String
   subtitle: String
   tooltipText: String
+  _source: String
 }
 
 type core_apimessages_SignatureRequiredCost {
   carrier: String
   amount: core_apimessages_Money
+  _source: String
 }
 
 enum core_apimessages_SignatureRequiredStatus {
@@ -7797,11 +8632,13 @@ type core_apimessages_SiteBanner {
   hasPhotos: Boolean
   showOnMobile: Boolean
   showOnMyUpdates: Boolean
+  _source: String
 }
 
 type core_apimessages_SiteBannerRequest {
   limit: Int
   visibilityScope: core_apimessages_SiteBannerRequest_VisibilityScope
+  _source: String
 }
 
 enum core_apimessages_SiteBannerRequest_VisibilityScope {
@@ -7813,29 +8650,34 @@ enum core_apimessages_SiteBannerRequest_VisibilityScope {
 type core_apimessages_SiteBannerResponse {
   siteBanner: core_apimessages_SiteBanner
   siteBanners: [core_apimessages_SiteBanner]
+  _source: String
 }
 
 type core_apimessages_StartCheckoutForListingRequest {
   listingId: String
   paymentMethod: core_apimessages_CheckoutPaymentMethod_Type
   quantity: Int
+  _source: String
 }
 
 type core_apimessages_StartCheckoutForListingResponse {
   redirectUrl: String
   checkoutId: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_StartCheckoutRequest {
   checkoutBundlingId: String
   paymentMethodType: core_apimessages_CheckoutPaymentMethod_Type
+  _source: String
 }
 
 type core_apimessages_StartCheckoutResponse {
   """Checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_StartPaypalCheckoutRequest {
@@ -7844,6 +8686,7 @@ type core_apimessages_StartPaypalCheckoutRequest {
   """Item quantity for Buy It Now checkout on item page"""
   quantity: Int
   paymentMethodType: core_apimessages_StartPaypalCheckoutRequest_PaymentMethodType
+  _source: String
 }
 
 enum core_apimessages_StartPaypalCheckoutRequest_PaymentMethodType {
@@ -7857,6 +8700,7 @@ type core_apimessages_StartPaypalCheckoutResponse {
   paypalOrderId: String
   redirectUrl: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_Storefront {
@@ -7867,22 +8711,27 @@ type core_apimessages_Storefront {
   id: String
   description: String
   shippingPolicy: String
+  _source: String
 }
 
 type core_apimessages_StorefrontReturnPoliciesRequest {
   slugs: [String]
+  _source: String
 }
 
 type core_apimessages_StorefrontReturnPoliciesResponse {
   returnPolicies: [core_apimessages_ReturnPolicy]
+  _source: String
 }
 
 type core_apimessages_StorefrontsRequest {
   slugs: [String]
+  _source: String
 }
 
 type core_apimessages_StorefrontsResponse {
   storefronts: [core_apimessages_Storefront]
+  _source: String
 }
 
 type core_apimessages_Subregion {
@@ -7890,17 +8739,20 @@ type core_apimessages_Subregion {
   name: String
   id: String
   _id: ID
+  _source: String
 }
 
 type core_apimessages_SuperRegion {
   code: String
   name: String
   _id: ID
+  _source: String
 }
 
 type core_apimessages_TargetingContext {
   keywords: [String]
   categories: [String]
+  _source: String
 }
 
 type core_apimessages_Tax1099kReportingThresholdSearchResult {
@@ -7909,12 +8761,14 @@ type core_apimessages_Tax1099kReportingThresholdSearchResult {
   region: String
   salesAmountCents: String
   transactionCount: String
+  _source: String
 }
 
 type core_apimessages_TaxFormDownload {
   id: String
   status: core_apimessages_TaxFormDownload_Status
   url: String
+  _source: String
 }
 
 enum core_apimessages_TaxFormDownload_Status {
@@ -7925,10 +8779,12 @@ enum core_apimessages_TaxFormDownload_Status {
 
 type core_apimessages_TaxFormDownloadRequest {
   id: String
+  _source: String
 }
 
 type core_apimessages_TaxFormDownloadResponse {
   taxFormDownload: core_apimessages_TaxFormDownload
+  _source: String
 }
 
 type core_apimessages_TaxIdentification {
@@ -7938,6 +8794,7 @@ type core_apimessages_TaxIdentification {
   taxType: core_apimessages_TaxIdentification_TaxType
   countryCode: String
   active: Boolean
+  _source: String
 }
 
 enum core_apimessages_TaxIdentification_Status {
@@ -7958,6 +8815,7 @@ type core_apimessages_TaxIdentificationUpdate {
   id: String
   taxId: String
   countryCode: String
+  _source: String
 }
 
 type core_apimessages_TaxPoliciesRequest {
@@ -7965,6 +8823,7 @@ type core_apimessages_TaxPoliciesRequest {
   uuid: String
   slug: String
   type: core_apimessages_TaxPoliciesRequest_TaxPoliciesType
+  _source: String
 }
 
 enum core_apimessages_TaxPoliciesRequest_TaxPoliciesType {
@@ -7979,6 +8838,7 @@ type core_apimessages_TaxProfile {
   createdAt: Timestamp
   updatedAt: Timestamp
   verifiedAt: Timestamp
+  _source: String
 }
 
 type core_apimessages_ThreeDSOneData {
@@ -7986,16 +8846,19 @@ type core_apimessages_ThreeDSOneData {
   md: String
   termUrl: String
   redirectUrl: String
+  _source: String
 }
 
 type core_apimessages_TrackBumpInteractionRequest {
   bumpKey: core_apimessages_BumpKey
   listingId: String
   interactionType: arbiter_Interaction_InteractionType
+  _source: String
 }
 
 type core_apimessages_TrackBumpInteractionResponse {
   bumpKey: core_apimessages_BumpKey
+  _source: String
 }
 
 type core_apimessages_Trait {
@@ -8005,18 +8868,21 @@ type core_apimessages_Trait {
   """traits.value_uuid"""
   valueId: String
   value: String
+  _source: String
 }
 
 type core_apimessages_TraitResponse {
   """traits.traitable_id (polymorphic foreign key, with 'type')"""
   traitableId: String
   traits: [core_apimessages_Trait]
+  _source: String
 }
 
 type core_apimessages_TraitsRequest {
   """traits.traitable_id (polymorphic foreign key, with 'type')"""
   ids: [String]
   type: core_apimessages_TraitsRequest_TraitableType
+  _source: String
 }
 
 enum core_apimessages_TraitsRequest_TraitableType {
@@ -8025,6 +8891,7 @@ enum core_apimessages_TraitsRequest_TraitableType {
 
 type core_apimessages_TraitsResponse {
   traits: [core_apimessages_TraitResponse]
+  _source: String
 }
 
 type core_apimessages_TruliooOnboarding {
@@ -8032,6 +8899,7 @@ type core_apimessages_TruliooOnboarding {
   verificationStatus: core_apimessages_TruliooOnboarding_VerificationStatus
   completedAt: Timestamp
   truliooOnboardingRecords(input: Input_core_apimessages_NodeRequest_Lookup_Params_TruliooOnboardingRecords): [core_apimessages_TruliooOnboardingRecord]
+  _source: String
 }
 
 enum core_apimessages_TruliooOnboarding_VerificationStatus {
@@ -8052,6 +8920,7 @@ type core_apimessages_TruliooOnboardingRecord {
   email: String
   fullName: String
   pscOwners: [core_apimessages_TruliooOnboardingRecord]
+  _source: String
 }
 
 enum core_apimessages_TruliooOnboardingRecord_EntityType {
@@ -8074,42 +8943,50 @@ enum core_apimessages_TruliooOnboardingRecord_Status {
 
 type core_apimessages_TruliooOnboardingRecordResendPscEmailRequest {
   truliooOnboardingRecordId: String
+  _source: String
 }
 
 type core_apimessages_TruliooOnboardingRecordResendPscEmailResponse {
   truliooOnboardingRecordId: String
+  _source: String
 }
 
 type core_apimessages_TruliooOnboardingRecordResponse {
   truliooOnboardingRecord: core_apimessages_TruliooOnboardingRecord
+  _source: String
 }
 
 type core_apimessages_TruliooOnboardingResponse {
   truliooOnboarding: core_apimessages_TruliooOnboarding
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_TypicalNewPriceDisplay {
   amountDisplay: String
   descriptionDisplay: String
   savingsDisplay: String
+  _source: String
 }
 
 type core_apimessages_UKBankDetails {
   sortCode: String
   accountNumber: String
   bankCode: String
+  _source: String
 }
 
 type core_apimessages_UndoDeleteMyFavoriteRequest {
   id: String
   type: core_apimessages_FavoriteType
+  _source: String
 }
 
 type core_apimessages_UndoDeleteMyFavoriteResponse {
   errors: [core_apimessages_Error]
   favorite: core_apimessages_Favorite
   listing: Listing
+  _source: String
 }
 
 type core_apimessages_UniversalPromoCampaign {
@@ -8125,19 +9002,23 @@ type core_apimessages_UniversalPromoCampaign {
   categories: [core_apimessages_NodesCategory]
   lapsedBuyer: Boolean
   lapsedBuyerLastPurchaseDate: Timestamp
+  _source: String
 }
 
 type core_apimessages_UniversalPromoCurrency {
   amount: core_apimessages_Money
   minPurchaseAmount: core_apimessages_Money
+  _source: String
 }
 
 type core_apimessages_UpdateAdCampaignRequest {
   adCampaign: core_apimessages_AdCampaign
+  _source: String
 }
 
 type core_apimessages_UpdateAdCampaignResponse {
   adCampaign: core_apimessages_AdCampaign
+  _source: String
 }
 
 type core_apimessages_UpdateAddressRequest {
@@ -8147,60 +9028,74 @@ type core_apimessages_UpdateAddressRequest {
   isPrimary: Boolean
   address: core_apimessages_AddressEntry
   uuid: String
+  _source: String
 }
 
 type core_apimessages_UpdateAddressResponse {
   address: core_apimessages_Address
   suggestion: core_apimessages_Address
+  _source: String
 }
 
 type core_apimessages_UpdateAdGroupKeywordsRequest {
   keywords: [String]
   adGroupUuid: String
+  _source: String
 }
 
 type core_apimessages_UpdateAdGroupKeywordsResponse {
   adGroupKeywords: [core_apimessages_AdGroupKeyword]
+  _source: String
 }
 
 type core_apimessages_UpdateAdGroupRequest {
   adGroup: core_apimessages_AdGroup
+  _source: String
 }
 
 type core_apimessages_UpdateAdGroupResponse {
   adGroup: core_apimessages_AdGroup
+  _source: String
 }
 
 type core_apimessages_UpdateAdRequest {
   ad: core_apimessages_Ad
+  _source: String
 }
 
 type core_apimessages_UpdateAdResponse {
   ad: core_apimessages_Ad
+  _source: String
 }
 
 type core_apimessages_UpdateAdvertiserRequest {
   advertiser: core_apimessages_Advertiser
+  _source: String
 }
 
 type core_apimessages_UpdateAdvertiserResponse {
   advertiser: core_apimessages_Advertiser
+  _source: String
 }
 
 type core_apimessages_UpdateAdZoneRequest {
   adZone: core_apimessages_AdZone
+  _source: String
 }
 
 type core_apimessages_UpdateAdZoneResponse {
   adZone: core_apimessages_AdZone
+  _source: String
 }
 
 type core_apimessages_UpdateBankAccountRequest {
   bankDetails: core_apimessages_BankDetails
+  _source: String
 }
 
 type core_apimessages_UpdateBankAccountResponse {
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_UpdateBillingMethodRequest {
@@ -8213,6 +9108,7 @@ type core_apimessages_UpdateBillingMethodRequest {
   optional, to indicate that a new card is being added specifically for a partial payment
   """
   partialPayment: Boolean
+  _source: String
 }
 
 type core_apimessages_UpdateBillingMethodResponse {
@@ -8221,54 +9117,64 @@ type core_apimessages_UpdateBillingMethodResponse {
   adyenPaymentResult: core_apimessages_AdyenPaymentResult
   billingMethodUuid: String
   me: rql_Me
+  _source: String
 }
 
 type core_apimessages_UpdateCartItemProtectionPlanRequest {
   cartItemUuid: String
   protectionPlan: core_apimessages_ProtectionPlan
+  _source: String
 }
 
 type core_apimessages_UpdateCartItemProtectionPlanResponse {
   cartItemUuid: String
   protectionPlan: core_apimessages_ProtectionPlan
+  _source: String
 }
 
 type core_apimessages_UpdateCheckoutBillingAddressRequest {
   """checkout UUID"""
   id: String
   billingAddress: core_apimessages_AddressEntry
+  _source: String
 }
 
 type core_apimessages_UpdateCheckoutBillingAddressResponse {
   """checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type core_apimessages_UpdateCheckoutPaypalOrderRequest {
   """checkout UUID"""
   id: String
   paypalOrderId: String
+  _source: String
 }
 
 type core_apimessages_UpdateCheckoutPaypalOrderResponse {
   """checkout UUID"""
   id: String
+  _source: String
 }
 
 type core_apimessages_UpdateCompanyRequest {
   companyInformation: core_apimessages_CompanyInformation
   personalInformation: [core_apimessages_PersonalInformation]
   accountHolderAddress: core_apimessages_KYCAddress
+  _source: String
 }
 
 type core_apimessages_UpdateCompanyResponse {
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_UpdateCrossPlatformListingSessionRequest {
   action: core_apimessages_UpdateCrossPlatformListingSessionRequest_Action
   listingId: String
+  _source: String
 }
 
 enum core_apimessages_UpdateCrossPlatformListingSessionRequest_Action {
@@ -8278,6 +9184,7 @@ enum core_apimessages_UpdateCrossPlatformListingSessionRequest_Action {
 
 type core_apimessages_UpdateCrossPlatformListingSessionResponse {
   _: Boolean
+  _source: String
 }
 
 type core_apimessages_UpdateFeedbackRequest {
@@ -8286,18 +9193,22 @@ type core_apimessages_UpdateFeedbackRequest {
   rating: Int
   shippingSatisfactory: google_protobuf_BoolValue
   conditionSatisfactory: google_protobuf_BoolValue
+  _source: String
 }
 
 type core_apimessages_UpdateFeedbackResponse {
   feedback: core_apimessages_Feedback
+  _source: String
 }
 
 type core_apimessages_UpdateGearCollectionItemRequest {
   gearCollectionItemEntry: core_apimessages_GearCollectionItemEntry
+  _source: String
 }
 
 type core_apimessages_UpdateGearCollectionItemResponse {
   gearCollectionItem: core_apimessages_GearCollectionItem
+  _source: String
 }
 
 type core_apimessages_UpdateInternationalTaxProfileRequest {
@@ -8307,17 +9218,20 @@ type core_apimessages_UpdateInternationalTaxProfileRequest {
   dateOfBirth: String
   businessRegistrationNumber: String
   addressAttributes: core_apimessages_AddressEntry
+  _source: String
 }
 
 type core_apimessages_UpdateInternationalTaxProfileResponse {
   internationalTaxProfile: core_apimessages_InternationalTaxProfile
   businessRegistrationNumber: core_apimessages_BusinessRegistrationNumber
+  _source: String
 }
 
 type core_apimessages_UpdateListingRequest {
   listingEntry: core_apimessages_ListingEntry
   updateType: core_apimessages_UpdateListingRequest_UpdateType
   fields: [String]
+  _source: String
 }
 
 enum core_apimessages_UpdateListingRequest_UpdateType {
@@ -8328,22 +9242,26 @@ enum core_apimessages_UpdateListingRequest_UpdateType {
 
 type core_apimessages_UpdateListingResponse {
   listing: core_apimessages_Listing
+  _source: String
 }
 
 type core_apimessages_UpdateListingStateRequest {
   productId: String
   newState: core_apimessages_ListingStateUpdate
   endingReason: String
+  _source: String
 }
 
 type core_apimessages_UpdateListingStateResponse {
   newState: core_apimessages_ListingStateUpdate
+  _source: String
 }
 
 type core_apimessages_UpdateMyCreditCardRequest {
   id: String
   creditCard: core_apimessages_UpdateMyCreditCardRequest_CreditCardEntry
   billingAddress: core_apimessages_AddressEntry
+  _source: String
 }
 
 type core_apimessages_UpdateMyCreditCardRequest_CreditCardEntry {
@@ -8356,10 +9274,12 @@ type core_apimessages_UpdateMyCreditCardRequest_CreditCardEntry {
   expirationYear: String
   cardholderName: String
   primaryForCheckout: Boolean
+  _source: String
 }
 
 type core_apimessages_UpdateMyCreditCardResponse {
   creditCard: core_apimessages_CreditCard
+  _source: String
 }
 
 type core_apimessages_UpdateMyShippingProfile {
@@ -8369,32 +9289,39 @@ type core_apimessages_UpdateMyShippingProfile {
   localPickup: Boolean
   offersIncrementalRates: Boolean
   shippingRates: [core_apimessages_ShippingRates]
+  _source: String
 }
 
 type core_apimessages_UpdateMyShopCampaignRequest {
   shopCampaignEntry: core_apimessages_MyShopCampaignEntry
+  _source: String
 }
 
 type core_apimessages_UpdateMyShopCampaignResponse {
   shopCampaign: core_apimessages_MyShopCampaign
+  _source: String
 }
 
 type core_apimessages_UpdateMyShopRequest {
   shop: core_apimessages_ShopEntry
+  _source: String
 }
 
 type core_apimessages_UpdateMyShopResponse {
   errors: [core_apimessages_Error]
   shop: core_apimessages_Shop
   address: core_apimessages_Address
+  _source: String
 }
 
 type core_apimessages_UpdateMyShopShippingProfilesRequest {
   shippingProfiles: [core_apimessages_UpdateMyShippingProfile]
+  _source: String
 }
 
 type core_apimessages_UpdateMyShopShippingProfilesResponse {
   shippingProfiles: [core_apimessages_UpdateMyShippingProfile]
+  _source: String
 }
 
 type core_apimessages_UpdateNegotiationRequest {
@@ -8406,18 +9333,22 @@ type core_apimessages_UpdateNegotiationRequest {
   shippingAddressUuid: String
   creditCardId: String
   conditionallyAcceptedBySeller: Boolean
+  _source: String
 }
 
 type core_apimessages_UpdateNegotiationResponse {
   negotiation: core_apimessages_Negotiation
+  _source: String
 }
 
 type core_apimessages_UpdateOwnerInformationRequest {
   personalInformation: [core_apimessages_PersonalInformation]
+  _source: String
 }
 
 type core_apimessages_UpdateOwnerInformationResponse {
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_UpdateProductReviewRequest {
@@ -8425,10 +9356,12 @@ type core_apimessages_UpdateProductReviewRequest {
   body: String
   title: String
   comparisonShoppingPageId: String
+  _source: String
 }
 
 type core_apimessages_UpdateProductReviewResponse {
   id: String
+  _source: String
 }
 
 type core_apimessages_UpdateReturnPolicyRequest {
@@ -8436,44 +9369,53 @@ type core_apimessages_UpdateReturnPolicyRequest {
   usedReturnWindowDays: Int
   restockingFeePercent: Int
   specialConditions: String
+  _source: String
 }
 
 type core_apimessages_UpdateReturnPolicyResponse {
   errors: [core_apimessages_Error]
   returnPolicy: core_apimessages_ReturnPolicy
+  _source: String
 }
 
 type core_apimessages_UpdateShopKYCRequest {
   personalInformation: core_apimessages_PersonalInformation
   bankDetails: core_apimessages_BankDetails
   companyInformation: core_apimessages_CompanyInformation
+  _source: String
 }
 
 type core_apimessages_UpdateShopKYCResponse {
   errors: [core_apimessages_Error]
+  _source: String
 }
 
 type core_apimessages_UpdateTaxIdentificationRequest {
   taxIdentification: core_apimessages_TaxIdentificationUpdate
+  _source: String
 }
 
 type core_apimessages_UpdateTaxIdentificationResponse {
   taxIdentification: core_apimessages_TaxIdentification
   shopId: String
   shop: MyShop
+  _source: String
 }
 
 type core_apimessages_UpdateUniversalPromoCampaignRequest {
   universalPromoCampaign: core_apimessages_UniversalPromoCampaign
+  _source: String
 }
 
 type core_apimessages_UpdateUniversalPromoCampaignResponse {
   universalPromoCampaign: core_apimessages_UniversalPromoCampaign
+  _source: String
 }
 
 type core_apimessages_UpdateUserShopPermissionRequest {
   userId: String
   permissionLevel: core_apimessages_UserShopPermission_PermissionLevel
+  _source: String
 }
 
 type core_apimessages_UpdateWatchResponse {
@@ -8481,14 +9423,17 @@ type core_apimessages_UpdateWatchResponse {
   userId: String
   id: String
   listing: Listing
+  _source: String
 }
 
 type core_apimessages_UploadShopKYCCompanyRegistrationRequest {
   fileKey: String
+  _source: String
 }
 
 type core_apimessages_UploadShopKYCCompanyRegistrationResponse {
   _: Boolean
+  _source: String
 }
 
 """
@@ -8505,16 +9450,19 @@ type core_apimessages_UpsertMyFavoriteRequest {
   emailEnabled: Boolean
   shopId: Int
   queryParams: String
+  _source: String
 }
 
 type core_apimessages_UpsertMyFavoriteResponse {
   errors: [core_apimessages_Error]
   favorite: core_apimessages_Favorite
+  _source: String
 }
 
 type core_apimessages_USBankDetails {
   accountNumber: String
   routingNumber: String
+  _source: String
 }
 
 type core_apimessages_User {
@@ -8526,6 +9474,7 @@ type core_apimessages_User {
   id: String
   firstName: String
   shortname: String
+  _source: String
 }
 
 enum core_apimessages_UserActionName {
@@ -8551,10 +9500,12 @@ type core_apimessages_UserBadge {
   displayText: String
   Links: core_apimessages_UserBadgeLinks @deprecated
   badgeLinks: core_apimessages_UserBadgeLinks
+  _source: String
 }
 
 type core_apimessages_UserBadgeLinks {
   web: core_apimessages_Link
+  _source: String
 }
 
 type core_apimessages_UserNotification {
@@ -8564,6 +9515,7 @@ type core_apimessages_UserNotification {
   notificationLinks: core_apimessages_UserNotificationLinks
   key: core_apimessages_UserNotification_UserNotificationKey
   hidden: Boolean
+  _source: String
 }
 
 enum core_apimessages_UserNotification_UserNotificationKey {
@@ -8583,6 +9535,7 @@ enum core_apimessages_UserNotification_UserNotificationKey {
 
 type core_apimessages_UserNotificationLinks {
   web: core_apimessages_Link
+  _source: String
 }
 
 enum core_apimessages_UserNotificationType {
@@ -8597,6 +9550,7 @@ type core_apimessages_UserSearchResult {
   shopId: String
   shopName: String
   fullName: String
+  _source: String
 }
 
 type core_apimessages_UserService {
@@ -8606,6 +9560,7 @@ type core_apimessages_UserService {
   """The provider's user email, not Reverb's"""
   email: String
   provider: core_apimessages_UserService_Provider
+  _source: String
 }
 
 enum core_apimessages_UserService_Provider {
@@ -8620,6 +9575,7 @@ type core_apimessages_UserShopPermission {
   userId: String
   email: String
   permissionLevel: core_apimessages_UserShopPermission_PermissionLevel
+  _source: String
 }
 
 enum core_apimessages_UserShopPermission_PermissionLevel {
@@ -8630,10 +9586,12 @@ enum core_apimessages_UserShopPermission_PermissionLevel {
 
 type core_apimessages_UsersRequest {
   uuids: [String]
+  _source: String
 }
 
 type core_apimessages_UsersResponse {
   users: [core_apimessages_User]
+  _source: String
 }
 
 enum core_apimessages_UserStatus {
@@ -8653,6 +9611,7 @@ type core_apimessages_UserWatchesRequest {
   channel: core_apimessages_Channel
   listingsState: core_apimessages_UserWatchesRequest_ListingState
   profileSlug: String
+  _source: String
 }
 
 enum core_apimessages_UserWatchesRequest_ListingState {
@@ -8663,11 +9622,13 @@ enum core_apimessages_UserWatchesRequest_ListingState {
 
 type core_apimessages_VerifyPromotionalCodeRequest {
   token: String
+  _source: String
 }
 
 type core_apimessages_VerifyPromotionalCodeResponse {
   success: Boolean
   message: String
+  _source: String
 }
 
 type core_apimessages_Video {
@@ -8684,11 +9645,13 @@ type core_apimessages_Video {
   """video_links.youtube_video_id"""
   youtubeVideoId: String
   empty: Boolean
+  _source: String
 }
 
 type core_apimessages_VideoLink {
   youtubeVideoId: String
   youtubeLink: String
+  _source: String
 }
 
 type core_apimessages_VideosRequest {
@@ -8698,6 +9661,7 @@ type core_apimessages_VideosRequest {
   ids: [String]
   uuids: [String]
   slugs: [String]
+  _source: String
 }
 
 enum core_apimessages_VideosRequest_VideolinkableType {
@@ -8707,16 +9671,19 @@ enum core_apimessages_VideosRequest_VideolinkableType {
 
 type core_apimessages_VideosResponse {
   videos: [core_apimessages_Video]
+  _source: String
 }
 
 type core_apimessages_WatchesCreateRequest {
   listingId: String
   channel: core_apimessages_Channel
   bumpKey: core_apimessages_BumpKey
+  _source: String
 }
 
 type core_apimessages_WatchesDeleteRequest {
   listingId: String
+  _source: String
 }
 
 type core_apimessages_WatchesRequest {
@@ -8725,6 +9692,7 @@ type core_apimessages_WatchesRequest {
   limit: Int
   channel: core_apimessages_Channel
   listingsState: core_apimessages_WatchesRequest_ListingState
+  _source: String
 }
 
 enum core_apimessages_WatchesRequest_ListingState {
@@ -8738,16 +9706,20 @@ type core_apimessages_WatchesResponse {
   offset: Int
   limit: Int
   total: Int
+  _source: String
 }
 
 type core_apimessages_WatchResponse {
   listingId: String
   watching: Boolean
+  _source: String
 }
 
 type CSP implements INode {
   _id: ID
   _source: String
+
+  """comparison_shopping_pages.id"""
   id: String
   title: String
   summary: String
@@ -8792,6 +9764,8 @@ type CSP implements INode {
 type CuratedSet implements INode {
   _id: ID
   _source: String
+
+  """curated_sets.id"""
   id: String
   title: String
   webLink: core_apimessages_Link
@@ -8824,6 +9798,8 @@ union FeedEntry = Article | Listing
 type GearCollectionItem implements INode {
   _id: ID
   _source: String
+
+  """gear_collection_item.id"""
   id: String
   deleted: Boolean
   title: String
@@ -10174,6 +11150,7 @@ type google_protobuf_Timestamp {
   inclusive.
   """
   nanos: Int
+  _source: String
 }
 
 """
@@ -14735,6 +15712,7 @@ input Input_core_apimessages_MyMessage {
   createdAt: Timestamp
   body: String
   read: Boolean
+  conversationId: String
 }
 
 input Input_core_apimessages_MyMessagesRequest {
@@ -15243,6 +16221,7 @@ input Input_core_apimessages_Order {
   shippingTaxed: Boolean
   paymentRequiredAt: Input_core_apimessages_LegacyTimestamp
   protectionPlan: Boolean
+  carrierCalculatedCarrier: String
 }
 
 input Input_core_apimessages_OrderBundle {
@@ -21701,16 +22680,26 @@ input Input_rql_UpdateEntity {
 type Listing implements INode {
   _id: ID
   _source: String
+
+  """products.id"""
   id: String
   title: String
   merchandisingUuid: String
   price: core_apimessages_Money
+
+  """shops.id"""
   shopId: String
+
+  """users.id"""
   sellerId: String
+
+  """users.uuid"""
   sellerUuid: String
   hasInventory: Boolean
   inventory: Int
   shopUuid: String
+
+  """includes product_type.uuids"""
   categoryUuids: [String]
   state: String
   condition: core_apimessages_Condition
@@ -21723,9 +22712,15 @@ type Listing implements INode {
   finish: String
   make: String
   model: String
+
+  """product_types.id"""
   productTypeId: String
   year: String
+
+  """canonical_products.id"""
   canonicalProductId: String
+
+  """postgres id (polymorphic with 'seed_type')"""
   seedId: String
   seedType: core_apimessages_Listing_SeedType
   sku: String
@@ -21733,6 +22728,8 @@ type Listing implements INode {
   taxIncluded: Boolean
   priceGuideUuid: String
   cspUuid: String
+
+  """auctions.uuid"""
   currentAuctionId: String
   salePrice: core_apimessages_Money @deprecated
   categoryRootUuid: String
@@ -21748,6 +22745,12 @@ type Listing implements INode {
   maxBuyerQuantity: Int
   currency: String
   cspId: String
+
+  """
+  Total quantity that a buyer can set from a listing to a cart item. This value
+  will be zero if the listing is not inventoried, or if an inventoried listing
+  is out of stock.
+  """
   allowedBuyerQuantity: Int
   sameDayShippingIneligible: Boolean
   overriddenAttributes: [String]
@@ -21769,6 +22772,8 @@ type Listing implements INode {
   relistable: Boolean
   vatIncluded: Boolean
   vatIncludedHint: String
+
+  """JSON-encoded Adyen response to parse client-side"""
   adyenCheckoutPaymentMethodsConfig: String
   images(input: Input_core_apimessages_ImagesRequest!): [core_apimessages_Image]
   sale: core_apimessages_Sale
@@ -22160,6 +23165,8 @@ type MyShop implements INode {
   website: String
   showSold: Boolean
   vatId: String
+
+  """Unused by any client but needed in mobile apps RQL queries"""
   recentlyShipped: Boolean @deprecated
   quickShipperSpeed: core_apimessages_Shop_QuickShipperSpeed
   createdAt: Timestamp
@@ -22228,7 +23235,11 @@ type MyUpdatesPromotion implements INode {
 type Negotiation implements INode {
   _id: ID
   _source: String
+
+  """negotiations.id"""
   id: String
+
+  """repeated Offer offers = 2;"""
   state: core_apimessages_NegotiationState
   buyerUuid: String
   sellerUuid: String
@@ -22237,6 +23248,8 @@ type Negotiation implements INode {
   lastOffer: core_apimessages_Offer
   taxIncluded: Boolean
   taxIncludedHint: String
+
+  """deprecated in favor of seller_shipping_warning"""
   buyerOutsideListingShippingRegions: Boolean @deprecated
   negotiationType: core_apimessages_NegotiationType
   sellerShippingWarning: String
@@ -22256,15 +23269,21 @@ type Order implements INode {
   _source: String
   buyerUuid: String
   shopUuid: String
+
+  """products.id"""
   listingId: String
   status: core_apimessages_Order_Status
   shippingMethod: core_apimessages_ShippingMethod
   sellerUuid: String
   checkoutUuid: String
+
+  """orders.id"""
   legacyOrderId: String
   createdAt: google_protobuf_Timestamp
   settlementAmountProductSubtotal: core_apimessages_Money
   quantity: Int
+
+  """users.id"""
   legacyBuyerId: String
   paidAt: google_protobuf_Timestamp
   updatedAt: google_protobuf_Timestamp
@@ -22287,6 +23306,7 @@ type Order implements INode {
   shippingTaxed: Boolean
   paymentRequiredAt: google_protobuf_Timestamp
   protectionPlan: Boolean
+  carrierCalculatedCarrier: String
   uuid: String
   id: String
   customsInfo: core_apimessages_OrderCustomsInfo
@@ -22315,8 +23335,12 @@ type OrderBundle implements INode {
   amountTax: core_apimessages_Money
   bonusBucks: core_apimessages_Money
   paymentMethod: core_apimessages_Payment_PaymentMethod
+
+  """order_bundles.checkout_uuid"""
   uuid: String
   localPickup: Boolean
+
+  """order_bundles.id"""
   id: String
   orderType: String
   checkoutType: core_apimessages_Checkout_Type
@@ -22355,6 +23379,8 @@ type PriceChange implements INode {
 type PriceGuide implements INode {
   _id: ID
   _source: String
+
+  """price_guides.id"""
   id: String
   title: String
   webLink: core_apimessages_Link
@@ -22389,7 +23415,11 @@ type PublicComponent implements INode {
   data: String
   layoutSection: String
   active: Boolean
+
+  """cms_recently_viewed  cms_used_first"""
   experimentKey: String
+
+  """'default' or 'experiment'"""
   experimentBucket: String
   title: String
   subtitle: String
@@ -26032,6 +27062,7 @@ type rql_AddressSuggestion {
   id: String
   type: rql_AddressSuggestion_Type
   text: String
+  _source: String
 }
 
 enum rql_AddressSuggestion_Type {
@@ -26041,11 +27072,13 @@ enum rql_AddressSuggestion_Type {
 
 type rql_AuthToken {
   token: String
+  _source: String
 }
 
 """Used as input type for mutations that don't have any arguments"""
 type rql_Blank {
   _: Boolean
+  _source: String
 }
 
 type rql_BrandManager {
@@ -26054,6 +27087,7 @@ type rql_BrandManager {
   statsByCSP(input: Input_reverb_reporting_CSPStatsByCSPRequest): reverb_reporting_CSPStatsByCSPResponse
   statsByDate(input: Input_reverb_reporting_CSPStatsRequest): reverb_reporting_CSPStatsByDateResponse
   totalStats(input: Input_reverb_reporting_CSPStatsRequest): reverb_reporting_CSPStats
+  _source: String
 }
 
 type rql_BrandOrderSearch {
@@ -26063,6 +27097,7 @@ type rql_BrandOrderSearch {
   listingConditionSlugs: [String]
   completedOnly: Boolean
   listingCategoryUuids: [String]
+  _source: String
 }
 
 type rql_BrandStatsSearch {
@@ -26073,38 +27108,45 @@ type rql_BrandStatsSearch {
   orderDesc: Boolean
   limit: Int
   offset: Int
+  _source: String
 }
 
 type rql_BumpedListingsQuery {
   entityType: String
   count: Int
+  _source: String
 }
 
 type rql_CheckoutActionRequestInput {
   reverbApp: String
+  _source: String
 }
 
 type rql_CheckoutCartEditRequest {
   """Checkout UUID"""
   id: String
   order: rql_CheckoutCartEditRequest_OrderEntry
+  _source: String
 }
 
 type rql_CheckoutCartEditRequest_OrderEntry {
   listingId: String
   quantity: Int
+  _source: String
 }
 
 type rql_CheckoutCartEditResponse {
   """Checkout UUID"""
   id: String
   checkout: Checkout
+  _source: String
 }
 
 type rql_CollectionQuery {
   ids: [String]
   uuids: [String]
   slugs: [String]
+  _source: String
 }
 
 type rql_CollectionWithDraftsQuery {
@@ -26112,6 +27154,7 @@ type rql_CollectionWithDraftsQuery {
   uuids: [String]
   slugs: [String]
   includeDrafts: Boolean
+  _source: String
 }
 
 type rql_CPRecommendationsRequest {
@@ -26120,10 +27163,12 @@ type rql_CPRecommendationsRequest {
   listingsSearchRequest: reverb_search_ListingsSearchRequest
   listingIds: [String]
   limit: Int
+  _source: String
 }
 
 type rql_CSPPriceRecommendation {
   conditionUuids: [String]
+  _source: String
 }
 
 type rql_CSPProductReviewSearchResponse {
@@ -26131,12 +27176,14 @@ type rql_CSPProductReviewSearchResponse {
   productReviews: [ProductReview]
   total: Int
   filters: [reverb_search_Filter]
+  _source: String
 }
 
 type rql_EmailSubscription {
   id: String
   subscribed: Boolean
   translationKey: rql_EmailSubscription_TranslationKey
+  _source: String
 }
 
 enum rql_EmailSubscription_TranslationKey {
@@ -26153,10 +27200,12 @@ enum rql_EmailSubscription_TranslationKey {
 type rql_ExperimentData {
   name: String
   group: String
+  _source: String
 }
 
 type rql_ExpressSalePriceEstimate {
   conditionUuid: String
+  _source: String
 }
 
 type rql_Favorite {
@@ -26167,6 +27216,7 @@ type rql_Favorite {
   favorite: core_apimessages_Favorite
   listingsSearchUrlParams: String
   entity: FavoriteEntity
+  _source: String
 }
 
 type rql_FavoritesRequest {
@@ -26176,6 +27226,7 @@ type rql_FavoritesRequest {
   listingState: rql_FavoritesRequest_ListingState
   sortSlug: String
   itemRegion: String
+  _source: String
 }
 
 enum rql_FavoritesRequest_ListingState {
@@ -26190,6 +27241,7 @@ type rql_FavoritesResponse {
   offset: Int
   total: Int
   filters: [reverb_search_Filter]
+  _source: String
 }
 
 enum rql_FavoriteType {
@@ -26204,6 +27256,7 @@ type rql_FeedQuery {
   channel: rql_FeedQuery_Channel
   listingsFilter: reverb_search_ListingsSearchRequest
   readFromDatabase: Boolean
+  _source: String
 }
 
 enum rql_FeedQuery_Channel {
@@ -26215,16 +27268,19 @@ type rql_FindAddressSuggestionRequest {
   text: String
   container: String
   countryCode: String
+  _source: String
 }
 
 type rql_FindAddressSuggestionResponse {
   suggestions: [rql_AddressSuggestion]
+  _source: String
 }
 
 type rql_FollowsQuery {
   limit: Int
   offset: Int
   channel: rql_FollowsQuery_Channel
+  _source: String
 }
 
 enum rql_FollowsQuery_Channel {
@@ -26235,6 +27291,7 @@ enum rql_FollowsQuery_Channel {
 type rql_GearCollectionItemsSearchRequest {
   as: rql_GearCollectionItemsSearchRequest_Party
   searchInput: reverb_search_GearCollectionItemsSearchRequest
+  _source: String
 }
 
 enum rql_GearCollectionItemsSearchRequest_Party {
@@ -26243,6 +27300,7 @@ enum rql_GearCollectionItemsSearchRequest_Party {
 
 type rql_HomepageRequest {
   mpid: String
+  _source: String
 }
 
 type rql_ImageQuery {
@@ -26250,11 +27308,13 @@ type rql_ImageQuery {
   scope: String
   limit: Int
   namedTransform: core_apimessages_NamedImageTransforms
+  _source: String
 }
 
 type rql_ListingPriceRecommendationRequest {
   countryCode: String
   currency: String
+  _source: String
 }
 
 type rql_Me {
@@ -26265,6 +27325,8 @@ type rql_Me {
   firstName: String
   shortname: String
   _id: ID
+
+  """users.id"""
   id: String
   uuid: String
   shopUuid: String
@@ -26309,10 +27371,12 @@ type rql_Me {
   buyerCoupons(input: Input_core_apimessages_MyBuyerCouponsRequest!): core_apimessages_MyBuyerCouponsResponse
   myMessages(input: Input_core_apimessages_MyMessagesRequest): [core_apimessages_MyMessage]
   shop: MyShop
+  _source: String
 }
 
 type rql_MeProfileRequest {
   mpid: String
+  _source: String
 }
 
 """
@@ -26331,17 +27395,20 @@ type rql_MonitoringData {
   warn: Int
   timeout: Int
   owner: String
+  _source: String
 }
 
 type rql_MyCart {
   _: Boolean
   cartItems: [core_apimessages_CartItem]
   bundles: [core_apimessages_CartItemBundle]
+  _source: String
 }
 
 type rql_MyUpdatesQuery {
   limit: Int
   offset: Int
+  _source: String
 }
 
 type rql_MyUpdatesResponse {
@@ -26349,6 +27416,7 @@ type rql_MyUpdatesResponse {
   limit: Int
   offset: Int
   total: Int
+  _source: String
 }
 
 type rql_NegotiationQuery {
@@ -26360,6 +27428,7 @@ type rql_NegotiationQuery {
   listingIds: [String]
   sort: String
   fullTextQuery: String
+  _source: String
 }
 
 enum rql_NegotiationQuery_Party {
@@ -26376,11 +27445,13 @@ enum rql_NegotiationQuery_State {
 
 type rql_Node {
   Id: String
+  _source: String
 }
 
 type rql_NodeError {
   type: rql_NodeError_ErrorType
   message: String
+  _source: String
 }
 
 enum rql_NodeError_ErrorType {
@@ -26392,11 +27463,13 @@ type rql_NodeQuery {
   id: String
   uuid: String
   slug: String
+  _source: String
 }
 
 type rql_OrderPricingQuery {
   sellerCountries: [String]
   createdAfterDate: String
+  _source: String
 }
 
 type rql_OrderQuery {
@@ -26404,17 +27477,20 @@ type rql_OrderQuery {
   offset: Int
   checkoutUuid: String
   actionableStatuses: [String]
+  _source: String
 }
 
 type rql_OrdersSearchRequest {
   as: core_apimessages_BulkOrdersRequest_Party
   searchFilters: reverb_search_OrderSearchRequest
+  _source: String
 }
 
 type rql_PageInfo {
   limit: Int
   offset: Int
   total: Int
+  _source: String
 }
 
 """Deprecated"""
@@ -26425,6 +27501,7 @@ type rql_PageMetadata {
   fallbackSubject: String
   inPreposition: String
   collectionClause: String
+  _source: String
 }
 
 type rql_PriceRecordSearchRequest {
@@ -26446,12 +27523,14 @@ type rql_PriceRecordSearchRequest {
   actionableStatusGroup: String
   withAverageMonthlyProductPricesAggregations: Boolean
   averageMonthlyProductPricesCurrency: String
+  _source: String
 }
 
 type rql_PublicComponentEntity {
   id: String
   type: String
   entity: PublicComponentEntity
+  _source: String
 }
 
 enum rql_PublicComponentEntity_EntityType {
@@ -26463,35 +27542,43 @@ type rql_RecommendationsGenericResponse {
   recommendationEngineInputIds: [String]
   recommendationEngineOutputIds: [String]
   searchResponse: reverb_search_SearchResponse
+  _source: String
 }
 
 type rql_ReflectCollectionQuery {
   keys: [String]
+  _source: String
 }
 
 type rql_ReflectQuery {
   key: String
+  _source: String
 }
 
 type rql_SelectAddressSuggestionRequest {
   id: String
+  _source: String
 }
 
 type rql_SelectAddressSuggestionResponse {
   id: String
   address: core_apimessages_AddressEntry
+  _source: String
 }
 
 type rql_SellerCheckoutInput {
   id: String
+  _source: String
 }
 
 type rql_SetGlobalSubscribeRequest {
   state: rql_SubscribeState
+  _source: String
 }
 
 type rql_ShopsRecommendationsRequest {
   limit: Int
+  _source: String
 }
 
 enum rql_SubscribeState {
@@ -26506,6 +27593,7 @@ type rql_Update {
 
   """The timestamp of this update"""
   createdAt: String
+  _source: String
 }
 
 type rql_UpdateEntity {
@@ -26553,11 +27641,14 @@ type rql_UpdateEntity {
 
   """promotion related to this update"""
   promotion: MyUpdatesPromotion
+  _source: String
 }
 
 type Sale implements INode {
   _id: ID
   _source: String
+
+  """sales.id"""
   id: String
   slug: String
   name: String
@@ -26598,6 +27689,8 @@ type Shipment implements INode {
   defaultPaymentMethod: core_apimessages_FeePaymentMethod
   carrierRates: [core_apimessages_CarrierRateGroup]
   shippingMethod: core_apimessages_ShippingMethod
+
+  """shipments.uuid"""
   id: String
   orderUuids: [String]
   shippingProtectionPrice: core_apimessages_Money
@@ -26638,6 +27731,8 @@ type Shop implements INode {
   website: String
   showSold: Boolean
   vatId: String
+
+  """Unused by any client but needed in mobile apps RQL queries"""
   recentlyShipped: Boolean @deprecated
   quickShipperSpeed: core_apimessages_Shop_QuickShipperSpeed
   createdAt: Timestamp
@@ -26702,6 +27797,8 @@ type SiteBanner implements INode {
   mobileUrl: core_apimessages_Link
   mobileWebUrl: core_apimessages_Link
   imageUrl: String
+
+  """Deprecated"""
   webOnly: Boolean
   mobileImageUrl: String
   startsAt: Timestamp
@@ -26760,6 +27857,8 @@ type User implements INode {
   uuid: String
   name: String
   shopUuid: String
+
+  """users.id"""
   id: String
   firstName: String
   shortname: String
