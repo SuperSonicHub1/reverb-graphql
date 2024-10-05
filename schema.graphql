@@ -207,6 +207,7 @@ type arbiter_FeaturedListingRequest {
   listingIds: [String]
   includeListingsOutsideLowestPriceWindow: Boolean
   isUserInCspOptimizationExp: Boolean
+  applyProximityBoost: Boolean
 }
 
 type arbiter_FeaturedListingResponse {
@@ -1803,6 +1804,7 @@ type core_apimessages_Brand {
   webLink: core_apimessages_Link
   slug: String
   uuid: String
+  _id: ID
   _source: String
 }
 
@@ -2566,6 +2568,7 @@ type core_apimessages_Category {
   cmsUrl: core_apimessages_Link
   root: Boolean
   leaf: Boolean
+  _id: ID
   _source: String
 }
 
@@ -5323,6 +5326,7 @@ type core_apimessages_Image {
   transformation: core_apimessages_ImageEntry_Transformation
   width: Int
   height: Int
+  _id: ID
   _source: String
 }
 
@@ -7784,6 +7788,7 @@ type core_apimessages_ReturnPolicy {
   specialConditions: String
   legacyReturnPolicyText: String
   id: String
+  _id: ID
   _source: String
 }
 
@@ -7848,6 +7853,7 @@ type core_apimessages_Sale {
   shopName: String
   links: core_apimessages_SaleLinks
   discountValue: String
+  _id: ID
   _source: String
 }
 
@@ -9474,6 +9480,7 @@ type core_apimessages_User {
   id: String
   firstName: String
   shortname: String
+  _id: ID
   _source: String
 }
 
@@ -11303,6 +11310,7 @@ input Input_arbiter_FeaturedListingRequest {
   listingIds: [String]
   includeListingsOutsideLowestPriceWindow: Boolean
   isUserInCspOptimizationExp: Boolean
+  applyProximityBoost: Boolean
 }
 
 input Input_arbiter_FeaturedListingResponse {
