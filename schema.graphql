@@ -4698,6 +4698,8 @@ type core_apimessages_FeedbacksResponse {
   total: Int
   offset: Int
   limit: Int
+  sellerRating: Int
+  buyerRating: Int
   _source: String
 }
 
@@ -8292,7 +8294,7 @@ type core_apimessages_ShippingPricesResponse {
 type core_apimessages_ShippingProfile {
   localPickup: Boolean
   categoryUuids: [String]
-  shippingRates: core_apimessages_ShippingRates
+  shippingRates: core_apimessages_ShippingRates @deprecated
   name: String
   id: String
   allShippingRates(input: Input_core_apimessages_NodeRequest_Lookup_Params_ShippingRates): [core_apimessages_ShippingRates]
@@ -14430,6 +14432,8 @@ input Input_core_apimessages_FeedbacksResponse {
   total: Int
   offset: Int
   limit: Int
+  sellerRating: Int
+  buyerRating: Int
 }
 
 input Input_core_apimessages_FeedbackSummariesRequest {
