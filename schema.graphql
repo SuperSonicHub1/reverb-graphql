@@ -499,10 +499,6 @@ type CheckoutAction implements INode {
   redirectUrl: String
 }
 
-type cms_AdminBackfillDarkModeRequest {
-  dryRun: Boolean
-}
-
 type cms_AdminClonePageRequest {
   slug: String
 }
@@ -615,10 +611,6 @@ type cms_BulkPagination {
   total: Int
   offset: Int
   limit: Int
-}
-
-type cms_BulkUpdatePagesResponse {
-  pages: [cms_Page]
 }
 
 type cms_Component {
@@ -5244,6 +5236,7 @@ type core_apimessages_HomepageComponent {
   slug: String
   listings: [core_apimessages_ListingData]
   componentIdentifier: core_apimessages_HomepageComponent_ComponentIdentifier
+  searches: [core_apimessages_SearchData]
   _source: String
 }
 
@@ -5269,6 +5262,7 @@ enum core_apimessages_HomepageComponent_ComponentIdentifier {
   RECENT_CATEGORY
   BEST_SELLERS
   BASED_ON_RECENTLY_VIEWED_LISTINGS
+  TRENDING_SEARCHES
 }
 
 enum core_apimessages_HomepageComponent_ComponentType {
@@ -5276,6 +5270,8 @@ enum core_apimessages_HomepageComponent_ComponentType {
   LISTINGS_GRID
   PRODUCTS_GRID
   CMS_BANNER
+  IMAGE_MOSAIC
+  ROUNDED_GRID
 }
 
 type core_apimessages_HomepageNotification {
@@ -7893,6 +7889,13 @@ type core_apimessages_ScheduledPriceDrop {
 type core_apimessages_ScheduledPriceDropEntry {
   newPrice: core_apimessages_Money
   active: Boolean
+  _source: String
+}
+
+type core_apimessages_SearchData {
+  title: String
+  queryParams: String
+  imageUrl: String
   _source: String
 }
 
@@ -11469,10 +11472,6 @@ input Input_braze_UserTrackResponse {
   message: String
 }
 
-input Input_cms_AdminBackfillDarkModeRequest {
-  dryRun: Boolean
-}
-
 input Input_cms_AdminClonePageRequest {
   slug: String
 }
@@ -11585,10 +11584,6 @@ input Input_cms_BulkPagination {
   total: Int
   offset: Int
   limit: Int
-}
-
-input Input_cms_BulkUpdatePagesResponse {
-  pages: [Input_cms_Page]
 }
 
 input Input_cms_Component {
@@ -14864,6 +14859,7 @@ input Input_core_apimessages_HomepageComponent {
   slug: String
   listings: [Input_core_apimessages_ListingData]
   componentIdentifier: core_apimessages_HomepageComponent_ComponentIdentifier
+  searches: [Input_core_apimessages_SearchData]
 }
 
 input Input_core_apimessages_HomepageNotification {
@@ -16887,6 +16883,12 @@ input Input_core_apimessages_ScheduledPriceDrop {
 input Input_core_apimessages_ScheduledPriceDropEntry {
   newPrice: Input_core_apimessages_Money
   active: Boolean
+}
+
+input Input_core_apimessages_SearchData {
+  title: String
+  queryParams: String
+  imageUrl: String
 }
 
 input Input_core_apimessages_SearchFilterPreset {
