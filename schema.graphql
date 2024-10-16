@@ -4690,8 +4690,8 @@ type core_apimessages_FeedbacksResponse {
   total: Int
   offset: Int
   limit: Int
-  sellerRating: Int
-  buyerRating: Int
+  sellerRating: Float
+  buyerRating: Float
   _source: String
 }
 
@@ -14427,8 +14427,8 @@ input Input_core_apimessages_FeedbacksResponse {
   total: Int
   offset: Int
   limit: Int
-  sellerRating: Int
-  buyerRating: Int
+  sellerRating: Float
+  buyerRating: Float
 }
 
 input Input_core_apimessages_FeedbackSummariesRequest {
