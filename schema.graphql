@@ -5324,6 +5324,7 @@ type core_apimessages_Image {
   transformation: core_apimessages_ImageEntry_Transformation
   width: Int
   height: Int
+  namedTransform: core_apimessages_NamedImageTransforms
   _id: ID
   _source: String
 }
@@ -14904,6 +14905,7 @@ input Input_core_apimessages_Image {
   transformation: Input_core_apimessages_ImageEntry_Transformation
   width: Int
   height: Int
+  namedTransform: core_apimessages_NamedImageTransforms
 }
 
 input Input_core_apimessages_ImageAdCreative {
