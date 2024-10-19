@@ -1717,6 +1717,7 @@ type core_apimessages_BearerV2TokenRequest {
 enum core_apimessages_BearerV2TokenRequest_Client {
   UNKNOWN
   MOBILE
+  LISTING_PHOTO_UPLOADER
 }
 
 type core_apimessages_BearerV2TokenResponse {
@@ -6706,6 +6707,7 @@ type core_apimessages_NodeRequest_Lookup_Params {
   productReviews: core_apimessages_NodeRequest_Lookup_Params_ProductReviews
   shopsCertifiedPreOwned: core_apimessages_NodeRequest_Lookup_Params_ShopsCertifiedPreOwned
   estimatedNewListingPrices: core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices
+  users: core_apimessages_NodeRequest_Lookup_Params_Users
   _source: String
 }
 
@@ -6756,6 +6758,11 @@ enum core_apimessages_NodeRequest_Lookup_Params_TruliooOnboardingRecords_RecordT
   ALL
   PARENT
   CHILDREN
+}
+
+type core_apimessages_NodeRequest_Lookup_Params_Users {
+  fullname: Boolean
+  _source: String
 }
 
 type core_apimessages_NodeResponse {
@@ -9599,6 +9606,7 @@ enum core_apimessages_UserShopPermission_PermissionLevel {
 
 type core_apimessages_UsersRequest {
   uuids: [String]
+  fullname: Boolean
   _source: String
 }
 
@@ -16000,6 +16008,7 @@ input Input_core_apimessages_NodeRequest_Lookup_Params {
   productReviews: Input_core_apimessages_NodeRequest_Lookup_Params_ProductReviews
   shopsCertifiedPreOwned: Input_core_apimessages_NodeRequest_Lookup_Params_ShopsCertifiedPreOwned
   estimatedNewListingPrices: Input_core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices
+  users: Input_core_apimessages_NodeRequest_Lookup_Params_Users
 }
 
 input Input_core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices {
@@ -16035,6 +16044,10 @@ input Input_core_apimessages_NodeRequest_Lookup_Params_ShopsCertifiedPreOwned {
 
 input Input_core_apimessages_NodeRequest_Lookup_Params_TruliooOnboardingRecords {
   recordType: core_apimessages_NodeRequest_Lookup_Params_TruliooOnboardingRecords_RecordType
+}
+
+input Input_core_apimessages_NodeRequest_Lookup_Params_Users {
+  fullname: Boolean
 }
 
 input Input_core_apimessages_NodeResponse {
@@ -18170,6 +18183,7 @@ input Input_core_apimessages_UserShopPermission {
 
 input Input_core_apimessages_UsersRequest {
   uuids: [String]
+  fullname: Boolean
 }
 
 input Input_core_apimessages_UsersResponse {
