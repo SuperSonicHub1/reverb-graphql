@@ -2364,6 +2364,7 @@ type core_apimessages_CartItem {
   protectionPlanEligible: Boolean
   _id: ID
   listing: Listing
+  protectionPlanOptions: [core_apimessages_ProtectionPlanOptions]
   order: Order
   _source: String
 }
@@ -3473,6 +3474,7 @@ type core_apimessages_Core {
   NodesListingsPricings(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesListingsExpressPay(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesListingsSignals(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
+  NodesListingsProtectionPlanOptions(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesListingsAutoOfferEligibilities(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesListingsBuyerOfferEligibilities(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesListingsAffirmZeroPercentFinancingConfigurations(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
@@ -6836,6 +6838,7 @@ type core_apimessages_NodeResponse_Result {
   canonicalProducts: [core_apimessages_CanonicalProduct]
   packageSizeSuggestions: [core_apimessages_PackageSizeSuggestion]
   estimatedNewListingPrices: [core_apimessages_EstimatedNewListingPrice]
+  listingsProtectionPlanOptions: [core_apimessages_ProtectionPlanOptions]
   _source: String
 }
 
@@ -7602,6 +7605,16 @@ type core_apimessages_ProtectionPlan {
   durationMonths: String
   amount: core_apimessages_Money
   title: String
+  planCoverageDetails: [String]
+  termsUrl: String
+  _source: String
+}
+
+type core_apimessages_ProtectionPlanOptions {
+  availablePlans: [core_apimessages_ProtectionPlan]
+  protectionPlanCalloutTitle: String
+  protectionHighlights: [String]
+  coverageDetailsSubheader: String
   _source: String
 }
 
@@ -16120,6 +16133,7 @@ input Input_core_apimessages_NodeResponse_Result {
   canonicalProducts: [Input_core_apimessages_CanonicalProduct]
   packageSizeSuggestions: [Input_core_apimessages_PackageSizeSuggestion]
   estimatedNewListingPrices: [Input_core_apimessages_EstimatedNewListingPrice]
+  listingsProtectionPlanOptions: [Input_core_apimessages_ProtectionPlanOptions]
 }
 
 input Input_core_apimessages_NodeResponse_Result_Meta {
@@ -16674,6 +16688,15 @@ input Input_core_apimessages_ProtectionPlan {
   durationMonths: String
   amount: Input_core_apimessages_Money
   title: String
+  planCoverageDetails: [String]
+  termsUrl: String
+}
+
+input Input_core_apimessages_ProtectionPlanOptions {
+  availablePlans: [Input_core_apimessages_ProtectionPlan]
+  protectionPlanCalloutTitle: String
+  protectionHighlights: [String]
+  coverageDetailsSubheader: String
 }
 
 input Input_core_apimessages_PublicPriceRecord {
@@ -22879,6 +22902,7 @@ type Listing implements INode {
   True if listing is valid for publish. If not valid, returns error messages.
   """
   publishValidation: core_apimessages_ListingValidForPublish
+  protectionPlanOptions: [core_apimessages_ProtectionPlanOptions]
 }
 
 type ListingCollection {
