@@ -5745,7 +5745,8 @@ type core_apimessages_ListingData {
   isInCart: Boolean
   eyebrow: core_apimessages_ListingData_Disruptor
   disruptor: core_apimessages_ListingData_Disruptor
-  shippingText: String
+  countryName: String
+  id: String
   _source: String
 }
 
@@ -15273,7 +15274,8 @@ input Input_core_apimessages_ListingData {
   isInCart: Boolean
   eyebrow: core_apimessages_ListingData_Disruptor
   disruptor: core_apimessages_ListingData_Disruptor
-  shippingText: String
+  countryName: String
+  id: String
 }
 
 """For PUT/POST submissions"""
@@ -21283,6 +21285,7 @@ input Input_reverb_search_AutocompleteRequest {
   locale: String
   shippingRegionCode: String
   currency: String
+  limit: reverb_search_AutocompleteRequest_Limit
 }
 
 input Input_reverb_search_AutocompleteResponse {
@@ -25558,6 +25561,12 @@ type reverb_search_AutocompleteRequest {
   locale: String
   shippingRegionCode: String
   currency: String
+  limit: reverb_search_AutocompleteRequest_Limit
+}
+
+enum reverb_search_AutocompleteRequest_Limit {
+  DEFAULT
+  COMPACT
 }
 
 type reverb_search_AutocompleteResponse {
