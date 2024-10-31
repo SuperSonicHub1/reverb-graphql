@@ -3481,6 +3481,7 @@ type core_apimessages_Core {
   NodesListingsSalesMemberships(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesListingsUserViews(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesListingsOfferBotRules(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
+  NodesListingsCertifiedPreOwned(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesOrders(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesOrderBundles(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
   NodesPacklinkShipments(input: Input_core_apimessages_NodeRequest): core_apimessages_NodeResponse
@@ -5692,6 +5693,18 @@ type core_apimessages_ListingBuyerOfferEligibility {
   _source: String
 }
 
+type core_apimessages_ListingCertifiedPreOwned {
+  title: String
+  description: String
+  tooltipDescription: String
+  badgeIconUrl: String
+  brandName: String
+  pageUrl: String
+  lightModeBrandIconUrl: String
+  darkModeBrandIconUrl: String
+  _source: String
+}
+
 type core_apimessages_ListingCorrectionRequest {
   listingId: String
   message: String
@@ -5738,7 +5751,7 @@ type core_apimessages_ListingData {
   condition: String
   price: String
   strikeThroughPrice: String
-  typicalNewPrice: String
+  discountDescription: String
   imageUrl: String
   ctaUrl: String
   isWatching: Boolean
@@ -5747,6 +5760,7 @@ type core_apimessages_ListingData {
   disruptor: core_apimessages_ListingData_Disruptor
   countryName: String
   id: String
+  savingsText: String
   _source: String
 }
 
@@ -5755,6 +5769,7 @@ enum core_apimessages_ListingData_Disruptor {
   BUMPED
   SALE
   PRICE_DROP
+  OUTLET
 }
 
 """For PUT/POST submissions"""
@@ -6711,6 +6726,7 @@ type core_apimessages_NodeRequest_Lookup_Params {
   shopsCertifiedPreOwned: core_apimessages_NodeRequest_Lookup_Params_ShopsCertifiedPreOwned
   estimatedNewListingPrices: core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices
   users: core_apimessages_NodeRequest_Lookup_Params_Users
+  listingsCertifiedPreOwned: core_apimessages_NodeRequest_Lookup_Params_ListingsCertifiedPreOwned
   _source: String
 }
 
@@ -6723,6 +6739,11 @@ type core_apimessages_NodeRequest_Lookup_Params_Images {
   transform: core_apimessages_NamedImageTransforms
   scope: core_apimessages_Image_Scope
   limit: Int
+  _source: String
+}
+
+type core_apimessages_NodeRequest_Lookup_Params_ListingsCertifiedPreOwned {
+  imageType: core_apimessages_IconImageType
   _source: String
 }
 
@@ -6840,6 +6861,7 @@ type core_apimessages_NodeResponse_Result {
   packageSizeSuggestions: [core_apimessages_PackageSizeSuggestion]
   estimatedNewListingPrices: [core_apimessages_EstimatedNewListingPrice]
   listingsProtectionPlanOptions: [core_apimessages_ProtectionPlanOptions]
+  listingsCertifiedPreOwned: [core_apimessages_ListingCertifiedPreOwned]
   _source: String
 }
 
@@ -15227,6 +15249,17 @@ input Input_core_apimessages_ListingBuyerOfferEligibility {
   isEligible: Boolean
 }
 
+input Input_core_apimessages_ListingCertifiedPreOwned {
+  title: String
+  description: String
+  tooltipDescription: String
+  badgeIconUrl: String
+  brandName: String
+  pageUrl: String
+  lightModeBrandIconUrl: String
+  darkModeBrandIconUrl: String
+}
+
 input Input_core_apimessages_ListingCorrectionRequest {
   listingId: String
   message: String
@@ -15267,7 +15300,7 @@ input Input_core_apimessages_ListingData {
   condition: String
   price: String
   strikeThroughPrice: String
-  typicalNewPrice: String
+  discountDescription: String
   imageUrl: String
   ctaUrl: String
   isWatching: Boolean
@@ -15276,6 +15309,7 @@ input Input_core_apimessages_ListingData {
   disruptor: core_apimessages_ListingData_Disruptor
   countryName: String
   id: String
+  savingsText: String
 }
 
 """For PUT/POST submissions"""
@@ -16024,6 +16058,7 @@ input Input_core_apimessages_NodeRequest_Lookup_Params {
   shopsCertifiedPreOwned: Input_core_apimessages_NodeRequest_Lookup_Params_ShopsCertifiedPreOwned
   estimatedNewListingPrices: Input_core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices
   users: Input_core_apimessages_NodeRequest_Lookup_Params_Users
+  listingsCertifiedPreOwned: Input_core_apimessages_NodeRequest_Lookup_Params_ListingsCertifiedPreOwned
 }
 
 input Input_core_apimessages_NodeRequest_Lookup_Params_EstimatedNewListingPrices {
@@ -16034,6 +16069,10 @@ input Input_core_apimessages_NodeRequest_Lookup_Params_Images {
   transform: core_apimessages_NamedImageTransforms
   scope: core_apimessages_Image_Scope
   limit: Int
+}
+
+input Input_core_apimessages_NodeRequest_Lookup_Params_ListingsCertifiedPreOwned {
+  imageType: core_apimessages_IconImageType
 }
 
 input Input_core_apimessages_NodeRequest_Lookup_Params_ListingsPricings {
@@ -16136,6 +16175,7 @@ input Input_core_apimessages_NodeResponse_Result {
   packageSizeSuggestions: [Input_core_apimessages_PackageSizeSuggestion]
   estimatedNewListingPrices: [Input_core_apimessages_EstimatedNewListingPrice]
   listingsProtectionPlanOptions: [Input_core_apimessages_ProtectionPlanOptions]
+  listingsCertifiedPreOwned: [Input_core_apimessages_ListingCertifiedPreOwned]
 }
 
 input Input_core_apimessages_NodeResponse_Result_Meta {
@@ -22906,6 +22946,7 @@ type Listing implements INode {
   """
   publishValidation: core_apimessages_ListingValidForPublish
   protectionPlanOptions: [core_apimessages_ProtectionPlanOptions]
+  certifiedPreOwned(input: Input_core_apimessages_NodeRequest_Lookup_Params_ListingsCertifiedPreOwned): core_apimessages_ListingCertifiedPreOwned
 }
 
 type ListingCollection {
