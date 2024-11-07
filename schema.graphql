@@ -8279,6 +8279,7 @@ type core_apimessages_ShippingLabelPackage {
   predefinedPackage: String
   id: String
   reverbSuggested: Boolean
+  allowedCarriers: [String]
   _source: String
 }
 
@@ -17249,6 +17250,7 @@ input Input_core_apimessages_ShippingLabelPackage {
   predefinedPackage: String
   id: String
   reverbSuggested: Boolean
+  allowedCarriers: [String]
 }
 
 input Input_core_apimessages_ShippingPrice {
@@ -27814,6 +27816,7 @@ type ShipmentPackage implements INode {
   predefinedPackage: String
   id: String
   reverbSuggested: Boolean
+  allowedCarriers: [String]
 }
 
 type Shop implements INode {
