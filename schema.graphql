@@ -1699,16 +1699,6 @@ type core_apimessages_AvailableNearbyForPickupSignal {
   _source: String
 }
 
-type core_apimessages_BankDetails {
-  name: String
-  euBankDetails: core_apimessages_EUBankDetails
-  usBankDetails: core_apimessages_USBankDetails
-  ukBankDetails: core_apimessages_UKBankDetails
-  address: core_apimessages_KYCAddress
-  bankCountryCode: String
-  _source: String
-}
-
 type core_apimessages_BearerV2TokenRequest {
   client: core_apimessages_BearerV2TokenRequest_Client
   _source: String
@@ -3194,15 +3184,6 @@ type core_apimessages_CollectionHeaderResponse {
   _source: String
 }
 
-type core_apimessages_CompanyInformation {
-  taxId: String
-  legalBusinessName: String
-  phoneNumber: String
-  registrationNumber: String
-  parentCompanyDetails: core_apimessages_AdyenParentCompanyDetails
-  _source: String
-}
-
 type core_apimessages_CompleteExpressSaleCheckoutRequest {
   checkoutId: String
   _source: String
@@ -3269,18 +3250,6 @@ enum core_apimessages_ConversationMessageFlag_Reason_Type {
 type core_apimessages_ConvertedMoney {
   original: core_apimessages_Money
   display: core_apimessages_Money
-  _source: String
-}
-
-type core_apimessages_ConvertShopTypeRequest {
-  bankDetails: core_apimessages_BankDetails
-  personalInformation: [core_apimessages_PersonalInformation]
-  companyInformation: core_apimessages_CompanyInformation
-  _source: String
-}
-
-type core_apimessages_ConvertShopTypeResponse {
-  errors: [core_apimessages_Error]
   _source: String
 }
 
@@ -3360,8 +3329,6 @@ type core_apimessages_Core {
   MyShop(input: Input_google_protobuf_Empty): core_apimessages_MyShopResponse
   UpdateMyShop(input: Input_core_apimessages_UpdateMyShopRequest): core_apimessages_UpdateMyShopResponse
   MyShopKYC(input: Input_google_protobuf_Empty): core_apimessages_KYCAccountDetailsResponse
-  UpdateMyShopKYC(input: Input_core_apimessages_UpdateShopKYCRequest): core_apimessages_UpdateShopKYCResponse
-  UploadShopKYCCompanyRegistration(input: Input_core_apimessages_UploadShopKYCCompanyRegistrationRequest): core_apimessages_UploadShopKYCCompanyRegistrationResponse
   UpdateMyShopBillingMethod(input: Input_core_apimessages_UpdateBillingMethodRequest): core_apimessages_UpdateBillingMethodResponse
   MyShopAdyenBalanceOnboarding(input: Input_google_protobuf_Empty): core_apimessages_AdyenBalanceOnboardingResponse
   BillingMethodIdentifyShopper(input: Input_core_apimessages_BillingMethodIdentifyShopperRequest): core_apimessages_BillingMethodIdentifyShopperResponse
@@ -3744,20 +3711,6 @@ type core_apimessages_CreateAutoOfferResponse {
   _source: String
 }
 
-type core_apimessages_CreateBillingCardRequest {
-  """credit_cards.id"""
-  creditCardId: String
-  adyenToken: String
-  adyenCreditCard: core_apimessages_AdyenCreditCardEntry
-  address: core_apimessages_AddressEntry
-  _source: String
-}
-
-type core_apimessages_CreateBillingCardResponse {
-  creditCard: core_apimessages_CreditCard
-  _source: String
-}
-
 type core_apimessages_CreateCheckoutPaypalOrderRequest {
   """checkout UUID"""
   id: String
@@ -3785,26 +3738,6 @@ type core_apimessages_CreateExpressSaleCheckoutRequest {
 
 type core_apimessages_CreateExpressSaleCheckoutResponse {
   checkoutId: String
-  _source: String
-}
-
-type core_apimessages_CreateKYCPresignedS3UrlResponse {
-  url: String
-  fileKey: String
-  headers: String
-  _source: String
-}
-
-type core_apimessages_CreateKYCRequest {
-  bankDetails: core_apimessages_BankDetails
-  personalInformation: [core_apimessages_PersonalInformation]
-  companyInformation: core_apimessages_CompanyInformation
-  legalEntity: String
-  _source: String
-}
-
-type core_apimessages_CreateKYCResponse {
-  errors: [core_apimessages_Error]
   _source: String
 }
 
@@ -4558,11 +4491,6 @@ type core_apimessages_EstimateNegotiationSalesTaxResponse {
 
 type core_apimessages_EstimateShippingResponse {
   estimatedShipping: core_apimessages_EstimatedShipping
-  _source: String
-}
-
-type core_apimessages_EUBankDetails {
-  iban: String
   _source: String
 }
 
@@ -5521,23 +5449,6 @@ type core_apimessages_KYCAddress {
   locality: String
   countryCode: String
   houseNumber: String
-  _source: String
-}
-
-type core_apimessages_KYCBankAccountVerificationRequest {
-  fileKey: String
-  _source: String
-}
-
-enum core_apimessages_KYCPhotoIDType {
-  PASSPORT
-  ID_CARD
-  DRIVING_LICENSE
-}
-
-type core_apimessages_KYCPhotoIDVerificationRequest {
-  kycPhotoIdType: core_apimessages_KYCPhotoIDType
-  fileKeys: [String]
   _source: String
 }
 
@@ -9025,13 +8936,6 @@ type core_apimessages_TypicalNewPriceDisplay {
   _source: String
 }
 
-type core_apimessages_UKBankDetails {
-  sortCode: String
-  accountNumber: String
-  bankCode: String
-  _source: String
-}
-
 type core_apimessages_UndoDeleteMyFavoriteRequest {
   id: String
   type: core_apimessages_FavoriteType
@@ -9144,16 +9048,6 @@ type core_apimessages_UpdateAdZoneResponse {
   _source: String
 }
 
-type core_apimessages_UpdateBankAccountRequest {
-  bankDetails: core_apimessages_BankDetails
-  _source: String
-}
-
-type core_apimessages_UpdateBankAccountResponse {
-  errors: [core_apimessages_Error]
-  _source: String
-}
-
 type core_apimessages_UpdateBillingMethodRequest {
   creditCard: core_apimessages_BillingCreditCardEntry
   browserInfo: String
@@ -9212,18 +9106,6 @@ type core_apimessages_UpdateCheckoutPaypalOrderRequest {
 type core_apimessages_UpdateCheckoutPaypalOrderResponse {
   """checkout UUID"""
   id: String
-  _source: String
-}
-
-type core_apimessages_UpdateCompanyRequest {
-  companyInformation: core_apimessages_CompanyInformation
-  personalInformation: [core_apimessages_PersonalInformation]
-  accountHolderAddress: core_apimessages_KYCAddress
-  _source: String
-}
-
-type core_apimessages_UpdateCompanyResponse {
-  errors: [core_apimessages_Error]
   _source: String
 }
 
@@ -9397,16 +9279,6 @@ type core_apimessages_UpdateNegotiationResponse {
   _source: String
 }
 
-type core_apimessages_UpdateOwnerInformationRequest {
-  personalInformation: [core_apimessages_PersonalInformation]
-  _source: String
-}
-
-type core_apimessages_UpdateOwnerInformationResponse {
-  errors: [core_apimessages_Error]
-  _source: String
-}
-
 type core_apimessages_UpdateProductReviewRequest {
   rating: Int
   body: String
@@ -9431,18 +9303,6 @@ type core_apimessages_UpdateReturnPolicyRequest {
 type core_apimessages_UpdateReturnPolicyResponse {
   errors: [core_apimessages_Error]
   returnPolicy: core_apimessages_ReturnPolicy
-  _source: String
-}
-
-type core_apimessages_UpdateShopKYCRequest {
-  personalInformation: core_apimessages_PersonalInformation
-  bankDetails: core_apimessages_BankDetails
-  companyInformation: core_apimessages_CompanyInformation
-  _source: String
-}
-
-type core_apimessages_UpdateShopKYCResponse {
-  errors: [core_apimessages_Error]
   _source: String
 }
 
@@ -9482,16 +9342,6 @@ type core_apimessages_UpdateWatchResponse {
   _source: String
 }
 
-type core_apimessages_UploadShopKYCCompanyRegistrationRequest {
-  fileKey: String
-  _source: String
-}
-
-type core_apimessages_UploadShopKYCCompanyRegistrationResponse {
-  _: Boolean
-  _source: String
-}
-
 """
   UpsertMyFavoriteRequest field spec:
   - query_params should be used when favoriting a filtered query, a CSP (can include filters), Shop saved searches, etc.
@@ -9512,12 +9362,6 @@ type core_apimessages_UpsertMyFavoriteRequest {
 type core_apimessages_UpsertMyFavoriteResponse {
   errors: [core_apimessages_Error]
   favorite: core_apimessages_Favorite
-  _source: String
-}
-
-type core_apimessages_USBankDetails {
-  accountNumber: String
-  routingNumber: String
   _source: String
 }
 
@@ -12492,15 +12336,6 @@ input Input_core_apimessages_AvailableNearbyForPickupSignal {
   translations: Input_core_apimessages_SignalTranslation
 }
 
-input Input_core_apimessages_BankDetails {
-  name: String
-  euBankDetails: Input_core_apimessages_EUBankDetails
-  usBankDetails: Input_core_apimessages_USBankDetails
-  ukBankDetails: Input_core_apimessages_UKBankDetails
-  address: Input_core_apimessages_KYCAddress
-  bankCountryCode: String
-}
-
 input Input_core_apimessages_BearerV2TokenRequest {
   client: core_apimessages_BearerV2TokenRequest_Client
 }
@@ -13555,14 +13390,6 @@ input Input_core_apimessages_CollectionHeaderResponse {
   collectionHeader: Input_core_apimessages_CollectionHeader
 }
 
-input Input_core_apimessages_CompanyInformation {
-  taxId: String
-  legalBusinessName: String
-  phoneNumber: String
-  registrationNumber: String
-  parentCompanyDetails: Input_core_apimessages_AdyenParentCompanyDetails
-}
-
 input Input_core_apimessages_CompleteExpressSaleCheckoutRequest {
   checkoutId: String
 }
@@ -13609,16 +13436,6 @@ input Input_core_apimessages_ConversationMessageFlag_Reason {
 input Input_core_apimessages_ConvertedMoney {
   original: Input_core_apimessages_Money
   display: Input_core_apimessages_Money
-}
-
-input Input_core_apimessages_ConvertShopTypeRequest {
-  bankDetails: Input_core_apimessages_BankDetails
-  personalInformation: [Input_core_apimessages_PersonalInformation]
-  companyInformation: Input_core_apimessages_CompanyInformation
-}
-
-input Input_core_apimessages_ConvertShopTypeResponse {
-  errors: [Input_core_apimessages_Error]
 }
 
 input Input_core_apimessages_CopyAdGroupRequest {
@@ -13703,18 +13520,6 @@ input Input_core_apimessages_CreateAutoOfferResponse {
   autoOffer: Input_core_apimessages_AutoOffer
 }
 
-input Input_core_apimessages_CreateBillingCardRequest {
-  """credit_cards.id"""
-  creditCardId: String
-  adyenToken: String
-  adyenCreditCard: Input_core_apimessages_AdyenCreditCardEntry
-  address: Input_core_apimessages_AddressEntry
-}
-
-input Input_core_apimessages_CreateBillingCardResponse {
-  creditCard: Input_core_apimessages_CreditCard
-}
-
 input Input_core_apimessages_CreateCheckoutPaypalOrderRequest {
   """checkout UUID"""
   id: String
@@ -13739,23 +13544,6 @@ input Input_core_apimessages_CreateExpressSaleCheckoutRequest {
 
 input Input_core_apimessages_CreateExpressSaleCheckoutResponse {
   checkoutId: String
-}
-
-input Input_core_apimessages_CreateKYCPresignedS3UrlResponse {
-  url: String
-  fileKey: String
-  headers: String
-}
-
-input Input_core_apimessages_CreateKYCRequest {
-  bankDetails: Input_core_apimessages_BankDetails
-  personalInformation: [Input_core_apimessages_PersonalInformation]
-  companyInformation: Input_core_apimessages_CompanyInformation
-  legalEntity: String
-}
-
-input Input_core_apimessages_CreateKYCResponse {
-  errors: [Input_core_apimessages_Error]
 }
 
 input Input_core_apimessages_CreateMyActionRequest {
@@ -14375,10 +14163,6 @@ input Input_core_apimessages_EstimateNegotiationSalesTaxResponse {
 
 input Input_core_apimessages_EstimateShippingResponse {
   estimatedShipping: Input_core_apimessages_EstimatedShipping
-}
-
-input Input_core_apimessages_EUBankDetails {
-  iban: String
 }
 
 input Input_core_apimessages_ExpeditedShippingAvailableSignal {
@@ -15090,15 +14874,6 @@ input Input_core_apimessages_KYCAddress {
   locality: String
   countryCode: String
   houseNumber: String
-}
-
-input Input_core_apimessages_KYCBankAccountVerificationRequest {
-  fileKey: String
-}
-
-input Input_core_apimessages_KYCPhotoIDVerificationRequest {
-  kycPhotoIdType: core_apimessages_KYCPhotoIDType
-  fileKeys: [String]
 }
 
 input Input_core_apimessages_KYCVerificationCheck {
@@ -17784,12 +17559,6 @@ input Input_core_apimessages_TypicalNewPriceDisplay {
   savingsDisplay: String
 }
 
-input Input_core_apimessages_UKBankDetails {
-  sortCode: String
-  accountNumber: String
-  bankCode: String
-}
-
 input Input_core_apimessages_UndoDeleteMyFavoriteRequest {
   id: String
   type: core_apimessages_FavoriteType
@@ -17882,14 +17651,6 @@ input Input_core_apimessages_UpdateAdZoneResponse {
   adZone: Input_core_apimessages_AdZone
 }
 
-input Input_core_apimessages_UpdateBankAccountRequest {
-  bankDetails: Input_core_apimessages_BankDetails
-}
-
-input Input_core_apimessages_UpdateBankAccountResponse {
-  errors: [Input_core_apimessages_Error]
-}
-
 input Input_core_apimessages_UpdateBillingMethodRequest {
   creditCard: Input_core_apimessages_BillingCreditCardEntry
   browserInfo: String
@@ -17939,16 +17700,6 @@ input Input_core_apimessages_UpdateCheckoutPaypalOrderRequest {
 input Input_core_apimessages_UpdateCheckoutPaypalOrderResponse {
   """checkout UUID"""
   id: String
-}
-
-input Input_core_apimessages_UpdateCompanyRequest {
-  companyInformation: Input_core_apimessages_CompanyInformation
-  personalInformation: [Input_core_apimessages_PersonalInformation]
-  accountHolderAddress: Input_core_apimessages_KYCAddress
-}
-
-input Input_core_apimessages_UpdateCompanyResponse {
-  errors: [Input_core_apimessages_Error]
 }
 
 input Input_core_apimessages_UpdateCrossPlatformListingSessionRequest {
@@ -18086,14 +17837,6 @@ input Input_core_apimessages_UpdateNegotiationResponse {
   negotiation: Input_core_apimessages_Negotiation
 }
 
-input Input_core_apimessages_UpdateOwnerInformationRequest {
-  personalInformation: [Input_core_apimessages_PersonalInformation]
-}
-
-input Input_core_apimessages_UpdateOwnerInformationResponse {
-  errors: [Input_core_apimessages_Error]
-}
-
 input Input_core_apimessages_UpdateProductReviewRequest {
   rating: Int
   body: String
@@ -18115,16 +17858,6 @@ input Input_core_apimessages_UpdateReturnPolicyRequest {
 input Input_core_apimessages_UpdateReturnPolicyResponse {
   errors: [Input_core_apimessages_Error]
   returnPolicy: Input_core_apimessages_ReturnPolicy
-}
-
-input Input_core_apimessages_UpdateShopKYCRequest {
-  personalInformation: Input_core_apimessages_PersonalInformation
-  bankDetails: Input_core_apimessages_BankDetails
-  companyInformation: Input_core_apimessages_CompanyInformation
-}
-
-input Input_core_apimessages_UpdateShopKYCResponse {
-  errors: [Input_core_apimessages_Error]
 }
 
 input Input_core_apimessages_UpdateTaxIdentificationRequest {
@@ -18155,14 +17888,6 @@ input Input_core_apimessages_UpdateWatchResponse {
   id: String
 }
 
-input Input_core_apimessages_UploadShopKYCCompanyRegistrationRequest {
-  fileKey: String
-}
-
-input Input_core_apimessages_UploadShopKYCCompanyRegistrationResponse {
-  _: Boolean
-}
-
 """
   UpsertMyFavoriteRequest field spec:
   - query_params should be used when favoriting a filtered query, a CSP (can include filters), Shop saved searches, etc.
@@ -18182,11 +17907,6 @@ input Input_core_apimessages_UpsertMyFavoriteRequest {
 input Input_core_apimessages_UpsertMyFavoriteResponse {
   errors: [Input_core_apimessages_Error]
   favorite: Input_core_apimessages_Favorite
-}
-
-input Input_core_apimessages_USBankDetails {
-  accountNumber: String
-  routingNumber: String
 }
 
 input Input_core_apimessages_User {
@@ -23082,7 +22802,6 @@ type Mutation {
   _source: String
   createNegotiation(input: Input_core_apimessages_CreateNegotiationRequest): core_apimessages_NegotiationsResponse
   createAutoOffer(input: Input_core_apimessages_CreateAutoOfferRequest): core_apimessages_CreateAutoOfferResponse
-  updateShopKYC(input: Input_core_apimessages_UpdateShopKYCRequest): core_apimessages_UpdateShopKYCResponse
   setupShopPaymentMethods(input: Input_core_apimessages_SetupPaymentMethodsRequest): core_apimessages_SetupPaymentMethodsResponse
   updateMyShopBillingMethod(input: Input_core_apimessages_UpdateBillingMethodRequest): core_apimessages_UpdateBillingMethodResponse
   billingMethodVerifyShopper(input: Input_core_apimessages_BillingMethodVerifyShopperRequest): core_apimessages_BillingMethodVerifyShopperResponse
