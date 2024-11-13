@@ -8083,31 +8083,10 @@ type core_apimessages_SetupPaymentMethodsRequestAdyenDetails {
   _source: String
 }
 
-type core_apimessages_SetupPaymentMethodsRequestAdyenParentCompanyDetails {
-  stockExchange: String
-  stockNumber: String
-  stockTicker: String
-  legalBusinessName: String
-  registrationNumber: String
-  countryCode: String
-  _source: String
-}
-
 type core_apimessages_SetupPaymentMethodsRequestBusinessAdyenDetails {
-  firstName: String
-  lastName: String
   originCountryCode: String
   legalBusinessName: String
-  shareholderType: core_apimessages_SetupPaymentMethodsRequestBusinessAdyenDetails_AdyenShareholderType
-  jobTitle: String
-  parentCompanyDetails: core_apimessages_SetupPaymentMethodsRequestAdyenParentCompanyDetails
   _source: String
-}
-
-enum core_apimessages_SetupPaymentMethodsRequestBusinessAdyenDetails_AdyenShareholderType {
-  UNKNOWN
-  OWNER
-  CONTROLLER
 }
 
 type core_apimessages_SetupPaymentMethodsRequestIndividualAdyenDetails {
@@ -16940,23 +16919,9 @@ input Input_core_apimessages_SetupPaymentMethodsRequestAdyenDetails {
   solePropDetails: Input_core_apimessages_SetupPaymentMethodsRequestSolePropAdyenDetails
 }
 
-input Input_core_apimessages_SetupPaymentMethodsRequestAdyenParentCompanyDetails {
-  stockExchange: String
-  stockNumber: String
-  stockTicker: String
-  legalBusinessName: String
-  registrationNumber: String
-  countryCode: String
-}
-
 input Input_core_apimessages_SetupPaymentMethodsRequestBusinessAdyenDetails {
-  firstName: String
-  lastName: String
   originCountryCode: String
   legalBusinessName: String
-  shareholderType: core_apimessages_SetupPaymentMethodsRequestBusinessAdyenDetails_AdyenShareholderType
-  jobTitle: String
-  parentCompanyDetails: Input_core_apimessages_SetupPaymentMethodsRequestAdyenParentCompanyDetails
 }
 
 input Input_core_apimessages_SetupPaymentMethodsRequestIndividualAdyenDetails {
