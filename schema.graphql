@@ -3636,6 +3636,7 @@ type core_apimessages_Country {
   subregionRequired: Boolean
   subregions: [core_apimessages_Subregion]
   superRegion: core_apimessages_SuperRegion
+  id: String
   _id: ID
   _source: String
 }
@@ -6931,6 +6932,7 @@ type core_apimessages_Order {
   paymentRequiredAt: google_protobuf_Timestamp
   protectionPlan: Boolean
   carrierCalculatedCarrier: String
+  protectionPlanEligible: Boolean
   _source: String
 }
 
@@ -8691,6 +8693,7 @@ type core_apimessages_Subregion {
 type core_apimessages_SuperRegion {
   code: String
   name: String
+  id: String
   _id: ID
   _source: String
 }
@@ -13435,6 +13438,7 @@ input Input_core_apimessages_Country {
   subregionRequired: Boolean
   subregions: [Input_core_apimessages_Subregion]
   superRegion: Input_core_apimessages_SuperRegion
+  id: String
 }
 
 input Input_core_apimessages_CountsLinks {
@@ -16056,6 +16060,7 @@ input Input_core_apimessages_Order {
   paymentRequiredAt: Input_core_apimessages_LegacyTimestamp
   protectionPlan: Boolean
   carrierCalculatedCarrier: String
+  protectionPlanEligible: Boolean
 }
 
 input Input_core_apimessages_OrderBundle {
@@ -17382,6 +17387,7 @@ input Input_core_apimessages_Subregion {
 input Input_core_apimessages_SuperRegion {
   code: String
   name: String
+  id: String
 }
 
 input Input_core_apimessages_TargetingContext {
@@ -23092,6 +23098,7 @@ type Order implements INode {
   paymentRequiredAt: google_protobuf_Timestamp
   protectionPlan: Boolean
   carrierCalculatedCarrier: String
+  protectionPlanEligible: Boolean
   uuid: String
   id: String
   customsInfo: core_apimessages_OrderCustomsInfo
