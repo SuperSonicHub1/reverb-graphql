@@ -22593,9 +22593,6 @@ type Listing implements INode {
   or seller on listing.
   """
   availableSalesMemberships: core_apimessages_ListingSalesMemberships
-
-  """True if the current user has recently viewed this item"""
-  isRecentlyViewed: Boolean
   shippingPrice: core_apimessages_Money @deprecated
   shipping(input: Input_core_apimessages_ShippingPricesRequest): core_apimessages_ShippingPrices
   allShippingPrices: core_apimessages_ShippingPrices
@@ -27556,7 +27553,7 @@ type Shop implements INode {
   sales: [core_apimessages_Sale]
   shippingProfiles: [core_apimessages_ShippingProfile]
   images(input: Input_core_apimessages_ImagesRequest!): [core_apimessages_Image]
-  banner(namedTransform: core_apimessages_NamedImageTransforms): core_apimessages_Image
+  banner(namedTransform: core_apimessages_NamedImageTransforms = SHOP_BANNER): core_apimessages_Image
   video: core_apimessages_Video
   returnPolicy: core_apimessages_ReturnPolicy
   taxPolicies: [core_apimessages_ShopTaxPolicy]
