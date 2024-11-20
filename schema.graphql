@@ -22361,11 +22361,6 @@ input Input_rql_NodeQuery {
   slug: String
 }
 
-input Input_rql_OrderPricingQuery {
-  sellerCountries: [String]
-  createdAfterDate: String
-}
-
 input Input_rql_OrderQuery {
   limit: Int
   offset: Int
@@ -22622,7 +22617,6 @@ type Listing implements INode {
   autoOffers: core_apimessages_AutoOffer
   bumpKey: core_apimessages_BumpKey
   bumpRecommendations: reverb_search_BumpRecommendationsResults
-  orderPricing(input: Input_rql_OrderPricingQuery): reverb_search_SearchResponse
   bumpInteractionsCounts: arbiter_BumpInteractionCountsResponse
   priceRecommendation(input: Input_rql_ListingPriceRecommendationRequest): reverb_pricing_PriceRecommendation
   orderStats: core_apimessages_OrderStats
@@ -27259,12 +27253,6 @@ type rql_NodeQuery {
   id: String
   uuid: String
   slug: String
-  _source: String
-}
-
-type rql_OrderPricingQuery {
-  sellerCountries: [String]
-  createdAfterDate: String
   _source: String
 }
 
