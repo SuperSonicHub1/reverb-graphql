@@ -1483,17 +1483,6 @@ type core_apimessages_AdyenOnboardingLinkResponse {
   _source: String
 }
 
-type core_apimessages_AdyenParentCompanyDetails {
-  stockExchange: String
-  stockNumber: String
-  stockTicker: String
-  legalBusinessName: String
-  registrationNumber: String
-  countryCode: String
-  companyCode: String
-  _source: String
-}
-
 type core_apimessages_AdyenPaymentResult {
   paymentStatus: core_apimessages_AdyenPaymentResult_PaymentStatus
   paymentData: String
@@ -1511,12 +1500,6 @@ enum core_apimessages_AdyenPaymentResult_PaymentStatus {
   CHALLENGE_SHOPPER_REQUIRED
   FAILED
   REDIRECT_SHOPPER_REQUIRED
-}
-
-type core_apimessages_AdyenPhoneNumber {
-  phoneNumber: String
-  countryCode: String
-  _source: String
 }
 
 type core_apimessages_AdyenThreeDSBillingMethodEntry {
@@ -3328,7 +3311,6 @@ type core_apimessages_Core {
   SellingFees(input: Input_core_apimessages_SellingFeesRequest): core_apimessages_SellingFeesResponse
   MyShop(input: Input_google_protobuf_Empty): core_apimessages_MyShopResponse
   UpdateMyShop(input: Input_core_apimessages_UpdateMyShopRequest): core_apimessages_UpdateMyShopResponse
-  MyShopKYC(input: Input_google_protobuf_Empty): core_apimessages_KYCAccountDetailsResponse
   UpdateMyShopBillingMethod(input: Input_core_apimessages_UpdateBillingMethodRequest): core_apimessages_UpdateBillingMethodResponse
   MyShopAdyenBalanceOnboarding(input: Input_google_protobuf_Empty): core_apimessages_AdyenBalanceOnboardingResponse
   BillingMethodIdentifyShopper(input: Input_core_apimessages_BillingMethodIdentifyShopperRequest): core_apimessages_BillingMethodIdentifyShopperResponse
@@ -3636,7 +3618,6 @@ type core_apimessages_Country {
   subregionRequired: Boolean
   subregions: [core_apimessages_Subregion]
   superRegion: core_apimessages_SuperRegion
-  id: String
   _id: ID
   _source: String
 }
@@ -4253,13 +4234,6 @@ type core_apimessages_DatadogError {
   content: String
   context: String
   timestamp: String
-  _source: String
-}
-
-type core_apimessages_Date {
-  day: String
-  month: String
-  year: String
   _source: String
 }
 
@@ -5411,66 +5385,6 @@ type core_apimessages_ItemSearchFilterPresets {
   collectionType: String
   presets: [core_apimessages_SearchFilterPreset]
   collectionSlug: String
-  _source: String
-}
-
-type core_apimessages_KYCAccountDetails {
-  bankAccountOwnerName: String
-  maskedBankAccountNumber: String
-  bankAccountCountryCode: String
-  bankAccountCurrencyCode: String
-  bankAccountOwnerAddress: core_apimessages_KYCAddress
-  personalInformation: [core_apimessages_PersonalInformation]
-  businessTaxId: String
-  legalBusinessName: String
-  accountPhoneNumber: core_apimessages_AdyenPhoneNumber
-  businessRegistrationNumber: String
-  accountHolderAddress: core_apimessages_KYCAddress
-  legalEntity: core_apimessages_AdyenLegalEntity
-  parentCompanyDetails: core_apimessages_AdyenParentCompanyDetails
-  signatoryDetails: [core_apimessages_PersonalInformation]
-  _source: String
-}
-
-type core_apimessages_KYCAccountDetailsResponse {
-  accountDetails: core_apimessages_KYCAccountDetails
-  _source: String
-}
-
-enum core_apimessages_KYCAction {
-  NONE
-  UPLOAD_DOCUMENT
-  UPDATE_INFORMATION
-}
-
-type core_apimessages_KYCAddress {
-  streetAddress: String
-  postalCode: String
-  region: String
-  locality: String
-  countryCode: String
-  houseNumber: String
-  _source: String
-}
-
-type core_apimessages_KYCVerificationCheck {
-  verificationType: String
-  status: String
-  reverbStatus: String
-  codes: [core_apimessages_KYCVerificationCode]
-  actionRequired: Boolean
-  action: core_apimessages_KYCAction
-  errorDescription: String
-  _source: String
-}
-
-type core_apimessages_KYCVerificationChecksResponse {
-  kycVerificationCheck: [core_apimessages_KYCVerificationCheck]
-  _source: String
-}
-
-type core_apimessages_KYCVerificationCode {
-  code: String
   _source: String
 }
 
@@ -7330,26 +7244,6 @@ type core_apimessages_PaypalOnboardSellerResponse {
   _source: String
 }
 
-type core_apimessages_PersonalInformation {
-  firstName: String
-  lastName: String
-  dateOfBirth: core_apimessages_Date
-  phoneNumber: String
-  idNumber: String
-  email: String
-  address: core_apimessages_KYCAddress
-  maskedIdNumber: String
-  shareholderType: core_apimessages_PersonalInformation_AdyenShareholderType
-  jobTitle: String
-  _source: String
-}
-
-enum core_apimessages_PersonalInformation_AdyenShareholderType {
-  UNKNOWN
-  OWNER
-  CONTROLLER
-}
-
 type core_apimessages_PredictedToSellSoonSignal {
   isValid: Boolean
   translations: core_apimessages_SignalTranslation
@@ -8693,7 +8587,6 @@ type core_apimessages_Subregion {
 type core_apimessages_SuperRegion {
   code: String
   name: String
-  id: String
   _id: ID
   _source: String
 }
@@ -12145,16 +12038,6 @@ input Input_core_apimessages_AdyenOnboardingLinkResponse {
   url: String
 }
 
-input Input_core_apimessages_AdyenParentCompanyDetails {
-  stockExchange: String
-  stockNumber: String
-  stockTicker: String
-  legalBusinessName: String
-  registrationNumber: String
-  countryCode: String
-  companyCode: String
-}
-
 input Input_core_apimessages_AdyenPaymentResult {
   paymentStatus: core_apimessages_AdyenPaymentResult_PaymentStatus
   paymentData: String
@@ -12163,11 +12046,6 @@ input Input_core_apimessages_AdyenPaymentResult {
   action: String
   threeDsOneRedirectUrl: String
   threeDsOneData: Input_core_apimessages_ThreeDSOneData
-}
-
-input Input_core_apimessages_AdyenPhoneNumber {
-  phoneNumber: String
-  countryCode: String
 }
 
 input Input_core_apimessages_AdyenThreeDSBillingMethodEntry {
@@ -13438,7 +13316,6 @@ input Input_core_apimessages_Country {
   subregionRequired: Boolean
   subregions: [Input_core_apimessages_Subregion]
   superRegion: Input_core_apimessages_SuperRegion
-  id: String
 }
 
 input Input_core_apimessages_CountsLinks {
@@ -13949,12 +13826,6 @@ input Input_core_apimessages_DatadogError {
   content: String
   context: String
   timestamp: String
-}
-
-input Input_core_apimessages_Date {
-  day: String
-  month: String
-  year: String
 }
 
 input Input_core_apimessages_DeactivateTaxIdentificationRequest {
@@ -14827,54 +14698,6 @@ input Input_core_apimessages_ItemSearchFilterPresets {
   collectionType: String
   presets: [Input_core_apimessages_SearchFilterPreset]
   collectionSlug: String
-}
-
-input Input_core_apimessages_KYCAccountDetails {
-  bankAccountOwnerName: String
-  maskedBankAccountNumber: String
-  bankAccountCountryCode: String
-  bankAccountCurrencyCode: String
-  bankAccountOwnerAddress: Input_core_apimessages_KYCAddress
-  personalInformation: [Input_core_apimessages_PersonalInformation]
-  businessTaxId: String
-  legalBusinessName: String
-  accountPhoneNumber: Input_core_apimessages_AdyenPhoneNumber
-  businessRegistrationNumber: String
-  accountHolderAddress: Input_core_apimessages_KYCAddress
-  legalEntity: core_apimessages_AdyenLegalEntity
-  parentCompanyDetails: Input_core_apimessages_AdyenParentCompanyDetails
-  signatoryDetails: [Input_core_apimessages_PersonalInformation]
-}
-
-input Input_core_apimessages_KYCAccountDetailsResponse {
-  accountDetails: Input_core_apimessages_KYCAccountDetails
-}
-
-input Input_core_apimessages_KYCAddress {
-  streetAddress: String
-  postalCode: String
-  region: String
-  locality: String
-  countryCode: String
-  houseNumber: String
-}
-
-input Input_core_apimessages_KYCVerificationCheck {
-  verificationType: String
-  status: String
-  reverbStatus: String
-  codes: [Input_core_apimessages_KYCVerificationCode]
-  actionRequired: Boolean
-  action: core_apimessages_KYCAction
-  errorDescription: String
-}
-
-input Input_core_apimessages_KYCVerificationChecksResponse {
-  kycVerificationCheck: [Input_core_apimessages_KYCVerificationCheck]
-}
-
-input Input_core_apimessages_KYCVerificationCode {
-  code: String
 }
 
 input Input_core_apimessages_LayawayTerms {
@@ -16345,19 +16168,6 @@ input Input_core_apimessages_PaypalOnboardSellerResponse {
   actionUrl: String
 }
 
-input Input_core_apimessages_PersonalInformation {
-  firstName: String
-  lastName: String
-  dateOfBirth: Input_core_apimessages_Date
-  phoneNumber: String
-  idNumber: String
-  email: String
-  address: Input_core_apimessages_KYCAddress
-  maskedIdNumber: String
-  shareholderType: core_apimessages_PersonalInformation_AdyenShareholderType
-  jobTitle: String
-}
-
 input Input_core_apimessages_PredictedToSellSoonSignal {
   isValid: Boolean
   translations: Input_core_apimessages_SignalTranslation
@@ -17387,7 +17197,6 @@ input Input_core_apimessages_Subregion {
 input Input_core_apimessages_SuperRegion {
   code: String
   name: String
-  id: String
 }
 
 input Input_core_apimessages_TargetingContext {
@@ -22207,6 +22016,33 @@ input Input_rql_CSPProductReviewSearchResponse {
   stats: Input_reverb_search_ProductReviewStats
 }
 
+input Input_rql_DiscoverEntry {
+  id: String
+  type: rql_DiscoverEntryType
+  localizedContents: [Input_reverb_feed_FollowLocalizedContents]
+  update: Input_rql_Update
+  ad: Input_core_apimessages_Ad
+  articleEntry: Input_rql_DiscoverEntry_ArticleEntry
+  video: Input_youtube_Video
+  description: String
+}
+
+input Input_rql_DiscoverEntry_ArticleEntry {
+  productTypeName: String
+}
+
+input Input_rql_DiscoverRequest {
+  limit: Int
+  offset: Int
+  typesToInclude: [rql_DiscoverInclude]
+}
+
+input Input_rql_DiscoverResponse {
+  limit: Int
+  offset: Int
+  entries: [Input_rql_DiscoverEntry]
+}
+
 input Input_rql_EmailSubscription {
   id: String
   subscribed: Boolean
@@ -22460,6 +22296,26 @@ input Input_rql_Update {
 
 input Input_rql_UpdateEntity {
   _: Boolean
+}
+
+input Input_youtube_PlaylistItem {
+  snippet: Input_youtube_PlaylistSnippet
+}
+
+input Input_youtube_PlaylistResourceId {
+  videoId: String
+}
+
+input Input_youtube_PlaylistSnippet {
+  title: String
+  description: String
+  resourceId: Input_youtube_PlaylistResourceId
+}
+
+input Input_youtube_Video {
+  id: String
+  title: String
+  description: String
 }
 
 type Listing implements INode {
@@ -22973,7 +22829,6 @@ type MyShop implements INode {
   firstTimeSeller: Boolean
   marketplaceTaxReportingCountryCode: String
   address: core_apimessages_Address
-  kycAccountDetails: core_apimessages_KYCAccountDetails
   adyenBalanceOnboardingDetails: core_apimessages_AdyenBalanceOnboardingResponse
   returnPolicy: core_apimessages_ReturnPolicy
   taxPolicies: [core_apimessages_ShopTaxPolicy]
@@ -26969,6 +26824,61 @@ type rql_CSPProductReviewSearchResponse {
   _source: String
 }
 
+type rql_DiscoverEntry {
+  id: String
+  type: rql_DiscoverEntryType
+  localizedContents: [reverb_feed_FollowLocalizedContents]
+  update: rql_Update
+  ad: core_apimessages_Ad
+  articleEntry: rql_DiscoverEntry_ArticleEntry
+  video: youtube_Video
+  description: String
+  listing: Listing
+  article: Article
+  _source: String
+}
+
+type rql_DiscoverEntry_ArticleEntry {
+  productTypeName: String
+  _source: String
+}
+
+enum rql_DiscoverEntryType {
+  WATCH
+  ITEM_RECOMMENDATION
+  SAVED_SEARCH_FEED
+  CP_TO_LISTING_RECOMMENDATION
+  ARTICLE_RECOMMENDATION
+  SHOP_RECOMMENDATION
+  UPDATE
+  AD
+  VIDEO
+}
+
+enum rql_DiscoverInclude {
+  WATCHLIST
+  RECOMMENDATIONS
+  SAVED_SEARCHES
+  ARTICLES
+  SHOPS
+  UPDATES
+  VIDEOS
+}
+
+type rql_DiscoverRequest {
+  limit: Int
+  offset: Int
+  typesToInclude: [rql_DiscoverInclude]
+  _source: String
+}
+
+type rql_DiscoverResponse {
+  limit: Int
+  offset: Int
+  entries: [rql_DiscoverEntry]
+  _source: String
+}
+
 type rql_EmailSubscription {
   id: String
   subscribed: Boolean
@@ -27160,6 +27070,7 @@ type rql_Me {
   prepublishStatus: core_apimessages_PrepublishStatusResponse
   buyerCoupons(input: Input_core_apimessages_MyBuyerCouponsRequest!): core_apimessages_MyBuyerCouponsResponse
   myMessages(input: Input_core_apimessages_MyMessagesRequest): [core_apimessages_MyMessage]
+  discover(input: Input_rql_DiscoverRequest): rql_DiscoverResponse
   shop: MyShop
   _source: String
 }
@@ -27673,5 +27584,25 @@ type WatchCollection {
   _ids: [ID]
   nodes: [Watch]
   pageInfo: rql_PageInfo
+}
+
+type youtube_PlaylistItem {
+  snippet: youtube_PlaylistSnippet
+}
+
+type youtube_PlaylistResourceId {
+  videoId: String
+}
+
+type youtube_PlaylistSnippet {
+  title: String
+  description: String
+  resourceId: youtube_PlaylistResourceId
+}
+
+type youtube_Video {
+  id: String
+  title: String
+  description: String
 }
 
